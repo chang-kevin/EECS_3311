@@ -16,12 +16,14 @@ public class CourseList {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
-    public void addCourse(Course course){
-        courses.add(course);
+   public  List<Course> search(String coursenumber, String coursename, int yearlevel) {
+        List<Course> matchingcourses = new ArrayList<Course>();
+        for (Iterator<Course> i = courses.iterator();
+             i.hasNext(); ) {
+            Course course = i.next();
+            if (course.getCoursenumber().matches(coursenumber) || course.getCoursename().matches(coursename))
+                matchingcourses.add(course); }
+        return matchingcourses;
     }
-
-    public Course search(){
-        return null;
-    }
-
+    
 }
