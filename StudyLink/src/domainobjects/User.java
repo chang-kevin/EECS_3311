@@ -1,26 +1,35 @@
 package domainobjects;
 
+import java.util.UUID;
+
 public class User {
-    private String name;
+    private String fname;
     private String emailid;
     private String password;
+    private String lname;
+    private DOB dob;
+    private String uniqueID ;
 
-    public User(String name, String emailid, String password) {
-        this.name = name;
+
+    public User(String name, String emailid, String password, String lname, DOB dob) {
+        this.fname = name;
         this.emailid = emailid;
         this.password = password;
+        this.lname = lname;
+        this.dob = dob;
+        String uniqueID = UUID.randomUUID().toString();
     }
 
     public String getEmailid() {
         return emailid;
     }
 
-    public String getName() {
-        return name;
+    public String getFName() {
+        return fname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFName(String name) {
+        this.fname = name;
     }
 
     public void setEmailid(String emailid) {
@@ -33,5 +42,21 @@ public class User {
 
     private String getPassword() {
         return password;
+    }
+
+    public DOB getDob() {
+        return dob;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getUniqueID() {
+        return uniqueID;
     }
 }
