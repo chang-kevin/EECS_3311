@@ -8,6 +8,7 @@ import javax.swing.*;
  */
 public class LoginPage implements ActionListener {
 
+    private JFrame frame;
     private JLabel userLabel;
     private JTextField userText;
     private JLabel passwordLabel;
@@ -18,7 +19,7 @@ public class LoginPage implements ActionListener {
 
     JPanel panel;
     public LoginPage() {
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         panel = new JPanel();
         frame.setSize(500, 500);
         frame.add(panel);
@@ -80,5 +81,8 @@ public class LoginPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         success.setText("Login successful!");
+        new Dashboard(); // opens up the dashboard
+        frame.setVisible(false); // exits the login page
+        
     }
 }

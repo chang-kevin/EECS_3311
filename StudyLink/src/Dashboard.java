@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+//import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -12,15 +12,16 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Dashboard {
+public class Dashboard implements ActionListener{
 
 	private JFrame frame;
 	private JTextField searchbar;
+	private JButton logoutbutton;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -32,6 +33,7 @@ public class Dashboard {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the application.
@@ -246,7 +248,7 @@ public class Dashboard {
 		accountbutton.setBounds(0, 54, 188, 40);
 		profileMenu.add(accountbutton);
 		
-		JButton logoutbutton = new JButton("Log out");
+		logoutbutton = new JButton("Log out");
 		
 		logoutbutton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -266,6 +268,7 @@ public class Dashboard {
 		logoutbutton.setBorderPainted(false);
 		logoutbutton.setBackground(new Color(70, 99, 172, 150));
 		logoutbutton.setBounds(0, 134, 188, 40);
+		logoutbutton.addActionListener(this);
 		profileMenu.add(logoutbutton);
 		
 		JButton settingsbutton = new JButton("Settings");
@@ -290,12 +293,16 @@ public class Dashboard {
 		settingsbutton.setBounds(0, 94, 188, 40);
 		profileMenu.add(settingsbutton);
 		
-		
-		
-		
-		
-		
-		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource()==logoutbutton) {
+			
+			new LoginPage(); // takes the user back to the login page
+			frame.setVisible(false); //exits the dashboard upon clicking the logout button
+			
+		}
 		
 	}
 }
