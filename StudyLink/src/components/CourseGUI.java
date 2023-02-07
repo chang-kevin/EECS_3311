@@ -1,8 +1,4 @@
-package components;
-
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -21,18 +17,13 @@ public class CourseGUI extends JFrame {
 	 */
 	public CourseGUI() {
 		
-		JFrame frame = new JFrame();
-		frame.setBounds(100, 100, 850, 550);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBackground(new Color(255, 255, 255));
-		frame.setVisible(true);
-		frame.getContentPane().setLayout(null);
-		
+		Dashboard dashboard = new Dashboard(); 
+
 		
 		JPanel courses = new JPanel();
 		courses.setBackground(new Color(240, 240, 240));
 		courses.setBounds(0, 175, 834, 336);
-		frame.getContentPane().add(courses);
+		dashboard.frame.getContentPane().add(courses);
 		courses.setLayout(null);
 		
 		JButton coursebtn = new JButton("    \rEECS 3311");
@@ -62,7 +53,7 @@ public class CourseGUI extends JFrame {
 		
 		JPanel db_panel = new JPanel();
 		db_panel.setBounds(0, 0, 834, 511);
-		frame.getContentPane().add(db_panel);
+		dashboard.frame.getContentPane().add(db_panel);
 		db_panel.setLayout(null);
 	
 	}
