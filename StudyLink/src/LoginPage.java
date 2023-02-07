@@ -12,7 +12,7 @@ public class LoginPage implements ActionListener {
     private JLabel userLabel;
     private JTextField userText;
     private JLabel passwordLabel;
-    private JTextField passwordText;
+    private JPasswordField passwordText;
     private JLabel success;
 
     private JButton loginBtn;
@@ -38,8 +38,8 @@ public class LoginPage implements ActionListener {
         passwordLabel = this.generateLabelComponent("Password", passwordLabelBounds);
         panel.add(passwordLabel);
 
-        Bounds passwordFieldBounds = new Bounds(100, 60, 165, 25);
-        passwordText = this.generateFieldComponent(passwordFieldBounds);
+        passwordText = new JPasswordField();
+        passwordText.setBounds(100, 60, 165, 25);
         panel.add(passwordText);
 
         loginBtn = new JButton("Login");
