@@ -1,3 +1,5 @@
+package helpers;
+
 public class Bounds {
     private int x;
     private int y;

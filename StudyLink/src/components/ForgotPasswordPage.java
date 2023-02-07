@@ -1,24 +1,23 @@
+package components;
+
+import helpers.Bounds;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
- * Login Page component responsible for authenticating the user and directing them to the
- * Dashboard Page.
+ * ForgotPassword Page component responsible for resetting the user's password
  */
-public class LoginPage implements ActionListener {
-
+public class ForgotPasswordPage implements ActionListener {
     private JFrame frame;
     private JLabel userLabel;
     private JTextField userText;
-    private JLabel passwordLabel;
-    private JTextField passwordText;
     private JLabel success;
-
     private JButton loginBtn;
 
     JPanel panel;
-    public LoginPage() {
+    public ForgotPasswordPage() {
         frame = new JFrame();
         panel = new JPanel();
         frame.setSize(500, 500);
@@ -27,23 +26,15 @@ public class LoginPage implements ActionListener {
         panel.setLayout(null);
 
         Bounds userLabelBounds = new Bounds(10, 30, 80, 25);
-        userLabel = this.generateLabelComponent("User", userLabelBounds);
+        userLabel = this.generateLabelComponent("Username", userLabelBounds);
         panel.add(userLabel);
 
         Bounds userTextBounds = new Bounds(100, 30, 165, 25);
         userText = this.generateFieldComponent(userTextBounds);
         panel.add(userText);
 
-        Bounds passwordLabelBounds = new Bounds(10, 60, 80, 25);
-        passwordLabel = this.generateLabelComponent("Password", passwordLabelBounds);
-        panel.add(passwordLabel);
-
-        Bounds passwordFieldBounds = new Bounds(100, 60, 165, 25);
-        passwordText = this.generateFieldComponent(passwordFieldBounds);
-        panel.add(passwordText);
-
-        loginBtn = new JButton("Login");
-        loginBtn.setBounds(120, 100, 80, 25);
+        loginBtn = new JButton("Reset Password");
+        loginBtn.setBounds(100, 100, 160, 25);
         loginBtn.addActionListener(this);
         panel.add(loginBtn);
 
@@ -57,9 +48,9 @@ public class LoginPage implements ActionListener {
 
     /**
      * Generate Label component
-     * @param componentLabel
-     * @param bounds
-     * @return
+     * @param componentLabel Name of the label.
+     * @param bounds Bounds of the button.
+     * @return JLabel
      */
     private JLabel generateLabelComponent(String componentLabel, Bounds bounds) {
         JLabel label = new JLabel(componentLabel);
@@ -69,8 +60,8 @@ public class LoginPage implements ActionListener {
 
     /**
      * Generate JField component
-     * @param bounds
-     * @return
+     * @param bounds Bounds of the button.
+     * @return JField
      */
     private JTextField generateFieldComponent(Bounds bounds) {
         JTextField text = new JTextField(20);
@@ -80,9 +71,8 @@ public class LoginPage implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        success.setText("Login successful!");
-        new Dashboard(); // opens up the dashboard
-        frame.setVisible(false); // exits the login page
-        
+        success.setText("An email has been sent with instructions on how to reset your password.");
+        new LoginPage();
+        frame.setVisible(false);
     }
 }
