@@ -1,5 +1,6 @@
 //import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -15,26 +16,24 @@ import java.awt.event.MouseEvent;
 public class Dashboard implements ActionListener{
 
 	private JFrame frame;
-	private JTextField searchbar;
+	
+	private JPanel name_bg;
+    private JPanel taskbar;
+
+	private JButton addCourse;
+	private JButton courseList;
+	private JButton profile;
+
 	private JButton logoutbutton;
+	private JButton accountbutton;
+	private JButton settingsbutton;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Dashboard window = new Dashboard();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
+	private JButton one;
+	private JButton two;
+	private JButton three;
 
+	private JTextField searchbar;
+	
 	/**
 	 * Create the application.
 	 */
@@ -55,19 +54,19 @@ public class Dashboard implements ActionListener{
 		frame.getContentPane().setLayout(null);
 		
 		
-		JPanel name_bg = new JPanel();
+		name_bg = new JPanel();
 		name_bg.setBounds(0, 0, 834, 175);
 		name_bg.setBackground(new Color(117, 153, 193));
 		frame.getContentPane().add(name_bg);
 		name_bg.setLayout(null);
 		
-		JPanel taskbar = new JPanel();
+		taskbar = new JPanel();
 		taskbar.setBounds(0, 0, 1921, 55);
 		taskbar.setBackground(new Color(70, 99, 172));
 		name_bg.add(taskbar);
 		taskbar.setLayout(null);
 		
-		JButton addCourse = new JButton("+");
+		addCourse = new JButton("+");
 		addCourse.setForeground(new Color(198, 207, 232));
 		addCourse.setBackground(new Color(70, 99, 172));
 		addCourse.setFocusPainted(false);
@@ -80,7 +79,7 @@ public class Dashboard implements ActionListener{
 		addCourse.setBounds(0, 0, 78, 55);
 		taskbar.add(addCourse);
 		
-		JButton profile = new JButton("|     Profile   ");
+		profile = new JButton("|     Profile   ");
 		profile.setForeground(new Color(198, 207, 232));
 		profile.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		profile.setBackground(new Color(70, 99, 172));
@@ -110,7 +109,7 @@ public class Dashboard implements ActionListener{
 		name_bg.add(courseMenu);
 		courseMenu.setLayout(null);
 		
-		JButton one = new JButton("1000 Level");
+		one = new JButton("1000 Level");
 		one.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -135,7 +134,7 @@ public class Dashboard implements ActionListener{
 		one.setBounds(0, 55, 188, 40);
 		courseMenu.add(one);
 		
-		JButton courseList = new JButton("|   Course List   |");
+		courseList = new JButton("|   Course List   |");
 		
 		courseList.addMouseListener(new MouseAdapter() {
 			@Override
@@ -160,7 +159,7 @@ public class Dashboard implements ActionListener{
 		courseList.setBounds(88, 0, 234, 55);
 		taskbar.add(courseList);
 		
-		JButton two = new JButton("3000 Level");
+		two = new JButton("3000 Level");
 		two.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		two.addMouseListener(new MouseAdapter() {
@@ -183,7 +182,7 @@ public class Dashboard implements ActionListener{
 		two.setBounds(0, 134, 188, 40);
 		courseMenu.add(two);
 		
-		JButton three = new JButton("2000 Level");
+		three = new JButton("2000 Level");
 		three.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		three.addMouseListener(new MouseAdapter() {
@@ -226,7 +225,7 @@ public class Dashboard implements ActionListener{
 		profileMenu.setBounds(646, 0, 188, 55);
 		name_bg.add(profileMenu);
 		
-		JButton accountbutton = new JButton("Account");
+		accountbutton = new JButton("Account");
 		
 		accountbutton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -246,6 +245,7 @@ public class Dashboard implements ActionListener{
 		accountbutton.setBorderPainted(false);
 		accountbutton.setBackground(new Color(70, 99, 172, 150));
 		accountbutton.setBounds(0, 54, 188, 40);
+		accountbutton.addActionListener(this);
 		profileMenu.add(accountbutton);
 		
 		logoutbutton = new JButton("Log out");
@@ -271,7 +271,7 @@ public class Dashboard implements ActionListener{
 		logoutbutton.addActionListener(this);
 		profileMenu.add(logoutbutton);
 		
-		JButton settingsbutton = new JButton("Settings");
+		settingsbutton = new JButton("Settings");
 		
 		settingsbutton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -303,6 +303,6 @@ public class Dashboard implements ActionListener{
 			frame.setVisible(false); //exits the dashboard upon clicking the logout button
 			
 		}
-		
+
 	}
 }

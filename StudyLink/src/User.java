@@ -26,4 +26,28 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.userId = userId;
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public String getEmailID() {
+        return email;
+    }
+    
+    public int getDOB() {
+        return dateOfBirth;
+    }
+
+    public int userID() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
