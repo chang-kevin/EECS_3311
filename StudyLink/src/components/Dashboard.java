@@ -1,4 +1,3 @@
-package components;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,10 +14,10 @@ import java.awt.event.MouseEvent;
 
 public class Dashboard implements ActionListener{
 
-	private JFrame frame;
+	JFrame frame;
 	
 	private JPanel name_bg;
-    private JPanel taskbar;
+    	private JPanel taskbar;
 
 	private JButton addCourse;
 	private JButton courseList;
@@ -49,7 +48,6 @@ public class Dashboard implements ActionListener{
 		frame.setBounds(100, 100, 850, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(new Color(255, 255, 255));
-//		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
 		
@@ -299,12 +297,16 @@ public class Dashboard implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==logoutbutton) {
+			
 			new LoginPage(); // takes the user back to the login page
 			frame.setVisible(false); //exits the dashboard upon clicking the logout button
+			frame.dispose();
+			
 		}
 
 		if (e.getSource()==two) {
 			new CourseGUI();
 		}
+
 	}
 }
