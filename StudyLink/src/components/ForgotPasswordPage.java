@@ -13,13 +13,8 @@ public class ForgotPasswordPage implements ActionListener {
     private JFrame frame;
     private JLabel userLabel;
     private JTextField userText;
-<<<<<<< HEAD:StudyLink/src/components/ForgotPasswordPage.java
-=======
-    private JLabel passwordLabel;
-    private JPasswordField passwordText;
->>>>>>> origin/main:StudyLink/src/LoginPage.java
     private JLabel success;
-    private JButton loginBtn;
+    private JButton resetBtn;
 
     JPanel panel;
     public ForgotPasswordPage() {
@@ -38,23 +33,9 @@ public class ForgotPasswordPage implements ActionListener {
         userText = this.generateFieldComponent(userTextBounds);
         panel.add(userText);
 
-<<<<<<< HEAD:StudyLink/src/components/ForgotPasswordPage.java
-        loginBtn = new JButton("Reset Password");
-        loginBtn.setBounds(100, 100, 160, 25);
-=======
-        Bounds passwordLabelBounds = new Bounds(10, 60, 80, 25);
-        passwordLabel = this.generateLabelComponent("Password", passwordLabelBounds);
-        panel.add(passwordLabel);
-
-        passwordText = new JPasswordField();
-        passwordText.setBounds(100, 60, 165, 25);
-        panel.add(passwordText);
-
-        loginBtn = new JButton("Login");
-        loginBtn.setBounds(120, 100, 80, 25);
->>>>>>> origin/main:StudyLink/src/LoginPage.java
-        loginBtn.addActionListener(this);
-        panel.add(loginBtn);
+        Bounds resetBtnBounds = new Bounds(100, 100, 160, 25);
+        resetBtn = this.generateButtonComponent("Reset Password", resetBtnBounds);
+        panel.add(resetBtn);
 
         success = new JLabel("");
         success.setBounds(10, 110, 300, 25);
@@ -85,6 +66,19 @@ public class ForgotPasswordPage implements ActionListener {
         JTextField text = new JTextField(20);
         text.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
         return text;
+    }
+
+    /**
+     * Generate JButton component.
+     * @param buttonName Name of the button.
+     * @param bounds Bounds of the button.
+     * @return JButton
+     */
+    private JButton generateButtonComponent(String buttonName, Bounds bounds) {
+        JButton button = new JButton(buttonName);
+        button.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+        button.addActionListener(this);
+        return button;
     }
 
     @Override
