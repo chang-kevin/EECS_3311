@@ -1,4 +1,7 @@
+package components;
+
 import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -17,9 +20,7 @@ public class CourseGUI extends JFrame {
 	 */
 	public CourseGUI() {
 		
-		Dashboard dashboard = new Dashboard(); 
-
-		
+		Dashboard dashboard = new Dashboard();
 		JPanel courses = new JPanel();
 		courses.setBackground(new Color(240, 240, 240));
 		courses.setBounds(0, 175, 834, 336);

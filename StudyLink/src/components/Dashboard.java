@@ -1,4 +1,4 @@
-
+package components;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -301,11 +301,11 @@ public class Dashboard implements ActionListener{
 			new LoginPage(); // takes the user back to the login page
 			frame.setVisible(false); //exits the dashboard upon clicking the logout button
 			frame.dispose();
-			
 		}
 
 		if (e.getSource()==two) {
 			new CourseGUI();
+			frame.dispose();
 		}
 
 	}
