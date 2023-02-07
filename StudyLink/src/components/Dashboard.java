@@ -1,4 +1,8 @@
+<<<<<<< HEAD:StudyLink/src/components/Dashboard.java
 package components;//import java.awt.EventQueue;
+=======
+
+>>>>>>> origin/main:StudyLink/src/Dashboard.java
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -179,6 +183,7 @@ public class Dashboard implements ActionListener{
 		two.setBackground(new Color(70, 99, 172, 150));
 		two.setBorderPainted(false);
 		two.setBounds(0, 134, 188, 40);
+		two.addActionListener(this);
 		courseMenu.add(two);
 		
 		three = new JButton("2000 Level");
@@ -301,6 +306,10 @@ public class Dashboard implements ActionListener{
 			new LoginPage(); // takes the user back to the login page
 			frame.setVisible(false); //exits the dashboard upon clicking the logout button
 			
+		}
+
+		if (e.getSource()==two) {
+			new CourseGUI();
 		}
 
 	}

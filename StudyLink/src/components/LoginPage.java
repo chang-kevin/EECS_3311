@@ -17,7 +17,7 @@ public class LoginPage implements ActionListener {
     private JLabel userLabel;
     private JTextField userText;
     private JLabel passwordLabel;
-    private JTextField passwordText;
+    private JPasswordField passwordText;
     private JLabel success;
     private JButton loginBtn;
     private JButton passwordResetBtn;
@@ -44,7 +44,7 @@ public class LoginPage implements ActionListener {
         panel.add(passwordLabel);
 
         Bounds passwordFieldBounds = new Bounds(100, 60, 165, 25);
-        passwordText = this.generateFieldComponent(passwordFieldBounds);
+        passwordText = this.generatePasswordFieldComponent(passwordFieldBounds);
         panel.add(passwordText);
 
         Bounds loginBtnBounds = new Bounds(80, 100, 80, 25);
@@ -76,7 +76,7 @@ public class LoginPage implements ActionListener {
     }
 
     /**
-     * Generate JField component
+     * Generate JField component.
      * @param bounds Bounds of the field.
      * @return JField
      */
@@ -84,6 +84,17 @@ public class LoginPage implements ActionListener {
         JTextField text = new JTextField(20);
         text.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
         return text;
+    }
+
+    /**
+     * Generate JPassword Field component.
+     * @param bounds Bounds of the field.
+     * @return JPasswordField
+     */
+    private JPasswordField generatePasswordFieldComponent(Bounds bounds) {
+        JPasswordField password = new JPasswordField(20);
+        password.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+        return password;
     }
 
     /**
