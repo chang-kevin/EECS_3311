@@ -1,7 +1,5 @@
 package components;
-
 import java.awt.Color;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -11,23 +9,29 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class CourseGUI extends JFrame {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class CourseGUI extends JFrame implements ActionListener {
+
+	private Dashboard dashboard;
 	private JTextField textField;
-	
+	private JButton coursebtn;
+
 	/**
 	 * Create the frame.
 	 */
 	public CourseGUI() {
-		
-		Dashboard dashboard = new Dashboard();
+	
+		dashboard = new Dashboard();
+
 		JPanel courses = new JPanel();
 		courses.setBackground(new Color(240, 240, 240));
 		courses.setBounds(0, 175, 834, 336);
 		dashboard.frame.getContentPane().add(courses);
 		courses.setLayout(null);
 		
-		JButton coursebtn = new JButton("    \rEECS 3311");
+		coursebtn = new JButton("    \rEECS 3311");
 		coursebtn.setFocusPainted(false);
 		coursebtn.setHorizontalAlignment(SwingConstants.LEFT);
 		coursebtn.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -35,6 +39,7 @@ public class CourseGUI extends JFrame {
 		coursebtn.setForeground(new Color(255, 255, 255));
 		coursebtn.setBorder(null);
 		coursebtn.setBounds(34, 111, 247, 148);
+		coursebtn.addActionListener(this);
 		courses.add(coursebtn);
 		
 		JLabel lblNewLabel = new JLabel("   3000 Level Courses");
@@ -57,5 +62,13 @@ public class CourseGUI extends JFrame {
 		dashboard.frame.getContentPane().add(db_panel);
 		db_panel.setLayout(null);
 	
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==coursebtn) {
+			new CourseResource();
+			dashboard.frame.dispose();
+		}
 	}
 }
