@@ -1,6 +1,6 @@
 package components;
 
-import helpers.Bounds;
+import helpers.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,7 @@ import javax.swing.*;
 public class LoginPage implements ActionListener {
     private static final String LOGIN = "Login";
     private static final String FORGOT_PASSWORD = "Forgot Password";
+    private static final String SIGN_UP = "Sign Up";
     private JFrame frame;
     private JLabel userLabel;
     private JTextField userText;
@@ -21,6 +22,7 @@ public class LoginPage implements ActionListener {
     private JLabel success;
     private JButton loginBtn;
     private JButton passwordResetBtn;
+    private JButton signUpBtn;
 
     JPanel panel;
     public LoginPage() {
@@ -32,19 +34,19 @@ public class LoginPage implements ActionListener {
         panel.setLayout(null);
 
         Bounds userLabelBounds = new Bounds(10, 30, 80, 25);
-        userLabel = this.generateLabelComponent("User", userLabelBounds);
+        userLabel = BoundField.generateLabelComponent("User", userLabelBounds);
         panel.add(userLabel);
 
         Bounds userTextBounds = new Bounds(100, 30, 165, 25);
-        userText = this.generateFieldComponent(userTextBounds);
+        userText = BoundField.generateFieldComponent(userTextBounds);
         panel.add(userText);
 
         Bounds passwordLabelBounds = new Bounds(10, 60, 80, 25);
-        passwordLabel = this.generateLabelComponent("Password", passwordLabelBounds);
+        passwordLabel = BoundField.generateLabelComponent("Password", passwordLabelBounds);
         panel.add(passwordLabel);
 
         Bounds passwordFieldBounds = new Bounds(100, 60, 165, 25);
-        passwordText = this.generatePasswordFieldComponent(passwordFieldBounds);
+        passwordText = BoundField.generatePasswordFieldComponent(passwordFieldBounds);
         panel.add(passwordText);
 
         Bounds loginBtnBounds = new Bounds(80, 100, 80, 25);
@@ -55,46 +57,16 @@ public class LoginPage implements ActionListener {
         passwordResetBtn = this.generateButtonComponent(FORGOT_PASSWORD, passwordResetBounds);
         panel.add(passwordResetBtn);
 
+        Bounds signUpBtnBounds = new Bounds(350, 100, 110, 25);
+        signUpBtn = this.generateButtonComponent(SIGN_UP, signUpBtnBounds);
+        panel.add(signUpBtn);
+
         success = new JLabel("");
         success.setBounds(10, 110, 300, 25);
         panel.add(success);
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    /**
-     * Generate Label component
-     * @param componentLabel Name of the label.
-     * @param bounds Bounds of the label.
-     * @return JLabel
-     */
-    private JLabel generateLabelComponent(String componentLabel, Bounds bounds) {
-        JLabel label = new JLabel(componentLabel);
-        label.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-        return label;
-    }
-
-    /**
-     * Generate JField component.
-     * @param bounds Bounds of the field.
-     * @return JField
-     */
-    private JTextField generateFieldComponent(Bounds bounds) {
-        JTextField text = new JTextField(20);
-        text.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-        return text;
-    }
-
-    /**
-     * Generate JPassword Field component.
-     * @param bounds Bounds of the field.
-     * @return JPasswordField
-     */
-    private JPasswordField generatePasswordFieldComponent(Bounds bounds) {
-        JPasswordField password = new JPasswordField(20);
-        password.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-        return password;
     }
 
     /**
@@ -123,6 +95,9 @@ public class LoginPage implements ActionListener {
         if (e.getActionCommand() == LOGIN) {
             success.setText("Login successful!");
             new Dashboard(); // opens up the dashboard
+        }
+        if (e.getActionCommand() == SIGN_UP){
+            new SignUpPage();
         }
         frame.setVisible(false); // exits the login page
     }
