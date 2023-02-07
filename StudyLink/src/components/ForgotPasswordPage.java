@@ -15,8 +15,8 @@ public class ForgotPasswordPage implements ActionListener {
     private JTextField userText;
     private JLabel success;
     private JButton resetBtn;
+    private JPanel panel;
 
-    JPanel panel;
     public ForgotPasswordPage() {
         frame = new JFrame();
         panel = new JPanel();
