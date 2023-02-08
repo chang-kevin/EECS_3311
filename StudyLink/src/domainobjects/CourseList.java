@@ -1,7 +1,5 @@
 package domainobjects;
-
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class CourseList {
     private ArrayList<Course> courses = new ArrayList<Course>();

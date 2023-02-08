@@ -72,6 +72,9 @@ public class Dashboard implements ActionListener{
 		addCourse.setFont(new Font("Tahoma", Font.BOLD, 32));
 		addCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == addCourse){
+					new addFile();
+				}
 			}
 		});
 		addCourse.setBounds(0, 0, 78, 55);
