@@ -1,26 +1,22 @@
 package components;
-import java.awt.Color;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.LineBorder;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.event.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+/**
+ * 
+ * Course page that displays the full list of courses by year level. 
+ *
+ */
 
 public class CourseGUI extends JFrame implements ActionListener {
 
 	private Dashboard dashboard;
-	private JTextField textField;
+	private JTextField border;
 	private JButton coursebtn;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public CourseGUI() {
 	
 		dashboard = new Dashboard();
@@ -38,24 +34,29 @@ public class CourseGUI extends JFrame implements ActionListener {
 		coursebtn.setBackground(new Color(255, 204, 182));
 		coursebtn.setForeground(new Color(255, 255, 255));
 		coursebtn.setBorder(null);
-		coursebtn.setBounds(34, 111, 247, 148);
+		coursebtn.setBounds(37, 93, 248, 148);
 		coursebtn.addActionListener(this);
 		courses.add(coursebtn);
 		
 		JLabel lblNewLabel = new JLabel("   3000 Level Courses");
 		lblNewLabel.setForeground(new Color(133, 153, 205));
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setBorder(new LineBorder(new Color(128, 128, 128), 2));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel.setBounds(34, 11, 772, 67);
+		lblNewLabel.setBorder(new LineBorder(new Color(133, 153, 205), 0));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblNewLabel.setBounds(37, 25, 772, 53);
 		courses.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setCaretColor(new Color(192, 192, 192));
-		textField.setBorder(new LineBorder(new Color(221, 221, 221), 5));
-		textField.setBounds(28, 107, 259, 157);
-		courses.add(textField);
-		textField.setColumns(10);
+		border = new JTextField();
+		border.setCaretColor(new Color(192, 192, 192));
+		border.setBorder(new LineBorder(new Color(221, 221, 221), 5));
+		border.setBounds(31, 87, 260, 160);
+		courses.add(border);
+		border.setColumns(10);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(new Color(133, 153, 205));
+		separator.setBounds(60, 62, 732, 2);
+		courses.add(separator);
 		
 		JPanel db_panel = new JPanel();
 		db_panel.setBounds(0, 0, 834, 511);
@@ -63,7 +64,11 @@ public class CourseGUI extends JFrame implements ActionListener {
 		db_panel.setLayout(null);
 	
 	}
-
+	
+	/**
+	 * Overrides the actionPerformed method from ActionListener interface. 
+	 * @param e event to be processed. 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==coursebtn) {
