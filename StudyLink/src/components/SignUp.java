@@ -15,7 +15,7 @@ public class SignUp implements ActionListener{
     private JTextField emailText;
     private JPasswordField passwordText;
     private JButton submitBtn;
-    private userList userList = new userList(); //Check if this constructor will work when adding a new user to the userlist class
+    private userList userList = new userList();
     private userDOB userDOB = new userDOB();
     private User newUser;
 
