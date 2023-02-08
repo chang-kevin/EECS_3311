@@ -8,6 +8,8 @@ public class CourseList {
         this.courses = courses;
     }
 
+    public CourseList(){}
+
     public ArrayList<Course> getCourses() {
         return courses;
     }
