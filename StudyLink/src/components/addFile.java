@@ -4,7 +4,6 @@ import domainobjects.Course;
 import domainobjects.CourseList;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
