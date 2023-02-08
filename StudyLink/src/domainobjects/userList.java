@@ -1,5 +1,4 @@
 package domainobjects;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -7,6 +6,9 @@ public class userList {
     private ArrayList<User> userlist = new ArrayList<User>();
     public userList(ArrayList<User> userlist) {
         this.userlist = userlist;
+    }
+
+    public userList(){
     }
 
     public ArrayList<User> getUserlist() {

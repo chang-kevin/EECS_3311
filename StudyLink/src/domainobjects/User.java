@@ -17,7 +17,15 @@ public class User {
         this.password = password;
         this.lname = lname;
         this.dob = dob;
-        String uniqueID = UUID.randomUUID().toString();
+        this.uniqueID = UUID.randomUUID().toString();
+    }
+
+    public User(String name, String emailId, String password, String lname){
+        this.fname = name;
+        this.emailid = emailId;
+        this.password = password;
+        this.lname = lname;
+        this.uniqueID = UUID.randomUUID().toString();
     }
 
     public String getEmailid() {
@@ -57,6 +65,6 @@ public class User {
     }
 
     public String getUniqueID() {
-        return uniqueID;
+        return this.uniqueID;
     }
 }
