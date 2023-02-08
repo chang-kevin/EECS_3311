@@ -12,7 +12,7 @@ import helpers.*;
  * Sign Up page responsbile for creating sign up form.
  */
 
-public class SignUpPage implements ActionListener{
+public class SignUp implements ActionListener{
     private JFrame frame;
     private JPanel panel;
     private JLabel fNameLabel;
@@ -32,13 +32,13 @@ public class SignUpPage implements ActionListener{
     private String[] years;
     private String[] datesList;
     private String[] monthsShortList;
-    private User user;
     private DOB birthDate;
     private int date;
     private int month;
     private int year;
+    private userList userList;
 
-    public SignUpPage(){
+    public SignUp(){
         frame = new JFrame();
         panel = new JPanel();
         frame.setSize(500, 500);
@@ -152,7 +152,8 @@ public class SignUpPage implements ActionListener{
         if(e.getActionCommand() == "Sign Up"){
             success.setText("Sign-up successful!");
             birthDate = new DOB(date, month, year);
-            user = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText(), birthDate);
+            User newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText(), birthDate);
+            userList.addUser(newUser);
             System.out.println("Generated user with date: " + date + " month: " + month + " year: " + year);
             success.setText("Created User obj");
         }
@@ -210,7 +211,7 @@ public class SignUpPage implements ActionListener{
      * @return will return the combo box generated
      */
 
-    private JComboBox <String> generateJComboBox (String[] arr, Bounds bounds){
+    public JComboBox <String> generateJComboBox (String[] arr, Bounds bounds){
         JComboBox<String> comboBox = new JComboBox<>(arr);
         comboBox.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
         return comboBox;

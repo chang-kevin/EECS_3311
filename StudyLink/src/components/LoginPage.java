@@ -97,7 +97,7 @@ public class LoginPage implements ActionListener {
             new Dashboard(); // opens up the dashboard
         }
         if (e.getActionCommand() == SIGN_UP){
-            new SignUpPage();
+            new SignUp();
         }
         frame.setVisible(false); // exits the login page
     }
