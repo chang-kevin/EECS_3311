@@ -1,5 +1,5 @@
 package components;
-
+import helpers.BoundField;
 import helpers.Bounds;
 
 import java.awt.event.ActionEvent;
@@ -26,11 +26,11 @@ public class ForgotPasswordPage implements ActionListener {
         panel.setLayout(null);
 
         Bounds userLabelBounds = new Bounds(10, 30, 80, 25);
-        userLabel = this.generateLabelComponent("Username", userLabelBounds);
+        userLabel = BoundField.generateLabelComponent("Username", userLabelBounds);
         panel.add(userLabel);
 
         Bounds userTextBounds = new Bounds(100, 30, 165, 25);
-        userText = this.generateFieldComponent(userTextBounds);
+        userText = BoundField.generateFieldComponent(userTextBounds);
         panel.add(userText);
 
         Bounds resetBtnBounds = new Bounds(100, 100, 160, 25);
@@ -43,29 +43,6 @@ public class ForgotPasswordPage implements ActionListener {
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    /**
-     * Generate Label component
-     * @param componentLabel Name of the label.
-     * @param bounds Bounds of the button.
-     * @return JLabel
-     */
-    private JLabel generateLabelComponent(String componentLabel, Bounds bounds) {
-        JLabel label = new JLabel(componentLabel);
-        label.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-        return label;
-    }
-
-    /**
-     * Generate JField component
-     * @param bounds Bounds of the button.
-     * @return JField
-     */
-    private JTextField generateFieldComponent(Bounds bounds) {
-        JTextField text = new JTextField(20);
-        text.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-        return text;
     }
 
     /**
