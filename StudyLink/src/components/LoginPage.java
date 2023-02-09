@@ -105,19 +105,12 @@ public class LoginPage implements ActionListener {
                 else {
                     frame.dispose();
                     new LoginPage();
-                    }
-
-
-
-
-
+                }
             }
-            else {frame.dispose();
-                new LoginPage();}
-
-
-
-
+            else {
+                frame.dispose();
+                new LoginPage();
+            }
     }
         if (e.getActionCommand() == SIGN_UP){
             new SignUp();
