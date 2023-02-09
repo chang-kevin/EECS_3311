@@ -30,7 +30,7 @@ public class addFile implements ActionListener{
     private JComboBox courseYear;
     private CourseList courseList = new CourseList();
     
-    addFile(){
+    public addFile(){
         frame = new JFrame();
         frame.setBounds(100, 100, 850, 550);
         frame.setLayout(null);
