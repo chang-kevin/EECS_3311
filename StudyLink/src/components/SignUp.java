@@ -94,7 +94,9 @@ public class SignUp implements ActionListener{
         if(e.getSource() == submitBtn){
             if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText());
-                userLists.addUser(newUser);
+                UserList.emails.add(emailText.getText());
+                UserList.passwords.add(passwordText.getText());
+                
             }
             else{
                 //getting the DOB combo box contents
