@@ -10,17 +10,17 @@ import helpers.*;
  */
 
 public class SignUp implements ActionListener{
+    private JFrame frame;
     private JTextField fNameText;
     private JTextField lNameText;
     private JTextField emailText;
     private JTextField passwordText;
     private JButton submitBtn;
-    private UserDOB userDOB = new UserDOB();
-
-
+    private userDOB userDOB = new userDOB();
+    private User newUser;
 
     public SignUp(){
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         JPanel panel = new JPanel();
         frame.setSize(500, 500);
         frame.add(panel);
@@ -62,7 +62,7 @@ public class SignUp implements ActionListener{
         panel.add(passwordLabel);
 
         Bounds passwordTextBounds = new Bounds(100, 140, 165, 25);
-        passwordText = BoundField.generateFieldComponent(passwordTextBounds);
+        passwordText = BoundField.generatePasswordFieldComponent(passwordTextBounds);
         panel.add(passwordText);
 
         
@@ -91,17 +91,20 @@ public class SignUp implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if(e.getSource() == submitBtn){
-            if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
-                User newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText());
+            //Checking to see if fields are empty and if they are show a pop-up stating to fill first name, last name, email, and passowrd fields
+            if(fNameText.getText().isBlank()|| lNameText.getText().isBlank() || emailText.getText().isBlank() || passwordText.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "Please enter your information", "Info Message", JOptionPane.INFORMATION_MESSAGE);
+                new LoginPage();
+                frame.dispose();
+            }
+
+            else if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
+                newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText());
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
-
                 new LoginPage();
-                
-
-                
+                frame.dispose();
             }
             else{
                 //getting the DOB combo box contents
@@ -110,11 +113,11 @@ public class SignUp implements ActionListener{
                 int year = Integer.parseInt(userDOB.getYearItem());
 
                 DOB birthDate = new DOB(date, month, year);
-               User  newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText(), birthDate);
+                newUser = new User(fNameText.getText(), emailText.getText(), passwordText.getText(), lNameText.getText(), birthDate);
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
                 new LoginPage();
-
+                frame.dispose();
                 System.out.println("Added to userlist");
             }
         }
