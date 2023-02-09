@@ -15,8 +15,8 @@ public class SignUp implements ActionListener{
     private JTextField emailText;
     private JPasswordField passwordText;
     private JButton submitBtn;
-    private userList userList = new userList();
-    private userDOB userDOB = new userDOB();
+    private userList userLists = userList.userList();
+    private UserDOB userDOB = new UserDOB();
     private User newUser;
 
     public SignUp(){
@@ -95,7 +95,7 @@ public class SignUp implements ActionListener{
             if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText());
                 System.out.println("First name: " + fNameText.getText() + " Last name: " + lNameText.getText() + " Email: " + emailText.getText() + " Password: " + String.valueOf(passwordText.getPassword()));
-                userList.addUser(newUser);
+                userLists.addUser(newUser);
             }
             else{
                 //getting the DOB combo box contents
@@ -106,7 +106,7 @@ public class SignUp implements ActionListener{
                 DOB birthDate = new DOB(date, month, year);
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText(), birthDate);
                 System.out.println("First name: " + fNameText.getText() + " Last name: " + lNameText.getText() + " Email: " + emailText.getText() + " Password: " + String.valueOf(passwordText.getPassword()) + "Date: " + date + " month: " + month + " year: " + year);
-                userList.addUser(newUser);
+                userLists.addUser(newUser);
                 System.out.println("Added to userlist");
             }
         }

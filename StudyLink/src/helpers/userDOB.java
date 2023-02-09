@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class userDOB implements ActionListener{
+public class UserDOB implements ActionListener{
     private String[] datesList;
     private String[] monthsShortList;
     private String[] years;
@@ -15,7 +15,7 @@ public class userDOB implements ActionListener{
     private JComboBox yearBox;
     private JLabel dobLabel;
 
-    public userDOB(){
+    public UserDOB(){
         Bounds dobBounds = new Bounds(50, 200, 50, 25);
         dobLabel = BoundField.generateLabelComponent("DOB", dobBounds);
 
