@@ -15,9 +15,9 @@ public class SignUp implements ActionListener{
     private JTextField emailText;
     private JPasswordField passwordText;
     private JButton submitBtn;
-    private userList userLists = userList.userList();
     private UserDOB userDOB = new UserDOB();
     private User newUser;
+    private userList userLists = userList.getInstance();
 
     public SignUp(){
         JFrame frame = new JFrame();
@@ -106,7 +106,7 @@ public class SignUp implements ActionListener{
                 DOB birthDate = new DOB(date, month, year);
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText(), birthDate);
                 System.out.println("First name: " + fNameText.getText() + " Last name: " + lNameText.getText() + " Email: " + emailText.getText() + " Password: " + String.valueOf(passwordText.getPassword()) + "Date: " + date + " month: " + month + " year: " + year);
-                userLists.addUser(newUser);
+                userList.getInstance().addUser(newUser);
                 System.out.println("Added to userlist");
             }
         }

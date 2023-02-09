@@ -10,7 +10,7 @@ public class userList {
         userlist = new ArrayList<User>();
     }
 
-    public static userList userList(){
+    public static userList getInstance(){
         if(userListInstance == null){
             userListInstance = new userList();
         }

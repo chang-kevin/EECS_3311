@@ -3,10 +3,8 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class UserDOB implements ActionListener{
+public class UserDOB{
     private String[] datesList;
     private String[] monthsShortList;
     private String[] years;
@@ -15,7 +13,7 @@ public class UserDOB implements ActionListener{
     private JComboBox yearBox;
     private JLabel dobLabel;
 
-    public UserDOB(){
+    UserDOB(){
         Bounds dobBounds = new Bounds(50, 200, 50, 25);
         dobLabel = BoundField.generateLabelComponent("DOB", dobBounds);
 
@@ -108,11 +106,5 @@ public class UserDOB implements ActionListener{
 
     public String getYearItem(){
         return (String) this.getYearBox().getSelectedItem();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 }
