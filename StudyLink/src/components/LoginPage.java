@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import components.Dashboard_components.*;;
+
 /**
  * Login Page component responsible for authenticating the user and directing them to the
  * components.Dashboard Page.
