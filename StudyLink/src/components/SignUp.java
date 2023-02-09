@@ -13,11 +13,11 @@ public class SignUp implements ActionListener{
     private JTextField fNameText;
     private JTextField lNameText;
     private JTextField emailText;
-    private JPasswordField passwordText;
+    private JTextField passwordText;
     private JButton submitBtn;
     private UserDOB userDOB = new UserDOB();
-    private User newUser;
-    private userList userLists = userList.getInstance();
+
+
 
     public SignUp(){
         JFrame frame = new JFrame();
@@ -62,7 +62,7 @@ public class SignUp implements ActionListener{
         panel.add(passwordLabel);
 
         Bounds passwordTextBounds = new Bounds(100, 140, 165, 25);
-        passwordText = BoundField.generatePasswordFieldComponent(passwordTextBounds);
+        passwordText = BoundField.generateFieldComponent(passwordTextBounds);
         panel.add(passwordText);
 
         
@@ -91,11 +91,16 @@ public class SignUp implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if(e.getSource() == submitBtn){
             if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
-                newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText());
+                User newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText());
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
+
+                new LoginPage();
+                
+
                 
             }
             else{
@@ -105,8 +110,11 @@ public class SignUp implements ActionListener{
                 int year = Integer.parseInt(userDOB.getYearItem());
 
                 DOB birthDate = new DOB(date, month, year);
-                newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText(), birthDate);
-                userLists.addUser(newUser);
+               User  newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText(), birthDate);
+                UserList.emails.add(emailText.getText());
+                UserList.passwords.add(passwordText.getText());
+                new LoginPage();
+
                 System.out.println("Added to userlist");
             }
         }
