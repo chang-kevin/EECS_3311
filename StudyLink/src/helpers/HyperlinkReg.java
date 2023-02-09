@@ -13,7 +13,7 @@ public class HyperlinkReg {
 
     private JLabel hyperlink;
 
-    public HyperlinkReg(String link) {
+    public HyperlinkReg(final String link) {
 
         hyperlink = new JLabel(link);
 		hyperlink.setForeground(Color.BLUE);
