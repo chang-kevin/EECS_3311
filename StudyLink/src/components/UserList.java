@@ -1,4 +1,6 @@
-package components;
+
+
+    package components;
 
 import domainobjects.*;
 
@@ -35,7 +37,7 @@ public class UserList {
     public void setPassword(String password) {
         this.passwords.add(password);
     }
-    public boolean authemail(String text){
+    public static boolean authemail(String text){
         boolean login = false;
         for(int i =0;i<emails.size();i++){
             if(text.matches(emails.get(i))){
@@ -51,7 +53,7 @@ public class UserList {
 
 
     }
-    public boolean authpass(String text){
+    public static boolean authpass(String text){
         boolean login = false;
         for(int j =0;j<passwords.size();j++){
             if(text.matches(passwords.get(j))) {
