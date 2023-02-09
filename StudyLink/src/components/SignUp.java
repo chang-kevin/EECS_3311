@@ -94,7 +94,6 @@ public class SignUp implements ActionListener{
         if(e.getSource() == submitBtn){
             if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText());
-                System.out.println("First name: " + fNameText.getText() + " Last name: " + lNameText.getText() + " Email: " + emailText.getText() + " Password: " + String.valueOf(passwordText.getPassword()));
                 userLists.addUser(newUser);
             }
             else{
@@ -105,8 +104,7 @@ public class SignUp implements ActionListener{
 
                 DOB birthDate = new DOB(date, month, year);
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getPassword()), lNameText.getText(), birthDate);
-                System.out.println("First name: " + fNameText.getText() + " Last name: " + lNameText.getText() + " Email: " + emailText.getText() + " Password: " + String.valueOf(passwordText.getPassword()) + "Date: " + date + " month: " + month + " year: " + year);
-                userList.getInstance().addUser(newUser);
+                userLists.addUser(newUser);
                 System.out.println("Added to userlist");
             }
         }
