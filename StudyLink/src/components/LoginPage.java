@@ -95,9 +95,18 @@ public class LoginPage implements ActionListener {
             new ForgotPasswordPage();
         }
         if (e.getActionCommand() == LOGIN) {
-            success.setText("Login successful!");
-            new Dashboard(); // opens up the dashboard
-        }
+
+            if(UserList.instance.authemail(userText.getText()) && UserList.instance.authpass(passwordText.getText())){
+                if(UserList.instance.x == UserList.instance.y) {
+                    success.setText("Login successful!");
+
+                    new Dashboard(); // opens up the dashboard
+                    frame.setVisible(false);
+                }
+                new LoginPage();
+
+
+            }
         if (e.getActionCommand() == SIGN_UP){
             new SignUp();
         }
