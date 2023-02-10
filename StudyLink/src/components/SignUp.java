@@ -9,6 +9,8 @@ import helpers.*;
  * Sign Up page responsbile for creating sign up form.
  */
 
+/* This project makes the use of the userDOB class in the helper folder. The functionality of entering the DOB of the user has been extracted to the
+userDOB class since that is an optional field.*/
 public class SignUp implements ActionListener{
     private JFrame frame;
     private JTextField fNameText;
@@ -101,6 +103,7 @@ public class SignUp implements ActionListener{
                 passwordText.setText("");
             }
 
+            //If the DOB field is empty then generate a new user object without the DOB parameter.
             else if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText());
                 UserList.emails.add(emailText.getText());
@@ -108,6 +111,8 @@ public class SignUp implements ActionListener{
                 new LoginPage();
                 frame.dispose();
             }
+            
+            //If the DOB field is filled then generate a new user object with the DOB parameter.
             else{
                 //getting the DOB combo box contents
                 int date = Integer.parseInt(userDOB.getDateItem());
@@ -118,8 +123,8 @@ public class SignUp implements ActionListener{
                 newUser = new User(fNameText.getText(), emailText.getText(), passwordText.getText(), lNameText.getText(), birthDate);
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
-                new LoginPage();
-                frame.dispose();
+                new LoginPage(); //go back to the login page
+                frame.dispose(); //delete the current frame
                 System.out.println("Added to userlist");
             }
         }
