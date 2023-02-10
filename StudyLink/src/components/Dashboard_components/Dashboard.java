@@ -163,10 +163,11 @@ public class Dashboard implements ActionListener, ChangeListener, DashboardGUI {
 		taskbarButton.setBorderPainted(false);
 		taskbarButton.setForeground(Color.WHITE);
 		taskbarButton.setBackground(new Color(70, 99, 172, 150));
-		if (name!="+") {
+		if (name != "+") {
 			taskbarButton.getModel().addChangeListener(this);
 		}
 		taskbarButton.addActionListener(this);
+		
 		return taskbarButton;
 	}
 
