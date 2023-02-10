@@ -2,9 +2,10 @@
 EECS 3311 team repository
 
 ### Feb 9
-- Refactored Dashboard (Kevin)
+- Refactored Dashboard (Kevin/Angela)
 - Refactored Login Flow (Ammiel)
 - Update Datastub stub classes (Yuvi)
+- Updated Class Diagram (Yuvi)
 
 ### Feb 8
 - Update Upload function (Manasvi)
@@ -12,15 +13,18 @@ EECS 3311 team repository
 
 ### Feb 7
 - Upload Functionality (Manasvi)
+- Added a Dashboard component (Course Resource) (Kevin)
 
 ### Feb 6
 - Create class diagram (Ammiel/Angela/Kevin/Manasvi)
 - Update dashboard + login pages (Kevin)
 - Cont SignUp Page (Manasvi)
+- Added a Dashboard Component (ThirdYearCourses) (Angela)
 
 ### Feb 5
 - Initial Dashboard setup (Angela)
 - Initial SignUp Page setup (Manasvi)
+- Added Domain specific objects (Yuvi)
 
 ### Feb 4
 - Forgot password Page setup (Ammiel)
