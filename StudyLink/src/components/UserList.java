@@ -1,10 +1,9 @@
-
-
-    package components;
+package components;
 
 import domainobjects.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserList {
     public static final UserList instance = new UserList();
@@ -67,6 +66,15 @@ public class UserList {
 
         return login;
 
+    }
+    public static void search(String email){
+        for (Iterator<User> i = users.iterator();
+             i.hasNext(); ) {
+            User user = i.next();
+            if (user.getEmailid() == email ){
+                System.out.print("Result of the search :" );
+                user.accountinfo();
+            } }
     }
 
 }
