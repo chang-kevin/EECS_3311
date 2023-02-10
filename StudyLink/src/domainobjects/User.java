@@ -67,4 +67,7 @@ public class User {
     public String getUniqueID() {
         return this.uniqueID;
     }
+    public void accountinfo(){
+        System.out.println("fname:" + fname + " lname:" + lname + " email: " + emailid + " dob:" + dob.toString());
+    }
 }
