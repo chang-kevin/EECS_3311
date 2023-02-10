@@ -1,4 +1,5 @@
-package domainobjects;
+
+        package domainobjects;
 import java.util.*;
 
 public class CourseList {
