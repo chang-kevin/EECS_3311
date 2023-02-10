@@ -1,77 +1,59 @@
 package components.Dashboard_components;
 
+import components.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import components.*;
-import helpers.CustomButton;
 
 /**
  * Dashboard component as the home page and container for the taskbar features. 
  */
 
-public class Dashboard implements ActionListener, ChangeListener {
+public class Dashboard implements ActionListener, ChangeListener, DashboardGUI {
 
 	JFrame frame;
-	
+
 	private JPanel name_bg;
     private JPanel taskbar;
+	private JPanel courseMenu;
+	private JPanel profileMenu; 
 
 	private JButton addCourse;
 	private JButton courseList;
 	private JButton profile;
-
 	private JButton logoutButton;
 	private JButton accountButton;
 	private JButton settingsButton;
-
 	private JButton one;
 	private JButton two;
 	private JButton three;
 
 	private JTextField searchbar;
 	
-	private final JPanel courseMenu;
-	private final JPanel profileMenu; 
-	
 	/**
 	 * Create the application.
 	 */
 	public Dashboard() {
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 850, 550);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBackground(new Color(255, 255, 255));
-		frame.setVisible(true);
-		frame.getContentPane().setLayout(null);
+		frame = createFrame("Dashboard");
 		
-		
-		name_bg = new JPanel();
-		name_bg.setBounds(0, 0, 834, 175);
-		name_bg.setBackground(new Color(117, 153, 193));
+		name_bg = createPanel();
 		frame.getContentPane().add(name_bg);
-		name_bg.setLayout(null);
-		
-		taskbar = new JPanel();
+
+		taskbar = createPanel();
 		taskbar.setBounds(0, 0, 1921, 55);
 		taskbar.setBackground(new Color(70, 99, 172));
 		name_bg.add(taskbar);
-		taskbar.setLayout(null);
 		
-		CustomButton btn = new CustomButton();
-		
-		addCourse = btn.taskBarButton("+");;
+		addCourse = createTaskbarButton("+");;
 		addCourse.setBounds(0, 0, 78, 55);
-		addCourse.addActionListener(this);
 		taskbar.add(addCourse);
 		
-		profile = btn.taskBarButton("|     Profile   ");
-		profile.getModel().addChangeListener(this);
-		profile.addActionListener(this);
+		profile = createTaskbarButton("|     Profile   ");
 		profile.setBounds(614, 3, 220, 55);
 		taskbar.add(profile);
 		
@@ -83,63 +65,41 @@ public class Dashboard implements ActionListener, ChangeListener {
 		taskbar.add(searchbar);
 		searchbar.setColumns(10);
 		
-		courseMenu = new JPanel();
+		courseMenu = createMenuPanel();
 		courseMenu.setAlignmentX(0.0f);
-		courseMenu.setDoubleBuffered(false);
-		courseMenu.setBackground(new Color(70, 99, 172, 150));
 		courseMenu.setBounds(110, 0, 188, 55);
 		name_bg.add(courseMenu);
-		courseMenu.setLayout(null);
 		
-		courseList = btn.taskBarButton("|   Course List   |");
-		courseList.addActionListener(this);
-		courseList.getModel().addChangeListener(this);
+		courseList = createTaskbarButton("|   Course List   |");
 		courseList.setBounds(88, 0, 234, 55);
 		taskbar.add(courseList);
 		
-		one = btn.courseListMenu("1000 Level");
-		one.addActionListener(this);
-		one.getModel().addChangeListener(this);
+		one = createMenuButton("1000 Level");
 		one.setBounds(0, 55, 188, 40);
 		courseMenu.add(one);
 	
-		two = btn.courseListMenu("3000 Level");
+		two = createMenuButton("3000 Level");
 		two.setBounds(0, 134, 188, 40);
-		two.addActionListener(this);
-		two.getModel().addChangeListener(this);
 		courseMenu.add(two);
 		
-		three = btn.courseListMenu("2000 Level");
+		three = createMenuButton("2000 Level");
 		three.setBounds(0, 94, 188, 40);
-		three.addActionListener(this);
-		three.getModel().addChangeListener(this);
 		courseMenu.add(three);
 		
-		
-		
-		profileMenu = new JPanel();
-		profileMenu.setLayout(null);
-		profileMenu.setDoubleBuffered(false);
-		profileMenu.setBackground(new Color(70, 99, 172));
+		profileMenu = createMenuPanel();
 		profileMenu.setBounds(646, 0, 188, 55);
 		name_bg.add(profileMenu);
 		
-		accountButton = btn.profileListMenu("Account");
-		accountButton.getModel().addChangeListener(this);
+		accountButton = createMenuButton("Account");
 		accountButton.setBounds(0, 55, 188, 40);
-		accountButton.addActionListener(this);
 		profileMenu.add(accountButton);
 		
-		logoutButton = btn.profileListMenu("Log out");	
-		logoutButton.getModel().addChangeListener(this);	
+		logoutButton = createMenuButton("Log out");	
 		logoutButton.setBounds(0, 134, 188, 40);
-		logoutButton.addActionListener(this);
 		profileMenu.add(logoutButton);
 		
-		settingsButton = btn.profileListMenu("Settings");
-		settingsButton.getModel().addChangeListener(this);
+		settingsButton = createMenuButton("Settings");
 		settingsButton.setBounds(0, 94, 188, 40);
-		settingsButton.addActionListener(this);
 		profileMenu.add(settingsButton);
 		
 	}
@@ -195,6 +155,65 @@ public class Dashboard implements ActionListener, ChangeListener {
 			}
 			
 	}
+
+	@Override
+	public JButton createTaskbarButton(String name) {
+		JButton taskbarButton = new JButton(name);
+		taskbarButton.setText(name);
+		taskbarButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		taskbarButton.setFocusPainted(false);
+		taskbarButton.setBorderPainted(false);
+		taskbarButton.setForeground(Color.WHITE);
+		taskbarButton.setBackground(new Color(70, 99, 172, 150));
+		if (name!="+") {
+			taskbarButton.getModel().addChangeListener(this);
+		}
+		taskbarButton.addActionListener(this);
+		return taskbarButton;
+	}
+
+	@Override
+	public JFrame createFrame(String title) {
+		JFrame theFrame = new JFrame(title);
+        theFrame.setBounds(100, 100, 850, 550);
+		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		theFrame.setBackground(new Color(255, 255, 255));
+		theFrame.setVisible(true);
+		theFrame.getContentPane().setLayout(null);
+		return theFrame;
+	}
+
+	@Override
+	public JButton createMenuButton(String name) {
+		JButton menuButton = new JButton(name);
+		menuButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		menuButton.setFocusPainted(false);
+		menuButton.setBorderPainted(false);
+		menuButton.setForeground(new Color(198, 207, 232, 150));
+		menuButton.setBackground(new Color(70, 99, 172));
+		menuButton.getModel().addChangeListener(this);
+		menuButton.addActionListener(this);
+		return menuButton;
+	}
+
+	@Override
+	public JPanel createPanel() {
+		JPanel thePanel = new JPanel();
+		thePanel.setBounds(0, 0, 834, 175);
+		thePanel.setBackground(new Color(117, 153, 193));
+		thePanel.setLayout(null);
+		return thePanel;
+	}
+
+	@Override
+	public JPanel createMenuPanel() {
+		JPanel menuPanel = new JPanel();
+		menuPanel.setLayout(null);
+		menuPanel.setDoubleBuffered(false);
+		menuPanel.setBackground(new Color(70, 99, 172));
+		return menuPanel;
+	}
+
 		
 }
 
