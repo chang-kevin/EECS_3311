@@ -14,7 +14,7 @@ import java.awt.event.*;
  *
  */
 
-public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
+public class ThirdYearCourses extends CourseLevelDesign implements ActionListener {
 
 	JPanel courses;
 	private Dashboard dashboard;
@@ -56,7 +56,6 @@ public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
 		}
 	}
 
-	@Override
 	public JButton createCourseButton(String courseName) {
 		JButton course = new JButton(courseName);
 		course.setFocusPainted(false);
@@ -69,8 +68,7 @@ public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
 		return course;
 	}
 
-	@Override
-    public JLabel createCourseHeader(String title) {
+	public JLabel createCourseHeader(String title) {
 		JLabel level = new JLabel(title);
         level.setForeground( new Color(133, 153, 205));
 		level.setVerticalAlignment(SwingConstants.TOP);
