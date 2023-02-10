@@ -20,7 +20,7 @@ public class LoginPage implements ActionListener {
     private JLabel userLabel;
     private JTextField userText;
     private JLabel passwordLabel;
-    private JPasswordField passwordText;
+    private JTextField passwordText;
     private JLabel success;
     private JButton loginBtn;
     private JButton passwordResetBtn;
@@ -48,7 +48,7 @@ public class LoginPage implements ActionListener {
         panel.add(passwordLabel);
 
         Bounds passwordFieldBounds = new Bounds(100, 60, 165, 25);
-        passwordText = BoundField.generatePasswordFieldComponent(passwordFieldBounds);
+        passwordText = BoundField.generateFieldComponent(passwordFieldBounds);
         panel.add(passwordText);
 
         Bounds loginBtnBounds = new Bounds(80, 100, 80, 25);
@@ -96,20 +96,24 @@ public class LoginPage implements ActionListener {
         }
         if (e.getActionCommand() == LOGIN) {
 
-            if(UserList.instance.authemail(userText.getText()) && UserList.instance.authpass(passwordText.getText())){
+            if( UserList.instance.authemail(userText.getText()) && UserList.instance.authpass(passwordText.getText())){
                 if(UserList.instance.x == UserList.instance.y) {
-                    success.setText("Login successful!");
-
                     new Dashboard(); // opens up the dashboard
                     frame.setVisible(false);
+
                 }
-                new LoginPage();
-
-
+                else {
+                    frame.dispose();
+                    new LoginPage();
+                }
             }
+            else {
+                frame.dispose();
+                new LoginPage();
+            }
+    }
         if (e.getActionCommand() == SIGN_UP){
             new SignUp();
+            frame.setVisible(false);
         }
-        frame.setVisible(false); // exits the login page
-    }
-}
+}}
