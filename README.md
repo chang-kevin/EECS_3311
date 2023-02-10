@@ -11,7 +11,7 @@ EECS 3311 team repository
 - Update GUI components (Kevin)
 
 ### Feb 7
-- Upload Functionality (Yuvi)
+- Upload Functionality (Manasvi)
 
 ### Feb 6
 - Create class diagram (Ammiel/Angela/Kevin/Manasvi)
