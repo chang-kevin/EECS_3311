@@ -119,7 +119,6 @@ public class LoginPage implements ActionListener {
             return;
         }
 
-        System.out.println(this.authenticateUser());
         if (this.authenticateUser()) {
             if (UserList.instance.x == UserList.instance.y) {
                 this.navigateToDashboard();
