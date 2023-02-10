@@ -20,11 +20,13 @@ public class LoginPage implements ActionListener {
     private JLabel userLabel;
     private JTextField userText;
     private JLabel passwordLabel;
-    private JTextField passwordText;
+    private JPasswordField passwordText;
     private JLabel success;
     private JButton loginBtn;
     private JButton passwordResetBtn;
     private JButton signUpBtn;
+
+    private JLabel error;
 
     JPanel panel;
     public LoginPage() {
@@ -48,7 +50,7 @@ public class LoginPage implements ActionListener {
         panel.add(passwordLabel);
 
         Bounds passwordFieldBounds = new Bounds(100, 60, 165, 25);
-        passwordText = BoundField.generateFieldComponent(passwordFieldBounds);
+        passwordText = BoundField.generatePasswordFieldComponent(passwordFieldBounds);
         panel.add(passwordText);
 
         Bounds loginBtnBounds = new Bounds(80, 100, 80, 25);
@@ -67,6 +69,10 @@ public class LoginPage implements ActionListener {
         success.setBounds(10, 110, 300, 25);
         panel.add(success);
 
+        error = new JLabel("");
+        error.setBounds(10, 150, 300, 25);
+        panel.add(error);
+
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -84,36 +90,67 @@ public class LoginPage implements ActionListener {
         return button;
     }
 
+    private boolean authenticateUser() {
+        boolean hasUsername = UserList.authemail(userText.getText());
+        boolean hasUserPassword = UserList.authpass(passwordText.getText());
+        return hasUsername && hasUserPassword;
+    }
+
+    private void navigateToDashboard() {
+        frame.setVisible(false);
+        new Dashboard();
+    }
+
+    private void clearFields() {
+        userText.setText("");
+        passwordText.setText("");
+    }
+
+    private void clearNotifications() {
+        success.setText("");
+        error.setText("");
+    }
+
+    private void handleLogin() {
+        this.clearNotifications();
+
+        if (userText.getText().equals("") && passwordText.getText().equals("")) {
+            error.setText("Please enter both the username and password.");
+            return;
+        }
+
+        if (this.authenticateUser()) {
+            if (UserList.instance.x == UserList.instance.y) {
+                this.navigateToDashboard();
+                return;
+            }
+        }
+        error.setText("The username or password is incorrect.");
+        this.clearFields();
+    }
+    private void handleSignUp() {
+        frame.setVisible(false);
+        new SignUp();
+    }
+
+    private void handleForgotPasswordPage() {
+        frame.setVisible(false);
+        new ForgotPasswordPage();
+    }
+
     /**
      * Overrides the actionPerformed method from the interface.
      * @param e The action event to be processed.
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == FORGOT_PASSWORD) {
-            // navigate back to the login page
-            new ForgotPasswordPage();
+        if (e.getActionCommand().equals(FORGOT_PASSWORD)) {
+            this.handleForgotPasswordPage();
         }
-        if (e.getActionCommand() == LOGIN) {
-
-            if( UserList.instance.authemail(userText.getText()) && UserList.instance.authpass(passwordText.getText())){
-                if(UserList.instance.x == UserList.instance.y) {
-                    new Dashboard(); // opens up the dashboard
-                    frame.setVisible(false);
-
-                }
-                else {
-                    frame.dispose();
-                    new LoginPage();
-                }
-            }
-            else {
-                frame.dispose();
-                new LoginPage();
-            }
-    }
-        if (e.getActionCommand() == SIGN_UP){
-            new SignUp();
-            frame.setVisible(false);
+        if (e.getActionCommand().equals(LOGIN)) {
+            this.handleLogin();
+        }
+        if (e.getActionCommand().equals(SIGN_UP)) {
+            this.handleSignUp();
         }
 }}
