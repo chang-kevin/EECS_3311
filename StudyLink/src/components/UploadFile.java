@@ -4,25 +4,18 @@ import domainobjects.Course;
 import domainobjects.CourseList;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UploadFile implements ActionListener{
     private JTextField fileNameText;
     private JTextField instructorText;
+    private JTextField courseTextField;
     private JButton fileChoose;
     private JButton submit;
-    private JComboBox courseDropDownMenu;
     private JComboBox courseYear;
     private CourseList courseList;
-    
     public UploadFile(){
         JFrame frame = new JFrame();
         frame.setBounds(100, 100, 850, 550);
@@ -45,9 +38,9 @@ public class UploadFile implements ActionListener{
         JLabel courseListLabel = BoundField.generateLabelComponent("Course Name", courseListBounds);
         frame.add(courseListLabel);
 
-        courseDropDownMenu = new JComboBox(toString(courseList.getCourses()));
-        courseDropDownMenu.setBounds(150, 100, 100, 40);
-        frame.add(courseDropDownMenu);
+        Bounds courseTextBounds = new Bounds(150, 100, 300, 30);
+        courseTextField = BoundField.generateFieldComponent(courseTextBounds);
+        frame.add(courseTextField);
 
         Bounds instructorBounds = new Bounds(10, 150, 100, 30);
         JLabel instructorLabel = BoundField.generateLabelComponent("Instructor", instructorBounds);
@@ -91,22 +84,28 @@ public class UploadFile implements ActionListener{
         }
         if(e.getSource() == submit){
             JOptionPane.showMessageDialog(null, "Upload successful", "upload", JOptionPane.INFORMATION_MESSAGE);
+            fileNameText.setText("");
+            instructorText.setText("");
+            courseTextField.setText("");
         }
         
     }
 
-     /**
+    /**
      * Generate the year list dynamically
      */
-    private String[] generateYears(){
+    public String[] generateYears(){
         int endYear = Calendar.getInstance().get(Calendar.YEAR);
         int difference = endYear - 1940;
         int startYear = 1940;
-        String[] arr = new String[difference];
-        for (int year = 0; year < difference; year++){
-            arr[year] = Integer.toString(startYear);
+        String[] arr = new String[difference+1];
+        arr[0] = " ";
+        for (int i = 1; i < arr.length; i++){
+            arr[i] = Integer.toString(startYear);
             startYear++;
         }
         return arr;
     }
+
+    
 }

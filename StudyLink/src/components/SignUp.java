@@ -95,8 +95,10 @@ public class SignUp implements ActionListener{
             //Checking to see if fields are empty and if they are show a pop-up stating to fill first name, last name, email, and passowrd fields
             if(fNameText.getText().isBlank()|| lNameText.getText().isBlank() || emailText.getText().isBlank() || passwordText.getText().isBlank()){
                 JOptionPane.showMessageDialog(null, "Please enter your information", "Info Message", JOptionPane.INFORMATION_MESSAGE);
-                new LoginPage();
-                frame.dispose();
+                fNameText.setText("");
+                lNameText.setText("");
+                emailText.setText("");
+                passwordText.setText("");
             }
 
             else if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
