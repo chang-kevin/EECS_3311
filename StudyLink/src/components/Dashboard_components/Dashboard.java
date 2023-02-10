@@ -107,7 +107,6 @@ public class Dashboard implements ActionListener, DashboardGUI{
 	
 		two = createMenuButton("3000 Level");
 		two.setBounds(0, 134, 188, 40);
-		two.addActionListener(this);
 		two.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -252,6 +251,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 		menuButton.setBorderPainted(false);
 		menuButton.setForeground(new Color(198, 207, 232, 150));
 		menuButton.setBackground(new Color(70, 99, 172));
+		menuButton.addActionListener(this);
 		return menuButton;
 	}
 	
