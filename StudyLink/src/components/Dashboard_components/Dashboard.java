@@ -198,7 +198,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			frame.dispose();
 		}
 		if(e.getSource() == addCourse) {
-			new addFile();
+			new UploadFile();
 		}
 
 		if (e.getSource()==two) {
