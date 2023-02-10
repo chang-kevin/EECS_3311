@@ -1,8 +1,4 @@
-
-      
-
-
-    package domainobjects;
+package domainobjects;
 import java.util.*;
 
 public class CourseList {
@@ -19,7 +15,6 @@ public class CourseList {
         this.courses = courses;
     }
     public void addCourse(Course course){
-
         courses.add(course);
     }
 

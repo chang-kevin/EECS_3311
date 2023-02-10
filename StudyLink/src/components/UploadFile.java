@@ -14,33 +14,27 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class addFile implements ActionListener{
-    private JFrame frame;
-    private JLabel title;
-    private JLabel fileName;
-    private JLabel courseListLabel;
-    private JLabel instructorLabel;
-    private JLabel courseYearLabel;
+public class UploadFile implements ActionListener{
     private JTextField fileNameText;
     private JTextField instructorText;
     private JButton fileChoose;
     private JButton submit;
     private JComboBox courseDropDownMenu;
     private JComboBox courseYear;
-    private CourseList courseList = new CourseList();
+    private CourseList courseList;
     
-    public addFile(){
-        frame = new JFrame();
+    public UploadFile(){
+        JFrame frame = new JFrame();
         frame.setBounds(100, 100, 850, 550);
         frame.setLayout(null);
         frame.setVisible(true);
 
         Bounds titleBounds = new Bounds(300, 0, 400, 30);
-        title = BoundField.generateLabelComponent("Add your study materials here", titleBounds);
+        JLabel title = BoundField.generateLabelComponent("Add your study materials here", titleBounds);
         frame.add(title);
 
         Bounds fileNameBounds = new Bounds(10, 50, 300, 30);
-        fileName = BoundField.generateLabelComponent("Enter file name", fileNameBounds);
+        JLabel fileName = BoundField.generateLabelComponent("Enter file name", fileNameBounds);
         frame.add(fileName);
 
         Bounds fileNameTextBounds = new Bounds(150, 50, 200, 30);
@@ -48,7 +42,7 @@ public class addFile implements ActionListener{
         frame.add(fileNameText);
 
         Bounds courseListBounds = new Bounds(10, 100, 100, 30);
-        courseListLabel = BoundField.generateLabelComponent("Course Name", courseListBounds);
+        JLabel courseListLabel = BoundField.generateLabelComponent("Course Name", courseListBounds);
         frame.add(courseListLabel);
 
         courseDropDownMenu = new JComboBox(toString(courseList.getCourses()));
@@ -56,7 +50,7 @@ public class addFile implements ActionListener{
         frame.add(courseDropDownMenu);
 
         Bounds instructorBounds = new Bounds(10, 150, 100, 30);
-        instructorLabel = BoundField.generateLabelComponent("Instructor", instructorBounds);
+        JLabel instructorLabel = BoundField.generateLabelComponent("Instructor", instructorBounds);
         frame.add(instructorLabel);
 
         Bounds instructorTextBounds = new Bounds(100, 150, 200, 30);
@@ -64,7 +58,7 @@ public class addFile implements ActionListener{
         frame.add(instructorText);
 
         Bounds courseYearBounds = new Bounds(10, 200, 100, 30);
-        courseYearLabel = BoundField.generateLabelComponent("Course Year", courseYearBounds);
+        JLabel courseYearLabel = BoundField.generateLabelComponent("Course Year", courseYearBounds);
         frame.add(courseYearLabel);
 
         courseYear = new JComboBox(generateYears());

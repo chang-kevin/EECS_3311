@@ -1,10 +1,10 @@
 package domainobjects;
 public class Course {
-    private String coursenumber;
+    private int coursenumber;
     private String coursename;
     private int yearlevel;
 
-    public Course(String coursenumber, String coursename, int yearlevel) {
+    public Course(int coursenumber, String coursename, int yearlevel) {
         this.coursenumber = coursenumber;
         this.coursename = coursename;
         this.yearlevel = yearlevel;
@@ -18,7 +18,7 @@ public class Course {
         return yearlevel;
     }
 
-    public void setCoursenumber(String coursenumber) {
+    public void setCoursenumber(int coursenumber) {
         this.coursenumber = coursenumber;
     }
 
@@ -30,7 +30,10 @@ public class Course {
         return coursename;
     }
 
-    public String getCoursenumber() {
+    public int getCoursenumber() {
         return coursenumber;
+    }
+    public void info(){
+        System.out.println("course number:" + coursenumber + " course name:" + coursename + " year level:" + yearlevel);
     }
 }
