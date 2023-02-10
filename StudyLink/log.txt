@@ -5,8 +5,8 @@ First discord meeting held on Feb. 3
 
 [Feb. 3]
   Distributed work amongst the group members
-  Login page - Ammiel Cruz
-  Sign Up page - Manasvi Jain
+  Login page and forgot password page- Ammiel Cruz
+  Sign Up page and upload functionality- Manasvi Jain
   Dashboard page - Angela Manalo and Kevin Chang 
   Domain specific objects - Yuvtesh Mann 
   
