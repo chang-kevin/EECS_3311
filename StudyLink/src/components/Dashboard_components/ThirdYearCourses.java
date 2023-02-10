@@ -14,7 +14,7 @@ import java.awt.event.*;
  *
  */
 
-public class ThirdYearCourses extends CourseLevelDesign implements ActionListener {
+public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
 
 	JPanel courses;
 	private Dashboard dashboard;
