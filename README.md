@@ -5,11 +5,13 @@ EECS 3311 team repository
 - Refactored Dashboard (Kevin/Angela)
 - Refactored Login Flow (Ammiel)
 - Update Datastub stub classes (Yuvi)
+- Finalized Dashboard pages (Angela)
 - Updated Class Diagram (Yuvi)
 
 ### Feb 8
 - Update Upload function (Manasvi)
 - Update GUI components (Kevin)
+- Refactored Dashboard pages (Angela) 
 
 ### Feb 7
 - Upload Functionality (Manasvi)
