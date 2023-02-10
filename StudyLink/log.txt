@@ -1,42 +1,86 @@
 
 Iteration 1
 
-First discord meeting held on Feb. 3
-
-[Feb. 3]
-  Distributed work amongst the group members
-  Login page and forgot password page- Ammiel Cruz
-  Sign Up page and upload functionality- Manasvi Jain
+First meeting (discord) held on Feb. 3
+[Feb. 3] [duration: 82 minutes]
+{ 
+  Distributed development tasks amongst the group members
+  Login page - Ammiel Cruz		
+  Sign Up page - Manasvi Jain
   Dashboard page - Angela Manalo and Kevin Chang 
   Domain specific objects - Yuvtesh Mann 
   
-  The Big User Stories that we actually implemented for Iteration 1:- 
-  1) Navigate through EECS courses 	(Priority: High) 	(Cost (Expectation): 4 days)
-  2) Login/Logout application 		(Priority: High) 	(Cost (Expectation): 3 days)
-
-[Feb. 4]
-  Login Page UI completed
+  Times originally allocated for each developmental tasks
+Login Page (5 days)
+Sign Up Page (3 days)
+Login (3 days)
+Forgot/change password (3 days)
+Dashboard page (7 days)
+Access a collection of resources (5 days)
+Display the courses (2 days)
+Resource Navigation (2 days)
+Logout (30 minutes)
+Upload study materials to the app (6 days)
+Domain specific objects (2 days)
+}
+ 
+[Feb. 4]: Login Page UI complete
+	        Setup the Forgot Password feature UI page
+	        Finalised the concept of the Sign Up page
   
-[Feb.5]
-  Dashboard Page Layout completed 
-  Added login page components
-  Domain Objects completed
+[Feb. 5]: Finalised the concept of the Dashboard Page
+          Dashboard Page Layout complete 
+ 	        Added login page components
+          Domain Objects setup complete
 
-[Feb. 6] 
-  Added the Forgot Password feature
-  Added a frame for the 3000-level Courses
+[Feb. 6]: Added the Forgot Password feature to the Login Page
+          Added a frame for the 3000-level Courses
+          Created class diagram which was a subject for changes later
 
-Second discord meeting held on [Feb. 7]
-  Discussed about progress made:    Login Page (completed)
-				                    Dashboard Page (completed)
-                                    Domain Objects (completed)
-  Making minor changes to the Login Page and Dashboard Page 
-  Decided to implement only the 3000-level courses button 
+Second meeting (in-person) held on [Feb. 7] [duration: 119 minutes]
+{ 
+  Discussed about progress made: Login Page (completed)
+  Dashboard Page (completed)
+  Domain Objects (completed)
+  Making minor changes to the Login Page and Dashboard Page
+  Decided to implement only the 3000-level courses button                                                                                                                                            } 
 
-[Feb. 7]
-  Sign Up page completed
-  Added the signup feature to the Login Page
-  Added the course resources feature to the Dashboard Page
-  Created basic add File feature which is a basic uploading functionality
+[Feb. 7]: Sign Up page completed
+          Added the signup feature to the Login Page
+  	      Added the course resources feature to the Dashboard Page
+          Created basic add File feature which is a basic uploading functionality
+
+
+[Feb. 8]: Refactored Dashboard pages
+          Updated the Upload function
+          Updated Dashboard Components	    
+
+Third meeting held on Feb. 9 [duration: 110 minutes]
+{
+  Decided to not include User stories : Rating the study material and Reporting the study materials, due to time constraints and reached a general consensus that those user stories were less important compared to other main features, and therefore pushed those to Iteration 2.
+}
+
+[Feb. 9]: Added Login error messages to cover edge cases
+          Made some final changes to the Dashboard pages and fixed some minor   bugs
+          Refactored the Login Flow
+          Updated the Database stub classes
+          Updated and finalised the class diagram of our system
+          Added Wiki for our github repo
+          Updated the ReadMe File
+	        Added the log.txt file (members were initially making changes and adding their contributions to the file in Google Doc) 
+
+
+Actual time spent on each developmental task:
+Login Page (5 days)
+Sign Up Page (4 days)
+Login (4 days)
+Forgot/change password (2 days)
+Dashboard page (7 days)
+Access a collection of resources (5 days)
+Display the courses (2 days)
+Resource Navigation (6 days)
+Logout (60 minutes)
+Upload study materials to the app (6 days)
+Domain specific objects (2 days)
   
    
