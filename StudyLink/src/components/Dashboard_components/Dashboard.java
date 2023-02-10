@@ -112,9 +112,7 @@ public class Dashboard implements ActionListener, ChangeListener, DashboardGUI {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==logoutButton) {
-			
 			new LoginPage(); // takes the user back to the login page
-			frame.setVisible(false); //exits the dashboard upon clicking the logout button
 			frame.dispose();
 		}
 		
@@ -123,7 +121,7 @@ public class Dashboard implements ActionListener, ChangeListener, DashboardGUI {
 		}
 
 		if (e.getSource()==two) { // takes the user to the 3000 level courses page 
-			new ThirdYearCourses(); 
+			new ThirdYearCourses();
 			frame.dispose();
 		}
 	}
@@ -213,8 +211,7 @@ public class Dashboard implements ActionListener, ChangeListener, DashboardGUI {
 		menuPanel.setBackground(new Color(70, 99, 172));
 		return menuPanel;
 	}
-
-		
+	
 }
 
 
