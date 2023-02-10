@@ -2,17 +2,17 @@ package domainobjects;
 import java.util.ArrayList;
 import java.util.Iterator;
  
-public class userList {
-    private static userList userListInstance = null;
+public class UserList {
+    private static UserList userListInstance = null;
     private ArrayList<User> userlist = null;
 
-    private userList(){
+    private UserList(){
         userlist = new ArrayList<User>();
     }
 
-    public static userList getInstance(){
+    public static UserList getInstance(){
         if(userListInstance == null){
-            userListInstance = new userList();
+            userListInstance = new UserList();
         }
         return userListInstance;
     }

@@ -1,4 +1,4 @@
-package components.Dashboard_components;
+package components.dashboard;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
