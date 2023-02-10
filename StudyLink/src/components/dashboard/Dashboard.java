@@ -1,4 +1,4 @@
-package components.Dashboard_components;
+package components.dashboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,50 +31,24 @@ public class Dashboard implements ActionListener, DashboardGUI{
 	 * Create the application.
 	 */
 	public Dashboard() {
-		
-		frame = createFrame("Dashboard");
-		
 		name_bg = createPanel();
+		frame = createFrame("Dashboard");
 		frame.getContentPane().add(name_bg);
 
-		taskbar = createPanel();
-		taskbar.setBounds(0, 0, 1921, 55);
-		taskbar.setBackground(new Color(70, 99, 172));
-		name_bg.add(taskbar);
-		
-		addCourse = createTaskbarButton("+");;
-		addCourse.setBounds(0, 0, 78, 55);
-		addCourse.addActionListener(this);
-		taskbar.add(addCourse);
-		
-		profile = createTaskbarButton("|     Profile   ");
-		profile.setBounds(614, 3, 220, 55);
-		profile.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				profileMenu.setSize(188, 175);
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				profileMenu.setSize(0, 0);
-			}
-		});	
-		taskbar.add(profile);
-		
-		searchbar = new JTextField();
-		searchbar.setBorder(null);
-		searchbar.setBackground(new Color(198, 207, 232, 100));
-		searchbar.setSelectedTextColor(new Color(198, 207, 232));
-		searchbar.setBounds(329, 11, 285, 33);
-		taskbar.add(searchbar);
-		searchbar.setColumns(10);
-		
-		courseMenu = createMenuPanel();
-		courseMenu.setAlignmentX(0.0f);
-		courseMenu.setBounds(110, 0, 188, 55);
-		name_bg.add(courseMenu);
-		
+		this.generateTaskbar();
+		this.generateAddButton();
+		this.generateProfile();
+		this.generateSearchBar();
+		this.generateCourseMenu();
+		this.generateCourseList();
+		this.generateCourseMenuItems();
+		this.generateProfileMenu();
+		this.generateAccountButton();
+		this.generateLogoutButton();
+		this.generateSettingsButton();
+	}
+
+	public void generateCourseList() {
 		courseList = createTaskbarButton("|   Course List   |");
 		courseList.setBounds(88, 0, 234, 55);
 		courseList.addMouseListener(new MouseAdapter() {
@@ -82,14 +56,57 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			public void mouseEntered(MouseEvent e) {
 				courseMenu.setSize(188, 234);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				courseMenu.setSize(0, 0);
 			}
-		});	
+		});
 		taskbar.add(courseList);
-		
+	}
+
+	public void generateAddButton() {
+		addCourse = createTaskbarButton("+");;
+		addCourse.setBounds(0, 0, 78, 55);
+		addCourse.addActionListener(this);
+		taskbar.add(addCourse);
+	}
+	public void generateTaskbar() {
+		taskbar = createPanel();
+		taskbar.setBounds(0, 0, 1921, 55);
+		taskbar.setBackground(new Color(70, 99, 172));
+		name_bg.add(taskbar);
+	}
+
+	public void generateProfile() {
+		profile = createTaskbarButton("|     Profile   ");
+		profile.setBounds(614, 3, 220, 55);
+		profile.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				profileMenu.setSize(188, 175);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				profileMenu.setSize(0, 0);
+			}
+		});
+		taskbar.add(profile);
+	}
+
+	public void generateSearchBar() {
+		searchbar = new JTextField();
+		searchbar.setBorder(null);
+		searchbar.setBackground(new Color(198, 207, 232, 100));
+		searchbar.setSelectedTextColor(new Color(198, 207, 232));
+		searchbar.setBounds(329, 11, 285, 33);
+		taskbar.add(searchbar);
+		searchbar.setColumns(10);
+	}
+
+	public void generateCourseMenuItems() {
+		// this needs to be refactored into a for-loop
 		one = createMenuButton("1000 Level");
 		one.setBounds(0, 55, 188, 40);
 		one.addMouseListener(new MouseAdapter() {
@@ -97,14 +114,14 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			public void mouseEntered(MouseEvent e) {
 				courseMenu.setSize(188, 234);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				courseMenu.setSize(0, 0);
 			}
-		});	
+		});
 		courseMenu.add(one);
-	
+
 		two = createMenuButton("3000 Level");
 		two.setBounds(0, 134, 188, 40);
 		two.addMouseListener(new MouseAdapter() {
@@ -112,14 +129,14 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			public void mouseEntered(MouseEvent e) {
 				courseMenu.setSize(188, 234);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				courseMenu.setSize(0, 0);
 			}
-		});	
+		});
 		courseMenu.add(two);
-		
+
 		three = createMenuButton("2000 Level");
 		three.setBounds(0, 94, 188, 40);
 		three.addMouseListener(new MouseAdapter() {
@@ -127,18 +144,29 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			public void mouseEntered(MouseEvent e) {
 				courseMenu.setSize(188, 234);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				courseMenu.setSize(0, 0);
 			}
-		});	
+		});
 		courseMenu.add(three);
-		
+	}
+
+	public void generateProfileMenu() {
 		profileMenu = createMenuPanel();
 		profileMenu.setBounds(646, 0, 188, 55);
 		name_bg.add(profileMenu);
-		
+	}
+
+	public void generateCourseMenu() {
+		courseMenu = createMenuPanel();
+		courseMenu.setAlignmentX(0.0f);
+		courseMenu.setBounds(110, 0, 188, 55);
+		name_bg.add(courseMenu);
+	}
+
+	public void generateAccountButton() {
 		accountButton = createMenuButton("Account");
 		accountButton.setBounds(0, 55, 188, 40);
 		accountButton.addMouseListener(new MouseAdapter() {
@@ -146,29 +174,33 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			public void mouseEntered(MouseEvent e) {
 				profileMenu.setSize(188, 175);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				profileMenu.setSize(0, 0);
 			}
-		});	
+		});
 		profileMenu.add(accountButton);
-		
-		logoutButton = createMenuButton("Log out");	
+	}
+
+	public void generateLogoutButton() {
+		logoutButton = createMenuButton("Log out");
 		logoutButton.setBounds(0, 134, 188, 40);
 		logoutButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				profileMenu.setSize(188, 175);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				profileMenu.setSize(0, 0);
 			}
-		});	
+		});
 		profileMenu.add(logoutButton);
-		
+	}
+
+	public void generateSettingsButton() {
 		settingsButton = createMenuButton("Settings");
 		settingsButton.setBounds(0, 94, 188, 40);
 		settingsButton.addMouseListener(new MouseAdapter() {
@@ -176,21 +208,19 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			public void mouseEntered(MouseEvent e) {
 				profileMenu.setSize(188, 175);
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				profileMenu.setSize(0, 0);
 			}
-		});	
+		});
 		profileMenu.add(settingsButton);
-	
-		
 	}
+
 	/**
 	 * Overrides the actionPerformed method from ActionListener interface. 
 	 * @param e event to be processed. 
 	 */
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==logoutButton) {
@@ -205,14 +235,12 @@ public class Dashboard implements ActionListener, DashboardGUI{
 			new ThirdYearCourses();
 			frame.dispose();
 		}
-
 	}
 	/**
 	 * Creates the taskbar and applies layout. 
 	 * @param name The name of the taskbar button. 
 	 * @return The taskbar button 
 	 */
-
 	public JButton createTaskbarButton(String name) {
 		JButton taskbarButton = new JButton(name);
 		taskbarButton.setText(name);
@@ -280,8 +308,4 @@ public class Dashboard implements ActionListener, DashboardGUI{
 		menuPanel.setBackground(new Color(70, 99, 172));
 		return menuPanel;
 	}
-
-	
-
-
 }
