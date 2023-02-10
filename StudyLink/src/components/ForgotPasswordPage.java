@@ -1,6 +1,6 @@
 package components;
-import helpers.BoundField;
-import helpers.Bounds;
+import helpers.*;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,7 +60,10 @@ public class ForgotPasswordPage implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        success.setText("An email has been sent with instructions on how to reset your password.");
+        if(UserList.authemail(userText.getText()) ){
+            System.out.println("Your password is :" + UserList.passwords.get(UserList.instance.x));
+        }
+        
         new LoginPage();
         frame.setVisible(false);
     }
