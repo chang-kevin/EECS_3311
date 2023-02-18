@@ -10,6 +10,7 @@ public class ForgotPassword extends JFrame {
     private JTextField textField2;
     private JLabel EmailAddress;
     private JLabel ForgotPasswordTitle;
+    private JButton GoBack;
     private JButton btnClick;
 
     public ForgotPassword() {
@@ -21,6 +22,7 @@ public class ForgotPassword extends JFrame {
         setLocationRelativeTo(null);
 
         setUpResetBtn();
+        setUpGoBackBtn();
     }
 
     private void setUpResetBtn() {
@@ -33,6 +35,16 @@ public class ForgotPassword extends JFrame {
                 }
 
                 JOptionPane.showMessageDialog(btnClick, "Please check your email for a code");
+                cleanUpFrame();
+                new Login();
+            }
+        });
+    }
+
+    private void setUpGoBackBtn() {
+        GoBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 cleanUpFrame();
                 new Login();
             }
