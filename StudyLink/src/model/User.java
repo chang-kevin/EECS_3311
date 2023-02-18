@@ -10,17 +10,16 @@ public class User {
     private DOB dob;
     private String uniqueID ;
 
-
-    public User(String name, String emailid, String password, String lname, DOB dob) {
-        this.fname = name;
+    public User(String firstName, String lastName, String emailid, String password, DOB dob) {
+        this.fname = firstName;
         this.emailid = emailid;
         this.password = password;
-        this.lname = lname;
+        this.lname = lastName;
         this.dob = dob;
         this.uniqueID = UUID.randomUUID().toString();
     }
 
-    public User(String name, String emailId, String password, String lname){
+    public User(String name, String lname, String emailId, String password){
         this.fname = name;
         this.emailid = emailId;
         this.password = password;
