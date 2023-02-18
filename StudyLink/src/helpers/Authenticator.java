@@ -1,7 +1,7 @@
 package helpers;
 
 import model.User;
-import view.UserList;
+import model.UserList;
 
 public class Authenticator {
     public static boolean authenticateUser(String email, String password) {
