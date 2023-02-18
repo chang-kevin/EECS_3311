@@ -1,7 +1,7 @@
-package components;
+package view;
 import helpers.*;
-import domainobjects.Course;
-import domainobjects.CourseList;
+import model.Course;
+import model.CourseList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.*;

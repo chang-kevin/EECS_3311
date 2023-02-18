@@ -1,4 +1,4 @@
-package components.dashboard;
+package view.dashboard;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;

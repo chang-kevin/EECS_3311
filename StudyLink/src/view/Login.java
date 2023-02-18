@@ -1,6 +1,6 @@
-package components;
+package view;
 
-import components.dashboard.Dashboard;
+import view.dashboard.Dashboard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

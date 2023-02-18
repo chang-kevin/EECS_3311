@@ -30,7 +30,7 @@ First meeting (discord) held on Feb. 3
   
 [Feb. 5]: Finalised the concept of the Dashboard Page
           Dashboard Page Layout complete 
- 	  Added login page components
+ 	  Added login page view
           Domain Objects setup complete
 
 [Feb. 6]: Added the Forgot Password feature to the SignUp Page

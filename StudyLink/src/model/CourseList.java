@@ -1,4 +1,4 @@
-package domainobjects;
+package model;
 import java.util.*;
 
 public class CourseList {

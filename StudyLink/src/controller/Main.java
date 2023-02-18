@@ -1,4 +1,6 @@
-import components.Login;
+package controller;
+
+import view.Login;
 
 import javax.swing.*;
 

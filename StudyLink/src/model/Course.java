@@ -1,4 +1,4 @@
-package domainobjects;
+package model;
 public class Course {
     private int coursenumber;
     private String coursename;

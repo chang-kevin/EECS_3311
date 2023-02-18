@@ -1,10 +1,10 @@
-package components.dashboard;
+package view.dashboard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import components.*;
+import view.*;
 
 public class Dashboard implements ActionListener, DashboardGUI{
 

@@ -1,4 +1,4 @@
-package components.dashboard;
+package view.dashboard;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;

@@ -10,7 +10,7 @@ EECS 3311 team repository
 
 ### Feb 8
 - Update Upload function (Manasvi)
-- Update GUI components (Kevin)
+- Update GUI view (Kevin)
 - Refactored Dashboard pages (Angela) 
 
 ### Feb 7
@@ -36,5 +36,5 @@ EECS 3311 team repository
 ## Built with
 
 - Java: Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.
-- Java Swing: Graphical User Interface (GUI) toolkit that includes the GUI components. Swing provides a rich set of widgets and packages to make sophisticated GUI components for Java applications. 
+- Java Swing: Graphical User Interface (GUI) toolkit that includes the GUI view. Swing provides a rich set of widgets and packages to make sophisticated GUI view for Java applications. 
 

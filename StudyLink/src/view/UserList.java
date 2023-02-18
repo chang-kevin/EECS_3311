@@ -1,6 +1,6 @@
-package components;
+package view;
 
-import domainobjects.*;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
