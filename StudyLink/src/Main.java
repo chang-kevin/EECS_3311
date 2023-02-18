@@ -1,14 +1,10 @@
-import components.*;
-import domainobjects.*;
+import components.Login;
 
+import javax.swing.*;
 
-public class Main {
+public class Main extends JFrame {
     public static void main(String[] args) {
-        new LoginPage();
-
-
-        
-       
+        new Login();
     }}
 
 

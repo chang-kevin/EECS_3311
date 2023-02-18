@@ -108,7 +108,7 @@ public class SignUp implements ActionListener{
                 newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText());
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
-                new LoginPage();
+                new Login();
                 frame.dispose();
             }
             
@@ -123,7 +123,7 @@ public class SignUp implements ActionListener{
                 newUser = new User(fNameText.getText(), emailText.getText(), passwordText.getText(), lNameText.getText(), birthDate);
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
-                new LoginPage(); //go back to the login page
+                new Login(); //go back to the login page
                 frame.dispose(); //delete the current frame
                 System.out.println("Added to userlist");
             }
