@@ -76,6 +76,8 @@ public class SignUp implements ActionListener{
         Bounds signUpBtnBounds = new Bounds(80, 300, 70, 25);
         submitBtn = this.generateButtonComponent("Submit", signUpBtnBounds);
         panel.add(submitBtn);
+
+        frame.setLocationRelativeTo(null);
     }
 
     /**

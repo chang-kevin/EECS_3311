@@ -24,6 +24,7 @@ public class Login extends JFrame {
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
+        setLocationRelativeTo(null);
 
         setUpLoginBtn();
         setUpSignUpBtn();
