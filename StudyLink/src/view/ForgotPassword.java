@@ -27,15 +27,21 @@ public class ForgotPassword extends JFrame {
         ResetPasswordBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (textField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(btnClick, "Please enter a valid email address");
+                    return;
+                }
+
                 JOptionPane.showMessageDialog(btnClick, "Please check your email for a code");
-                clearFields();
-                setVisible(false);
+                cleanUpFrame();
                 new Login();
             }
         });
     }
 
-    private void clearFields() {
+    private void cleanUpFrame() {
+        dispose();
+        setVisible(false);
         textField2.setText("");
     }
 }

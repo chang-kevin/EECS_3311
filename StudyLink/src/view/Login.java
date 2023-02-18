@@ -1,5 +1,6 @@
 package view;
 
+import helpers.Authenticator;
 import view.dashboard.Dashboard;
 
 import javax.swing.*;
@@ -67,13 +68,14 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                dispose();
                 new ForgotPassword();
             }
         });
     }
 
     private boolean isUserAuthenticated() {
-        return UserList.getInstance().authenticateUser(textField2.getText(), passwordField1.getText());
+        return Authenticator.authenticateUser(textField2.getText(), passwordField1.getText());
     }
 
     private void clearFields() {

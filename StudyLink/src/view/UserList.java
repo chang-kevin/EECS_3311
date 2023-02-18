@@ -9,10 +9,7 @@ public class UserList {
     private static UserList userList;
     private static Map<String, User> userMap = new HashMap<>();
 
-    private  UserList() {
-        // generate admins (this should be in a helper class)
-
-    };
+    private  UserList() {};
 
     public static synchronized UserList getInstance() {
         if (userList == null) {
@@ -25,17 +22,7 @@ public class UserList {
         userMap.put(user.getEmail(), user);
     }
 
-    // this should be in a different class
-    public boolean authenticateUser(String email, String password) {
-        User user = userMap.get(email);
-        if (user != null) {
-            return user.getPassword().equals(password);
-        }
-        return false;
-    }
-
-    public User search(String email) {
-        User user = userMap.get(email);
-        return user;
+    public User getUser(String email) {
+        return userMap.get(email);
     }
 }
