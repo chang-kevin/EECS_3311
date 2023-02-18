@@ -105,7 +105,7 @@ public class SignUp implements ActionListener{
 
             //If the DOB field is empty then generate a new user object without the DOB parameter.
             else if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
-                newUser = new User(fNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()), lNameText.getText());
+                newUser = new User(fNameText.getText(), lNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()));
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
                 new Login();
@@ -120,7 +120,7 @@ public class SignUp implements ActionListener{
                 int year = Integer.parseInt(userDOB.getYearItem());
 
                 DOB birthDate = new DOB(date, month, year);
-                newUser = new User(fNameText.getText(), emailText.getText(), passwordText.getText(), lNameText.getText(), birthDate);
+                newUser = new User(fNameText.getText(), lNameText.getText(), emailText.getText(), passwordText.getText(), birthDate);
                 UserList.emails.add(emailText.getText());
                 UserList.passwords.add(passwordText.getText());
                 new Login(); //go back to the login page
