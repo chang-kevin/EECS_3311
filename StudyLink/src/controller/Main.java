@@ -1,7 +1,6 @@
 package controller;
 
 import view.Login;
-import view.CourseList;
 
 import javax.swing.*;
 
