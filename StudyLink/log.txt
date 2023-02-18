@@ -5,15 +5,15 @@ First meeting (discord) held on Feb. 3
 [Feb. 3] [duration: 82 minutes]
 { 
   Distributed development tasks amongst the group members
-  Login page - Ammiel Cruz		
+  SignUp page - Ammiel Cruz
   Sign Up page - Manasvi Jain
   Dashboard page - Angela Manalo and Kevin Chang 
   Domain specific objects - Yuvtesh Mann 
   
   Times originally allocated for each developmental tasks
-	Login Page (5 days)
+	SignUp Page (5 days)
 	Sign Up Page (3 days)
-	Login (3 days)
+	SignUp (3 days)
 	Forgot/change password (3 days)
 	Dashboard page (7 days)
 	Access a collection of resources (5 days)
@@ -24,7 +24,7 @@ First meeting (discord) held on Feb. 3
 	Domain specific objects (2 days)
 }
  
-[Feb. 4]: Login Page UI complete
+[Feb. 4]: SignUp Page UI complete
 	  Setup the Forgot Password feature UI page
 	  Finalised the concept of the Sign Up page
   
@@ -33,20 +33,20 @@ First meeting (discord) held on Feb. 3
  	  Added login page components
           Domain Objects setup complete
 
-[Feb. 6]: Added the Forgot Password feature to the Login Page
+[Feb. 6]: Added the Forgot Password feature to the SignUp Page
           Added a frame for the 3000-level Courses
           Created class diagram which was a subject for changes later
 
 Second meeting (in-person) held on [Feb. 7] [duration: 119 minutes]
 { 
-  Discussed about progress made: Login Page (completed)
+  Discussed about progress made: SignUp Page (completed)
   Dashboard Page (completed)
   Domain Objects (completed)
-  Making minor changes to the Login Page and Dashboard Page
+  Making minor changes to the SignUp Page and Dashboard Page
   Decided to implement only the 3000-level courses button                                                                                                                } 
 
 [Feb. 7]: Sign Up page completed
-          Added the signup feature to the Login Page
+          Added the signup feature to the SignUp Page
   	  Added the course resources feature to the Dashboard Page
           Created basic add File feature which is a basic uploading functionality
 
@@ -60,9 +60,9 @@ Third meeting held on Feb. 9 [duration: 110 minutes]
   Decided to not include User stories : Rating the study material and Reporting the study materials, due to time constraints and reached a general consensus that those   user stories were less important compared to other main features, and therefore pushed those to Iteration 2.
 }
 
-[Feb. 9]: Added Login error messages to cover edge cases
+[Feb. 9]: Added SignUp error messages to cover edge cases
           Made some final changes to the Dashboard pages and fixed some minor   bugs
-          Refactored the Login Flow
+          Refactored the SignUp Flow
           Updated the Database stub classes
           Updated and finalised the class diagram of our system
           Added Wiki for our github repo
@@ -71,9 +71,9 @@ Third meeting held on Feb. 9 [duration: 110 minutes]
 
 
 Actual time spent on each developmental task:
-	Login Page (5 days)
+	SignUp Page (5 days)
 	Sign Up Page (4 days)
-	Login (4 days)
+	SignUp (4 days)
 	Forgot/change password (2 days)
 	Dashboard page (7 days)
 	Access a collection of resources (5 days)

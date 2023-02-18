@@ -3,7 +3,7 @@ EECS 3311 team repository
 
 ### Feb 9
 - Refactored Dashboard (Kevin/Angela)
-- Refactored Login Flow (Ammiel)
+- Refactored SignUp Flow (Ammiel)
 - Update Datastub stub classes (Yuvi)
 - Finalized Dashboard pages (Angela)
 - Updated Class Diagram (Yuvi)
@@ -30,7 +30,7 @@ EECS 3311 team repository
 
 ### Feb 4
 - Forgot password Page setup (Ammiel)
-- Login Page setup (Ammiel)
+- SignUp Page setup (Ammiel)
 - Finalize SignUp Page (Manasvi)
 
 ## Built with
