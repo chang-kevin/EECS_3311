@@ -224,7 +224,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==logoutButton) {
-			new LoginPage(); // takes the user back to the login page
+			new Login(); // takes the user back to the login page
 			frame.dispose();
 		}
 		if(e.getSource() == addCourse) {
