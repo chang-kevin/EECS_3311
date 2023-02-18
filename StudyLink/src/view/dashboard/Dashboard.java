@@ -34,6 +34,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 		name_bg = createPanel();
 		frame = createFrame("Dashboard");
 		frame.getContentPane().add(name_bg);
+		frame.setLocationRelativeTo(null);
 
 		this.generateTaskbar();
 		this.generateAddButton();

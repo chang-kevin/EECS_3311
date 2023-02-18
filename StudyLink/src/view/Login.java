@@ -40,13 +40,10 @@ public class Login extends JFrame {
                     return;
                 }
 
-                // refactor this
-                if (authenticateUser()) {
-                    if (UserList.instance.x == UserList.instance.y) {
-                        setVisible(false);
-                        new Dashboard();
-                        return;
-                    }
+                if (isUserAuthenticated()) {
+                    setVisible(false);
+                    new Dashboard();
+                    return;
                 }
 
                 JOptionPane.showMessageDialog(btnClick, "The username or password is incorrect.");
@@ -75,10 +72,8 @@ public class Login extends JFrame {
         });
     }
 
-    private boolean authenticateUser() {
-        boolean hasUsername = UserList.authemail(textField2.getText());
-        boolean hasUserPassword = UserList.authpass(passwordField1.getText());
-        return hasUsername && hasUserPassword;
+    private boolean isUserAuthenticated() {
+        return UserList.getInstance().authenticateUser(textField2.getText(), passwordField1.getText());
     }
 
     private void clearFields() {

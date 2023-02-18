@@ -108,14 +108,13 @@ public class SignUp implements ActionListener{
             //If the DOB field is empty then generate a new user object without the DOB parameter.
             else if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
                 newUser = new User(fNameText.getText(), lNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()));
-                UserList.emails.add(emailText.getText());
-                UserList.passwords.add(passwordText.getText());
+                UserList.getInstance().addUser(newUser);
                 new Login();
                 frame.dispose();
             }
             
             //If the DOB field is filled then generate a new user object with the DOB parameter.
-            else{
+            else {
                 //getting the DOB combo box contents
                 int date = Integer.parseInt(userDOB.getDateItem());
                 int month = userDOB.getMonthItem();
@@ -123,11 +122,10 @@ public class SignUp implements ActionListener{
 
                 DOB birthDate = new DOB(date, month, year);
                 newUser = new User(fNameText.getText(), lNameText.getText(), emailText.getText(), passwordText.getText(), birthDate);
-                UserList.emails.add(emailText.getText());
-                UserList.passwords.add(passwordText.getText());
-                new Login(); //go back to the login page
+                UserList.getInstance().addUser(newUser);
+
+                new Login();
                 frame.dispose(); //delete the current frame
-                System.out.println("Added to userlist");
             }
         }
     }

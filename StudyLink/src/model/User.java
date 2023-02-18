@@ -27,7 +27,7 @@ public class User {
         this.uniqueID = UUID.randomUUID().toString();
     }
 
-    public String getEmailid() {
+    public String getEmail() {
         return emailid;
     }
 
