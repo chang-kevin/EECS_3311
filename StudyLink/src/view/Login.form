@@ -18,7 +18,7 @@
         <properties>
           <background color="-1"/>
           <foreground color="-13959103"/>
-          <text value="SignUp"/>
+          <text value="Login"/>
         </properties>
       </component>
       <component id="1e476" class="javax.swing.JTextField" binding="textField2" default-binding="true">

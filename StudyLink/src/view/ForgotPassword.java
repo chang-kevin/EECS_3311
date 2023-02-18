@@ -18,6 +18,7 @@ public class ForgotPassword extends JFrame {
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
+        setLocationRelativeTo(null);
 
         setUpResetBtn();
     }
