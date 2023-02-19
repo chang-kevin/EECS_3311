@@ -8,8 +8,8 @@ public class User {
     private String password;
     private String lname;
     private DOB dob;
-    private String uniqueID;
-    private String role;
+    private final String uniqueID;
+    private final String role;
 
     public User(String firstName, String lastName, String emailid, String password, DOB dob, String role) {
         this.fname = firstName;
@@ -27,7 +27,7 @@ public class User {
         this.password = password;
         this.lname = lastName;
         this.uniqueID = UUID.randomUUID().toString();
-        this.role = "Student";
+        this.role = UserRole.STUDENT;
     }
 
     public String getRole() {
