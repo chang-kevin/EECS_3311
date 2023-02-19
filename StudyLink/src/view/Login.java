@@ -23,6 +23,7 @@ public class Login extends JFrame {
         setVisible(true);
         setTitle("StudyLink");
         setContentPane(panel1);
+        pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
         setLocationRelativeTo(null);
