@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpPage extends JFrame {
+public class SignUp extends JFrame {
     private JTextField emailField;
     private JTextField firstNameField;
     private JTextField lastNameField;
@@ -22,7 +22,7 @@ public class SignUpPage extends JFrame {
     private JLabel signUpTitle;
     private JPanel signUpPanel;
 
-    public SignUpPage() {
+    public SignUp() {
         setVisible(true);
         setTitle("StudyLink");
         setContentPane(signUpPanel);

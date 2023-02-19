@@ -59,7 +59,7 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new SignUpPage();
+                new SignUp();
             }
         });
     }
