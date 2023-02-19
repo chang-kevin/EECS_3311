@@ -108,9 +108,14 @@ public class SignUp implements ActionListener{
             //If the DOB field is empty then generate a new user object without the DOB parameter.
             else if(userDOB.getDateItem() == " " || userDOB.getYearItem() == " "){
                 newUser = new User(fNameText.getText(), lNameText.getText(), emailText.getText(), String.valueOf(passwordText.getText()));
-                UserList.getInstance().addUser(newUser);
-                new Login();
-                frame.dispose();
+
+                try {
+                    UserList.getInstance().addUser(newUser);
+                    new Login();
+                    frame.dispose();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
             
             //If the DOB field is filled then generate a new user object with the DOB parameter.
@@ -122,7 +127,13 @@ public class SignUp implements ActionListener{
 
                 DOB birthDate = new DOB(date, month, year);
                 newUser = new User(fNameText.getText(), lNameText.getText(), emailText.getText(), passwordText.getText(), birthDate);
-                UserList.getInstance().addUser(newUser);
+                try {
+                    UserList.getInstance().addUser(newUser);
+                    new Login();
+                    frame.dispose();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
 
                 new Login();
                 frame.dispose(); //delete the current frame

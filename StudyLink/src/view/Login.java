@@ -36,7 +36,7 @@ public class Login extends JFrame {
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textField2.getText().equals("") && passwordField1.getText().equals("")) {
+                if (textField2.getText().isBlank() && passwordField1.getText().isBlank()) {
                     JOptionPane.showMessageDialog(btnClick, "Please enter both the username and password.");
                     return;
                 }
@@ -58,7 +58,7 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new SignUp();
+                new SignUpPage();
             }
         });
     }

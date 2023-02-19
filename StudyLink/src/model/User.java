@@ -19,11 +19,11 @@ public class User {
         this.uniqueID = UUID.randomUUID().toString();
     }
 
-    public User(String name, String lname, String emailId, String password){
-        this.fname = name;
+    public User(String firstName, String lastName, String emailId, String password) {
+        this.fname = firstName;
         this.emailid = emailId;
         this.password = password;
-        this.lname = lname;
+        this.lname = lastName;
         this.uniqueID = UUID.randomUUID().toString();
     }
 
