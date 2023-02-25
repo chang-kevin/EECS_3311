@@ -181,6 +181,15 @@ public class Dashboard implements ActionListener, DashboardGUI{
 				profileMenu.setSize(0, 0);
 			}
 		});
+
+		accountButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.dispose();
+				new AccountManagement();
+			}
+		});
 		profileMenu.add(accountButton);
 	}
 
