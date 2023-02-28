@@ -26,7 +26,7 @@ public class Course {
         return courseCode;
     }
 
-    public void info(){
+    public void info() {
         System.out.println("course number:" + courseCode + " course name:" + courseName + " year level:" + yearlevel);
     }
 
