@@ -2,6 +2,7 @@ package helpers.Authenticator;
 
 import model.User;
 import model.UserList;
+import model.UserRole;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +16,13 @@ class AuthenticatorTest {
             String password1 = "12345";
             String password2 = "67890";
 
-            User userJohn = new User("John", "Doe", email1, password1);
+            User userJohn = new User.UserBuilder(email1, password1)
+                    .setEmail(email1)
+                    .setFirstName("John")
+                    .setLastName("Doe")
+                    .setRole(UserRole.STUDENT)
+                    .build();
+
             UserList userList = UserList.getInstance();
             userList.addUser(userJohn);
 
