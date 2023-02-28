@@ -1,6 +1,6 @@
 package view;
 
-import helpers.Authenticator;
+import helpers.Authenticator.Authenticator;
 import view.dashboard.Dashboard;
 
 import javax.swing.*;
