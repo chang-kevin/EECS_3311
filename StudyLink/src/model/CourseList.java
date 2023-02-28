@@ -23,7 +23,7 @@ public class CourseList {
         for (Iterator<Course> i = courses.iterator();
              i.hasNext(); ) {
             Course course = i.next();
-            if (course.getCoursenumber() == coursenumber ){
+            if (course.getCourseCode() == coursenumber ){
                 System.out.print("Result of the search :" );
                 course.info();
             } }
@@ -34,7 +34,7 @@ public class CourseList {
         for (Iterator<Course> i = courses.iterator();
              i.hasNext(); ) {
             Course course = i.next();
-            if (course.getCoursename().matches(coursename) ){
+            if (course.getCourseName().matches(coursename) ){
                 System.out.print("Result of the search:" );
                 course.info();
             } }
