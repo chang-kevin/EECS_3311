@@ -1,4 +1,4 @@
-package helpers;
+package helpers.Authenticator;
 
 import model.User;
 import model.UserList;
