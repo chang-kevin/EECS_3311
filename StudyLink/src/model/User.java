@@ -47,6 +47,7 @@ public class User {
         this.uniqueId = builder.uniqueId;
         this.role = builder.role;
     }
+
     public static class UserBuilder {
         private String username;
         private String password;
