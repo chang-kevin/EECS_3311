@@ -10,6 +10,7 @@ public abstract class Logger {
     public void log(LogLevel level, String message) {
         if (level.ordinal() >= this.getLogLevel().ordinal()) {
             this.write(message);
+            return;
         }
 
         if (next != null) {
