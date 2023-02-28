@@ -1,79 +1,104 @@
 package model;
 
-import java.util.UUID;
-
+/**
+ * Implementation of the User class using the Builder design pattern.
+ */
 public class User {
-    private String fname;
-    private String emailid;
+    private String username;
     private String password;
-    private String lname;
-    private DOB dob;
-    private final String uniqueID;
+    private String firstName;
+    private String lastName;
+    private DOB dateOfBirth;
+    private String email;
+    private String uniqueId;
     private final String role;
 
-    public User(String firstName, String lastName, String emailid, String password, DOB dob, String role) {
-        this.fname = firstName;
-        this.emailid = emailid;
-        this.password = password;
-        this.lname = lastName;
-        this.dob = dob;
-        this.uniqueID = UUID.randomUUID().toString();
-        this.role = role;
+    public String getUsername() {
+        return username;
     }
 
-    public User(String firstName, String lastName, String emailId, String password) {
-        this.fname = firstName;
-        this.emailid = emailId;
-        this.password = password;
-        this.lname = lastName;
-        this.uniqueID = UUID.randomUUID().toString();
-        this.role = UserRole.STUDENT;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
     }
 
     public String getRole() {
         return role;
     }
 
-    public String getEmail() {
-        return emailid;
+    private User(UserBuilder builder) {
+        this.username = builder.username;
+        this.password = builder.password;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.dateOfBirth = builder.dateOfBirth;
+        this.email = builder.email;
+        this.uniqueId = builder.uniqueId;
+        this.role = builder.role;
     }
+    public static class UserBuilder {
+        private String username;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private DOB dateOfBirth;
+        private String role;
+        private String uniqueId;
 
-    public String getFName() {
-        return fname;
-    }
+        public UserBuilder(String email, String password) {
+            this.email = email;
+            this.password = password;
+        }
 
-    public void setFName(String name) {
-        this.fname = name;
-    }
+        public UserBuilder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
 
-    public void setEmailid(String emailid) {
-        this.emailid = emailid;
-    }
+        public UserBuilder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public UserBuilder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
 
-    public String getPassword() {
-        return password;
-    }
+        public UserBuilder setDOB(DOB dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
 
-    public DOB getDob() {
-        return dob;
-    }
+        public UserBuilder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
 
-    public String getLname() {
-        return lname;
-    }
+        public UserBuilder setRole(String role) {
+            this.role = role;
+            return this;
+        }
 
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
+        public UserBuilder setUniqueId(String uniqueId) {
+            this.uniqueId = uniqueId;
+            return this;
+        }
 
-    public String getUniqueID() {
-        return this.uniqueID;
-    }
-    public void accountinfo(){
-        System.out.println("fname:" + fname + " lname:" + lname + " email: " + emailid + " dob:" + dob.toString());
+        public User build() {
+            return new User(this);
+        }
     }
 }
