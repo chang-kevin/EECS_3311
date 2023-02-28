@@ -1,5 +1,7 @@
 package model;
 
+import java.util.UUID;
+
 /**
  * Implementation of the User class using the Builder design pattern.
  */
@@ -10,7 +12,7 @@ public class User {
     private String lastName;
     private DOB dateOfBirth;
     private String email;
-    private String uniqueId;
+    private final String uniqueId;
     private final String role;
 
     public String getUsername() {
@@ -44,7 +46,7 @@ public class User {
         this.lastName = builder.lastName;
         this.dateOfBirth = builder.dateOfBirth;
         this.email = builder.email;
-        this.uniqueId = builder.uniqueId;
+        this.uniqueId = UUID.randomUUID().toString();
         this.role = builder.role;
     }
 
@@ -56,7 +58,6 @@ public class User {
         private String email;
         private DOB dateOfBirth;
         private String role;
-        private String uniqueId;
 
         public UserBuilder(String email, String password) {
             this.email = email;
@@ -90,11 +91,6 @@ public class User {
 
         public UserBuilder setRole(String role) {
             this.role = role;
-            return this;
-        }
-
-        public UserBuilder setUniqueId(String uniqueId) {
-            this.uniqueId = uniqueId;
             return this;
         }
 
