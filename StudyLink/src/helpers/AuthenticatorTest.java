@@ -2,6 +2,7 @@ package helpers;
 
 import model.User;
 import model.UserList;
+import model.UserRole;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +20,7 @@ class AuthenticatorTest {
                     .setEmail(email1)
                     .setFirstName("John")
                     .setLastName("Doe")
-                    .setRole("Student")
+                    .setRole(UserRole.STUDENT)
                     .build();
 
             UserList userList = UserList.getInstance();

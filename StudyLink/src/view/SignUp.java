@@ -2,6 +2,7 @@ package view;
 
 import model.User;
 import model.UserList;
+import model.UserRole;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,7 @@ public class SignUp extends JFrame {
                             .setUsername(emailField.getText())
                             .setFirstName(firstNameField.getText())
                             .setLastName(lastNameField.getText())
+                            .setRole(UserRole.STUDENT)
                             .build();
                     try {
                         UserList.getInstance().addUser(user);
