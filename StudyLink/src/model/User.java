@@ -15,6 +15,10 @@ public class User {
     private final String uniqueId;
     private final String role;
 
+    public String getPassword() {
+        return password;
+    }
+
     public String getUsername() {
         return username;
     }
