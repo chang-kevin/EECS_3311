@@ -8,9 +8,11 @@ public interface CourseDAO {
 
     public void delete(int id) throws SQLException;
 
-    public Course getCourse(int id) throws SQLException;
+    public Course getCourseById(int id) throws SQLException;
 
-    public List<Course> getCourses() throws SQLException;
+    public List<Course> getAllCourses() throws SQLException;
+
+    public List<Course> searchCourse(String courseColumn) throws SQLException;
 
     public void update(Course course) throws SQLException;
 }

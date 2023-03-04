@@ -16,7 +16,7 @@ public class UploadFile implements ActionListener{
     private JButton submit;
     private JComboBox courseYear;
 
-    public UploadFile(){
+    public UploadFile() {
         JFrame frame = new JFrame();
         frame.setBounds(100, 100, 850, 550);
         frame.setLayout(null);

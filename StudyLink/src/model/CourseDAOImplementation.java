@@ -31,7 +31,7 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     @Override
-    public Course getCourse(int id) throws SQLException {
+    public Course getCourseById(int id) throws SQLException {
         String query = "select * from courses where course_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, id);
@@ -56,9 +56,31 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     @Override
-    public List<Course> getCourses() throws SQLException {
+    public List<Course> getAllCourses() throws SQLException {
         String query = "select * from courses";
         PreparedStatement ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        List<Course> lc = new ArrayList<>();
+
+        while (rs.next()) {
+            int courseId = rs.getInt("course_id");
+            Course course = new Course.CourseBuilder(courseId)
+                    .setCourseName(rs.getString("name"))
+                    .setCourseDesc(rs.getString("description"))
+                    .setCourseCode(rs.getString("course_code"))
+                    .build();
+            lc.add(course);
+        }
+        return lc;
+    }
+
+    @Override
+    public List<Course> searchCourse(String courseColumn) throws SQLException {
+        String query = "select * from courses where name like ? or id like ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, courseColumn);
+        ps.setString(2, courseColumn);
+
         ResultSet rs = ps.executeQuery();
         List<Course> lc = new ArrayList<>();
 
