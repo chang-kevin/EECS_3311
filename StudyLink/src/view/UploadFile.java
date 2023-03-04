@@ -1,7 +1,7 @@
 package view;
 import helpers.*;
 import model.Course;
-import model.CourseList;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.*;
@@ -15,7 +15,7 @@ public class UploadFile implements ActionListener{
     private JButton fileChoose;
     private JButton submit;
     private JComboBox courseYear;
-    private CourseList courseList;
+
     public UploadFile(){
         JFrame frame = new JFrame();
         frame.setBounds(100, 100, 850, 550);
