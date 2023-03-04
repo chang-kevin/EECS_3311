@@ -19,7 +19,7 @@ public class CoursePage {
         CourseDAOImplementation courseDao = new CourseDAOImplementation();
         Course course = null;
         try {
-            course = courseDao.getCourse(courseId);
+            course = courseDao.getCourseById(courseId);
             System.out.println("course" + course.getCourseDesc());
         } catch (SQLException e) {
             throw new RuntimeException(e);
