@@ -1,4 +1,4 @@
-package model;
+package model.User;
 
 public class UserRole {
     public static final String ADMIN = "admin";
