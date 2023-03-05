@@ -4,7 +4,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-public class BoundField{
+/**
+ * Factory that generates label, field, and password components.
+ */
+public class ComponentFactory {
     /**
      * Generate Label component
      * @param componentLabel Name of the label.

@@ -1,5 +1,8 @@
 package helpers.Logger;
 
+/**
+ * Logger class that implements the chain of responsibility design pattern.
+ */
 public abstract class Logger {
     private Logger next;
 

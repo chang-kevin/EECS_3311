@@ -1,10 +1,13 @@
-package helpers;
+package model.User;
+import helpers.Bounds;
+import helpers.ComponentFactory;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-public class userDOB{
+public class userDOB {
     private String[] datesList;
     private String[] monthsShortList;
     private String[] years;
