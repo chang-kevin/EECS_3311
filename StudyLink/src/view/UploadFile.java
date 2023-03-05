@@ -1,6 +1,6 @@
 package view;
 import helpers.*;
-import model.Course;
+import model.Course.Course;
 
 import java.util.ArrayList;
 import java.util.Calendar;

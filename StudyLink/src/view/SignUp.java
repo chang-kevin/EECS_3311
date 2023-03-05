@@ -1,8 +1,8 @@
 package view;
 
-import model.User;
-import model.UserList;
-import model.UserRole;
+import model.User.User;
+import model.User.UserList;
+import model.User.UserRole;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

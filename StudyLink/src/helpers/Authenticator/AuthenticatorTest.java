@@ -1,8 +1,8 @@
 package helpers.Authenticator;
 
-import model.User;
-import model.UserList;
-import model.UserRole;
+import model.User.User;
+import model.User.UserList;
+import model.User.UserRole;
 
 import static org.junit.jupiter.api.Assertions.*;
 

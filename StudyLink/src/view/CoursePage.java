@@ -1,7 +1,7 @@
 package view;
 
-import model.Course;
-import model.CourseDAOImplementation;
+import model.Course.Course;
+import model.Course.CourseDAOImplementation;
 
 import javax.swing.*;
 import java.sql.SQLException;

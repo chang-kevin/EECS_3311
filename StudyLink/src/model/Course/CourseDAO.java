@@ -1,4 +1,4 @@
-package model;
+package model.Course;
 
 import java.sql.SQLException;
 import java.util.List;
