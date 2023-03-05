@@ -15,13 +15,10 @@ import java.awt.event.*;
  */
 
 public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
-
 	JPanel courses;
 	private Dashboard dashboard;
 	private JButton eecs_3311;
-
 	private JLabel header;
-	
 	public ThirdYearCourses(){
 
 		dashboard = new Dashboard();
@@ -41,7 +38,6 @@ public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
 		separator.setForeground(new Color(133, 153, 205));
 		separator.setBounds(60, 62, 732, 2);
 		courses.add(separator);
-		
 	}
 	
 	/**
@@ -50,7 +46,7 @@ public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==eecs_3311) {
+		if(e.getSource() == eecs_3311) {
 			dashboard.frame.dispose();
 			new CourseResource();
 		}
@@ -84,6 +80,4 @@ public class ThirdYearCourses implements CourseLevelDesign, ActionListener {
 		thePanel.setLayout(null);
 		return thePanel;
 	}
-
-
 }

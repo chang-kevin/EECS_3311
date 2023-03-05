@@ -8,8 +8,7 @@ import controller.AccountManagement;
 import controller.Login;
 import controller.UploadFile;
 
-public class Dashboard implements ActionListener, DashboardGUI{
-
+public class Dashboard implements ActionListener, DashboardGUI {
 	JFrame frame;
 	
 	private JPanel name_bg;

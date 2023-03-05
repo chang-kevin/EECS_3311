@@ -1,10 +1,12 @@
 package controller;
 
+import helpers.MainJFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ForgotPassword extends JFrame {
+public class ForgotPassword extends MainJFrame {
     private JPanel panel1;
     private JButton ResetPasswordBtn;
     private JTextField textField2;
@@ -14,14 +16,8 @@ public class ForgotPassword extends JFrame {
     private JButton btnClick;
 
     public ForgotPassword() {
-        setVisible(true);
-        setTitle("StudyLink");
+        super();
         setContentPane(panel1);
-        pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
-        setLocationRelativeTo(null);
-
         setUpResetBtn();
         setUpGoBackBtn();
     }
