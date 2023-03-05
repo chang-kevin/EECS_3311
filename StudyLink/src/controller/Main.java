@@ -7,7 +7,6 @@ import view.Login;
 import javax.swing.*;
 
 public class Main extends JFrame {
-    
     public static void main(String[] args) throws SQLException {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
