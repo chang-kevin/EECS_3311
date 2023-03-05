@@ -1,14 +1,15 @@
 package view;
 
 import helpers.Authenticator.Authenticator;
+import helpers.MainJFrame;
 import view.dashboard.Dashboard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends JFrame {
-    public JPanel panel1;
+public class Login extends MainJFrame {
+    public JPanel panel;
     private JButton Login;
     private JLabel Password;
     private JButton SignUp;
@@ -20,14 +21,8 @@ public class Login extends JFrame {
     private JButton btnClick;
 
     public Login() {
-        setVisible(true);
-        setTitle("StudyLink");
-        setContentPane(panel1);
-        pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
-        setLocationRelativeTo(null);
-
+        super();
+        setContentPane(panel);
         setUpLoginBtn();
         setUpSignUpBtn();
         setUpForgotPasswordBtn();
