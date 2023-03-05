@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import helpers.Authenticator.Authenticator;
 import helpers.MainJFrame;
