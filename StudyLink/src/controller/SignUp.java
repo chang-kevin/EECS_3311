@@ -1,5 +1,6 @@
-package view;
+package controller;
 
+import controller.Login;
 import model.User;
 import model.UserList;
 import model.UserRole;

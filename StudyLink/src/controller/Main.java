@@ -2,8 +2,6 @@ package controller;
 
 import java.sql.*;
 
-import view.Login;
-
 import javax.swing.*;
 
 public class Main extends JFrame {

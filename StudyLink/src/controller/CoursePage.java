@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import model.Course;
 import model.CourseDAOImplementation;
