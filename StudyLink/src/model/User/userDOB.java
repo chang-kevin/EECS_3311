@@ -18,7 +18,7 @@ public class userDOB {
 
     public userDOB(){
         Bounds dobBounds = new Bounds(50, 200, 50, 25);
-        dobLabel = BoundField.generateLabelComponent("DOB", dobBounds);
+        dobLabel = ComponentFactory.generateLabelComponent("DOB", dobBounds);
 
         this.datesList = generateDates();
         Bounds datesBounds = new Bounds(100, 200, 100, 25);

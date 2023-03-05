@@ -1,7 +1,7 @@
 package helpers.Authenticator;
 
-import model.User;
-import model.UserList;
+import model.User.User;
+import model.User.UserList;
 
 /**
  * Authenticates the user by checking if the user input password matches the known user

@@ -1,4 +1,4 @@
-package model;
+package model.Course;
 
 /**
  * Implementation of the Course class using the Builder design pattern.

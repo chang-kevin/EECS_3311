@@ -1,4 +1,6 @@
-package model;
+package model.User;
+
+import model.DOB;
 
 import java.util.UUID;
 
