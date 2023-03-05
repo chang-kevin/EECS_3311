@@ -23,35 +23,35 @@ public class UploadFile implements ActionListener{
         frame.setVisible(true);
 
         Bounds titleBounds = new Bounds(300, 0, 400, 30);
-        JLabel title = BoundField.generateLabelComponent("Add your study materials here", titleBounds);
+        JLabel title = ComponentFactory.generateLabelComponent("Add your study materials here", titleBounds);
         frame.add(title);
 
         Bounds fileNameBounds = new Bounds(10, 50, 300, 30);
-        JLabel fileName = BoundField.generateLabelComponent("Enter file name", fileNameBounds);
+        JLabel fileName = ComponentFactory.generateLabelComponent("Enter file name", fileNameBounds);
         frame.add(fileName);
 
         Bounds fileNameTextBounds = new Bounds(150, 50, 200, 30);
-        fileNameText = BoundField.generateFieldComponent(fileNameTextBounds);
+        fileNameText = ComponentFactory.generateFieldComponent(fileNameTextBounds);
         frame.add(fileNameText);
 
         Bounds courseListBounds = new Bounds(10, 100, 100, 30);
-        JLabel courseListLabel = BoundField.generateLabelComponent("Course Name", courseListBounds);
+        JLabel courseListLabel = ComponentFactory.generateLabelComponent("Course Name", courseListBounds);
         frame.add(courseListLabel);
 
         Bounds courseTextBounds = new Bounds(150, 100, 300, 30);
-        courseTextField = BoundField.generateFieldComponent(courseTextBounds);
+        courseTextField = ComponentFactory.generateFieldComponent(courseTextBounds);
         frame.add(courseTextField);
 
         Bounds instructorBounds = new Bounds(10, 150, 100, 30);
-        JLabel instructorLabel = BoundField.generateLabelComponent("Instructor", instructorBounds);
+        JLabel instructorLabel = ComponentFactory.generateLabelComponent("Instructor", instructorBounds);
         frame.add(instructorLabel);
 
         Bounds instructorTextBounds = new Bounds(100, 150, 200, 30);
-        instructorText = BoundField.generateFieldComponent(instructorTextBounds);
+        instructorText = ComponentFactory.generateFieldComponent(instructorTextBounds);
         frame.add(instructorText);
 
         Bounds courseYearBounds = new Bounds(10, 200, 100, 30);
-        JLabel courseYearLabel = BoundField.generateLabelComponent("Course Year", courseYearBounds);
+        JLabel courseYearLabel = ComponentFactory.generateLabelComponent("Course Year", courseYearBounds);
         frame.add(courseYearLabel);
 
         courseYear = new JComboBox(generateYears());

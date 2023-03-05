@@ -264,7 +264,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 	
 	/**
 	 * Creates a JFrame and applies layout. 
-	 * @param name The name of the frame. 
+	 * @param title The title of the frame.
 	 * @return the stylized frame
 	 */
 	public JFrame createFrame(String title) {
@@ -294,8 +294,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 	}
 	
 	/**
-	 * Creates a JPanel and applies layout. 
-	 * @param name The name of the panel. 
+	 * Creates a JPanel and applies layout.
 	 * @return the stylized panel
 	 */
 	public JPanel createPanel() {
@@ -307,8 +306,7 @@ public class Dashboard implements ActionListener, DashboardGUI{
 	}
 	
 	/**
-	 * Creates a JPanel for the menu and applies layout. 
-	 * @param name The name of the panel. 
+	 * Creates a JPanel for the menu and applies layout.
 	 * @return the stylized panel
 	 */
 	public JPanel createMenuPanel() {
