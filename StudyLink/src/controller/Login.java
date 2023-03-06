@@ -8,8 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends MainJFrame {
-    public JPanel panel;
+public class Login extends JFrame {
+    public JPanel panel1;
     private JButton Login;
     private JLabel Password;
     private JButton SignUp;
@@ -21,8 +21,14 @@ public class Login extends MainJFrame {
     private JButton btnClick;
 
     public Login() {
-        super();
-        setContentPane(panel);
+        setVisible(true);
+        setTitle("StudyLink");
+        setContentPane(panel1);
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 600);
+        setLocationRelativeTo(null);
+
         setUpLoginBtn();
         setUpSignUpBtn();
         setUpForgotPasswordBtn();
@@ -37,10 +43,14 @@ public class Login extends MainJFrame {
                     return;
                 }
 
-                if (isUserAuthenticated()) {
-                    setVisible(false);
-                    new Dashboard();
-                    return;
+                try {
+                    if (isUserAuthenticated()) {
+                        setVisible(false);
+                        new Dashboard();
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
 
                 JOptionPane.showMessageDialog(btnClick, "The username or password is incorrect.");
@@ -71,7 +81,7 @@ public class Login extends MainJFrame {
         });
     }
 
-    private boolean isUserAuthenticated() {
+    private boolean isUserAuthenticated() throws SQLException {
         return Authenticator.authenticateUser(textField2.getText(), passwordField1.getText());
     }
 
