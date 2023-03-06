@@ -1,4 +1,4 @@
-package controller;
+ package controller;
 
 import helpers.Authenticator.Authenticator;
 import helpers.MainJFrame;
@@ -7,6 +7,7 @@ import view.dashboard.Dashboard;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Login extends MainJFrame {
     public JPanel panel;
@@ -37,10 +38,14 @@ public class Login extends MainJFrame {
                     return;
                 }
 
-                if (isUserAuthenticated()) {
-                    setVisible(false);
-                    new Dashboard();
-                    return;
+                try {
+                    if (isUserAuthenticated()) {
+                        setVisible(false);
+                        new Dashboard();
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
 
                 JOptionPane.showMessageDialog(btnClick, "The username or password is incorrect.");
@@ -71,7 +76,7 @@ public class Login extends MainJFrame {
         });
     }
 
-    private boolean isUserAuthenticated() {
+    private boolean isUserAuthenticated() throws SQLException {
         return Authenticator.authenticateUser(textField2.getText(), passwordField1.getText());
     }
 
