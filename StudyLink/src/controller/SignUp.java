@@ -1,8 +1,10 @@
+ 
 package controller;
 
 import model.User.User;
 import model.User.UserList;
 import model.User.UserRole;
+import model.User.Userdao;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -41,13 +43,12 @@ public class SignUp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (hasAllFields()) {
                     User user = new User.UserBuilder(emailField.getText(), passwordField.getText())
-                            .setUsername(emailField.getText())
                             .setFirstName(firstNameField.getText())
                             .setLastName(lastNameField.getText())
                             .setRole(UserRole.STUDENT)
                             .build();
                     try {
-                        UserList.getInstance().addUser(user);
+                        Userdao.adduser(user);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(btnClick, ex.getMessage());
                         resetFields();
@@ -91,3 +92,4 @@ public class SignUp extends JFrame {
         lastNameField.setText("");
     }
 }
+
