@@ -1,17 +1,16 @@
 package helpers.Authenticator;
 
-import model.User.User;
-import model.User.UserList;
+import model.User;
+import model.UserDAOImplementation;
+import model.UserList;
 
-/**
- * Authenticates the user by checking if the user input password matches the known user
- * password in the database.
- */
+import java.sql.SQLException;
+
 public class Authenticator {
-    public static boolean authenticateUser(String email, String password) {
-        User user = UserList.getInstance().getUser(email);
+    public static boolean authenticateUser(String email, String password) throws SQLException {
+        User user = UserDAOImplementation.getUser(email);
         if (user != null) {
-            return user.getPassword().equals(password);
+            return user.getPassword().equals(password) ;
         }
         return false;
     }

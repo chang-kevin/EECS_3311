@@ -1,8 +1,9 @@
 package helpers.Authenticator;
 
-import model.User.User;
-import model.User.UserList;
-import model.User.UserRole;
+import model.User;
+import model.UserDAOImplementation;
+import model.UserList;
+import model.UserRole;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,18 +18,20 @@ class AuthenticatorTest {
             String password2 = "67890";
 
             User userJohn = new User.UserBuilder(email1, password1)
-                    .setEmail(email1)
+                    .setuser_id(UserDAOImplementation.countuser()+1)
+
                     .setFirstName("John")
                     .setLastName("Doe")
                     .setRole(UserRole.STUDENT)
                     .build();
+            UserDAOImplementation.adduser(userJohn);
 
-            UserList userList = UserList.getInstance();
-            userList.addUser(userJohn);
+
 
             assertTrue(Authenticator.authenticateUser(email1, password1));
             assertFalse(Authenticator.authenticateUser(email1, password2));
             assertFalse(Authenticator.authenticateUser(email2, password1));
+            UserDAOImplementation.delete("johndoe@my.yorku.ca");
         });
     }
 }
