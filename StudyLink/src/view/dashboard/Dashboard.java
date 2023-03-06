@@ -1,320 +1,556 @@
 package view.dashboard;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.text.*;
 
-import controller.AccountManagement;
-import controller.Login;
-import controller.UploadFile;
 
-public class Dashboard implements ActionListener, DashboardGUI {
-	JFrame frame;
-	
-	private JPanel name_bg;
-    private JPanel taskbar;
-	private JPanel courseMenu;
-	private JPanel profileMenu; 
+public class Dashboard implements ActionListener{
 
-	private JButton addCourse;
-	private JButton courseList;
-	private JButton profile;
-	private JButton logoutButton;
-	private JButton accountButton;
-	private JButton settingsButton;
+
+	private JFrame frame;
+	private JButton dashboardBtn;
+	private JButton courseBtn;
+	private JButton uploadBtn;
+	private JPanel taskbar;
+	private JPanel profile;
+	private JPanel buttons;
 	private JButton one;
 	private JButton two;
 	private JButton three;
+	private HomePage home;
 
-	private JTextField searchbar;
-	
-	/**
-	 * Create the application.
-	 */
 	public Dashboard() {
-		name_bg = createPanel();
-		frame = createFrame("Dashboard");
-		frame.getContentPane().add(name_bg);
+		frame = new JFrame();
+		frame = createFrame();
 		frame.setLocationRelativeTo(null);
 
-		this.generateTaskbar();
-		this.generateAddButton();
-		this.generateProfile();
-		this.generateSearchBar();
-		this.generateCourseMenu();
-		this.generateCourseList();
-		this.generateCourseMenuItems();
-		this.generateProfileMenu();
-		this.generateAccountButton();
-		this.generateLogoutButton();
-		this.generateSettingsButton();
-	}
+		createHomePage();
+		createTaskbarPanel();
+		createProfilePanel();
 
-	public void generateCourseList() {
-		courseList = createTaskbarButton("|   Course List   |");
-		courseList.setBounds(88, 0, 234, 55);
-		courseList.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				courseMenu.setSize(188, 234);
-			}
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				courseMenu.setSize(0, 0);
-			}
-		});
-		taskbar.add(courseList);
-	}
+		pageTitle("Dashboard");
 
-	public void generateAddButton() {
-		addCourse = createTaskbarButton("+");;
-		addCourse.setBounds(0, 0, 78, 55);
-		addCourse.addActionListener(this);
-		taskbar.add(addCourse);
-	}
-	public void generateTaskbar() {
-		taskbar = createPanel();
-		taskbar.setBounds(0, 0, 1921, 55);
-		taskbar.setBackground(new Color(70, 99, 172));
-		name_bg.add(taskbar);
-	}
+		createHeader();
+		createSearchbar();
 
-	public void generateProfile() {
-		profile = createTaskbarButton("|     Profile   ");
-		profile.setBounds(614, 3, 220, 55);
-		profile.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				profileMenu.setSize(188, 175);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				profileMenu.setSize(0, 0);
-			}
-		});
-		taskbar.add(profile);
-	}
-
-	public void generateSearchBar() {
-		searchbar = new JTextField();
-		searchbar.setBorder(null);
-		searchbar.setBackground(new Color(198, 207, 232, 100));
-		searchbar.setSelectedTextColor(new Color(198, 207, 232));
-		searchbar.setBounds(329, 11, 285, 33);
-		taskbar.add(searchbar);
-		searchbar.setColumns(10);
-	}
-
-	public void generateCourseMenuItems() {
-		// this needs to be refactored into a for-loop
-		one = createMenuButton("1000 Level");
-		one.setBounds(0, 55, 188, 40);
-		one.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				courseMenu.setSize(188, 234);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				courseMenu.setSize(0, 0);
-			}
-		});
-		courseMenu.add(one);
-
-		two = createMenuButton("3000 Level");
-		two.setBounds(0, 134, 188, 40);
-		two.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				courseMenu.setSize(188, 234);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				courseMenu.setSize(0, 0);
-			}
-		});
-		courseMenu.add(two);
-
-		three = createMenuButton("2000 Level");
-		three.setBounds(0, 94, 188, 40);
-		three.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				courseMenu.setSize(188, 234);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				courseMenu.setSize(0, 0);
-			}
-		});
-		courseMenu.add(three);
-	}
-
-	public void generateProfileMenu() {
-		profileMenu = createMenuPanel();
-		profileMenu.setBounds(646, 0, 188, 55);
-		name_bg.add(profileMenu);
-	}
-
-	public void generateCourseMenu() {
-		courseMenu = createMenuPanel();
-		courseMenu.setAlignmentX(0.0f);
-		courseMenu.setBounds(110, 0, 188, 55);
-		name_bg.add(courseMenu);
-	}
-
-	public void generateAccountButton() {
-		accountButton = createMenuButton("Account");
-		accountButton.setBounds(0, 55, 188, 40);
-		accountButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				profileMenu.setSize(188, 175);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				profileMenu.setSize(0, 0);
-			}
-		});
-
-		accountButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.dispose();
-				new AccountManagement();
-			}
-		});
-		profileMenu.add(accountButton);
-	}
-
-	public void generateLogoutButton() {
-		logoutButton = createMenuButton("Log out");
-		logoutButton.setBounds(0, 134, 188, 40);
-		logoutButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				profileMenu.setSize(188, 175);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				profileMenu.setSize(0, 0);
-			}
-		});
-		profileMenu.add(logoutButton);
-	}
-
-	public void generateSettingsButton() {
-		settingsButton = createMenuButton("Settings");
-		settingsButton.setBounds(0, 94, 188, 40);
-		settingsButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				profileMenu.setSize(188, 175);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				profileMenu.setSize(0, 0);
-			}
-		});
-		profileMenu.add(settingsButton);
 	}
 
 	/**
-	 * Overrides the actionPerformed method from ActionListener interface. 
-	 * @param e event to be processed. 
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource()==logoutButton) {
-			new Login(); // takes the user back to the login page
-			frame.dispose();
-		}
-		if(e.getSource() == addCourse) {
-			new UploadFile();
-		}
-
-		if (e.getSource()==two) {
-			new ThirdYearCourses();
-			frame.dispose();
-		}
-	}
-	/**
-	 * Creates the taskbar and applies layout. 
-	 * @param name The name of the taskbar button. 
-	 * @return The taskbar button 
-	 */
-	public JButton createTaskbarButton(String name) {
-		JButton taskbarButton = new JButton(name);
-		taskbarButton.setText(name);
-		taskbarButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		taskbarButton.setFocusPainted(false);
-		taskbarButton.setBorderPainted(false);
-		taskbarButton.setForeground(Color.WHITE);
-		taskbarButton.setBackground(new Color(70, 99, 172, 150));
-		return taskbarButton;
-	}
-	
-	/**
-	 * Creates a JFrame and applies layout. 
-	 * @param title The title of the frame.
+	 * Creates a JFrame and applies layout.
 	 * @return the stylized frame
 	 */
-	public JFrame createFrame(String title) {
-		JFrame theFrame = new JFrame(title);
-        theFrame.setBounds(100, 100, 850, 550);
-		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		theFrame.setBackground(new Color(255, 255, 255));
-		theFrame.setVisible(true);
-		theFrame.getContentPane().setLayout(null);
-		return theFrame;
+	public JFrame createFrame() {
+		frame.getContentPane().setBackground(new Color(255, 255, 255));
+		frame.setBounds(100, 100, 960, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBackground(new Color(255, 255, 255));
+		frame.setVisible(true);
+		frame.getContentPane().setLayout(null);
+
+		return frame;
 	}
-	
-	/**
-	 * Creates the drop down menu and applies layout. 
-	 * @param name The name of the menu button. 
-	 * @return Returns the drop down menu buttons.
-	 */
-	public JButton createMenuButton(String name) {
-		JButton menuButton = new JButton(name);
-		menuButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		menuButton.setFocusPainted(false);
-		menuButton.setBorderPainted(false);
-		menuButton.setForeground(new Color(198, 207, 232, 150));
-		menuButton.setBackground(new Color(70, 99, 172));
-		menuButton.addActionListener(this);
-		return menuButton;
+
+	public void createSearchbar() {
+		SearchBar searchbar = new SearchBar();
+		profile.add(searchbar.searchIcon);
+		profile.add(searchbar.searchbar);
 	}
-	
-	/**
-	 * Creates a JPanel and applies layout.
-	 * @return the stylized panel
-	 */
-	public JPanel createPanel() {
-		JPanel thePanel = new JPanel();
-		thePanel.setBounds(0, 0, 834, 175);
-		thePanel.setBackground(new Color(117, 153, 193));
-		thePanel.setLayout(null);
-		return thePanel;
+
+
+
+	public void pageTitle(String title) {
+		JTextPane pageTitle = new JTextPane();
+		pageTitle.getHighlighter().removeAllHighlights();
+		pageTitle.setEditable(false);
+		pageTitle.setForeground(new Color(115, 165, 128));
+		pageTitle.setBounds(169, 15, 108, 28);
+		frame.getContentPane().add(pageTitle);
+		pageTitle.setFont(new Font("Microsoft JhengHei", Font.BOLD, 18));
+		pageTitle.setText(title);
+		pageTitle.setBackground(new Color(255, 255, 255));
+
 	}
-	
-	/**
-	 * Creates a JPanel for the menu and applies layout.
-	 * @return the stylized panel
-	 */
-	public JPanel createMenuPanel() {
-		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(null);
-		menuPanel.setDoubleBuffered(false);
-		menuPanel.setBackground(new Color(70, 99, 172));
-		return menuPanel;
+
+	public void createDisplay() {
+
+
+
+
+	}
+
+
+	public void createHomePage() {
+		home = new HomePage();
+		frame.getContentPane().add(home.dashboard);
+	}
+
+	public void createHeader() {
+		JPanel header = new JPanel();
+		header = panelBorder();
+		header.setForeground(new Color(137, 180, 148));
+		header.setBackground(new Color(137, 180, 148));
+		header.setBounds(169, 54, 538, 138);
+		frame.getContentPane().add(header);
+		header.setLayout(null);
+
+		String text = "";
+		JLabel greet = new JLabel();
+		greet = greetingText(greet, 10);
+
+
+
+		LocalDateTime now = LocalDateTime.now();
+		int hour = now.getHour();
+		if(hour < 12) {
+			text = "Good Morning";
+		}
+		else if(hour < 17) {
+			text = "Good Afternoon";
+		}
+		else {
+			text = "Good Evening";
+		}
+
+		greet.setText(text);
+
+		JLabel welcome = new JLabel();
+		welcome = greetingText(welcome, 35);
+		welcome.setText("Welcome to StudyLink!");
+
+		header.add(greet);
+		header.add(welcome);
+
+	}
+	public JLabel greetingText(JLabel greeting, int y) {
+		greeting.setForeground(new Color(255, 255, 255));
+		greeting.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 17));
+		greeting.setBounds(10, y, 250, 50);
+		greeting.setBorder(null);
+		return greeting;
+	}
+
+	public JButton createButton(JButton btn, String name, int y) {
+		btn = new JButton(name);
+		if(name == "Dashboard") {
+			btn.setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(239, 127, 127)));
+			btn.setForeground(new Color(241, 171, 165));
+		}
+		else {
+			btn.setForeground(new Color(255, 255, 255));
+		}
+		btn.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 18));
+		btn.setRolloverEnabled(false);
+		btn.setBounds(0, y, 160, 40);
+		btn.setBorder(null);
+		btn.setOpaque(false);
+		btn.setBackground(new Color(216, 237, 214, 100));
+		btn.setFocusPainted(false);
+		btn.addActionListener(this);
+		taskbar.add(btn);
+
+		return btn;
+	}
+
+	public void levelMenu() {
+		one = new JButton("1000 Level");
+		two = new JButton("2000 Level");
+		three = new JButton("3000 Level");
+		JButton[] arr = {one, two, three};
+		buttons = new JPanel();
+		buttons.setBorder(null);
+		buttons.setBounds(0, 0, 0, 0);
+		buttons.setBackground(new Color(216, 237, 214));
+		buttons.setLayout(null);
+
+
+		int y = 0;
+		for(int i = 0; i < 3; i++) {
+			arr[i].setBackground(new Color(216, 237, 214));
+			arr[i].setForeground(new Color(255, 255, 255));
+			arr[i].setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
+			arr[i].setBorder(null);
+			arr[i].setBorderPainted(false);
+			arr[i].addActionListener(this);
+			buttons.add(arr[i]);
+			arr[i].setBounds(0, y, 160, 40);
+			y = y + 40;
+		}
+
+		taskbar.add(buttons);
+
+
+	}
+
+	public JPanel createTaskbarPanel() {
+		taskbar = new JPanel();
+		taskbar.setBackground(new Color(216, 237, 214));
+		taskbar.setBounds(0, 0, 160, 561);
+		taskbar.setLayout(null);
+
+		JTextPane studylink = new JTextPane();
+		studylink.setMargin(new Insets(5, 10, 5, 10));
+		studylink.setFont(new Font("Microsoft JhengHei", Font.BOLD, 20));
+		StyledDocument style = studylink.getStyledDocument();
+		javax.swing.text.Style study = studylink.addStyle("style", null);
+		StyleConstants.setForeground(study, new Color(115, 165, 128));
+		try {
+			style.insertString(style.getLength(), "Study", study); }
+		catch(BadLocationException e) {}
+		StyleConstants.setForeground(study, new Color(239, 127, 127));
+		try {
+			style.insertString(style.getLength(), "Link", study); }
+		catch(BadLocationException e) {}
+
+
+		studylink.setBounds(32, 11, 101, 32);
+		studylink.getHighlighter().removeAllHighlights();
+		studylink.setEditable(false);
+		studylink.setBackground(new Color(216, 237, 214, 100));
+		studylink.setOpaque(false);
+		studylink.setBorder(null);
+		taskbar.add(studylink);
+
+		dashboardBtn = createButton(dashboardBtn, "Dashboard", 203);
+		courseBtn = createButton(courseBtn, "Course Levels", 243);
+		uploadBtn = createButton(uploadBtn, "Upload", 283);
+		levelMenu();
+
+		frame.getContentPane().add(taskbar);
+
+
+		return taskbar;
+
+	}
+
+	public JPanel createProfilePanel() {
+		profile = new JPanel();
+		profile.setBackground(new Color(216, 237, 214));
+		profile.setBounds(716, 0, 228, 561);
+		profile.setLayout(null);
+
+		frame.getContentPane().add(profile);
+
+		Profile user = new Profile();
+		profile.add(user.profile);
+
+		JPanel calendar = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				Dimension arcs = new Dimension(50, 50);
+				int width = getWidth();
+				int height = getHeight();
+				Graphics2D graphics = (Graphics2D) g;
+				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				graphics.setColor(new Color(255, 255, 255));
+				graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+				graphics.setColor(new Color(255, 255, 255));
+				graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+			}
+		};
+
+		calendar.setBounds(10, 294, 210, 247);
+
+		calendar.setLayout(null);
+		calendar.setOpaque(false);
+		calendar.setBorder(null);
+
+		calendar = createCalendar(calendar);
+		profile.add(calendar);
+
+
+		return profile;
+	}
+
+
+	public JPanel createCalendar(JPanel calendar) {
+		LocalDate dates = LocalDate.now();
+		JLabel month = new JLabel();
+		month = getMonth(calendar, month, dates);
+
+		JTextPane[] weeks = new JTextPane[7];
+		weeks = getWeek(weeks, calendar);
+
+
+		int numOfDays = dates.lengthOfMonth();
+		JTextPane[] days = new JTextPane[numOfDays + 1];
+		days = getDates(numOfDays, days, dates, calendar);
+
+		return calendar;
+
+	}
+
+	public JLabel getMonth(JPanel calendar, JLabel month, LocalDate dates) {
+		String monthName = dates.getMonth().toString();
+		String[] months = {"January", "February", "March", "April", "May", "June",
+				"July", "August", "September", "October", "November", "December"};
+		for(int i = 0; i < months.length; i++) {
+			if(monthName.equalsIgnoreCase(months[i])) {
+				month.setText(months[i]);
+			}
+		}
+
+		month.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 17));
+		month.setForeground(new Color(239, 127, 127));
+		month.setBackground(new Color(187, 223, 183, 25));
+		month.setBorder(null);
+		month.setBounds(10, 10, 134, 32);
+
+		calendar.add(month);
+		return month;
+	}
+
+	public JTextPane[] getWeek(JTextPane[] weeks, JPanel calendar) {
+		String[] daysOfWeek = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
+
+		int x = 10;
+		for(int i = 0; i < 7; i++) {
+			weeks[i] = new JTextPane();
+			weeks[i].setText(daysOfWeek[i]);
+			weeks[i].setBounds(x, 45, 30, 30);
+			weeks[i] = styler(weeks[i]);
+			calendar.add(weeks[i]);
+			x+= 30;
+
+		}
+
+		return weeks;
+
+	}
+	public JTextPane[] getDates(int num, JTextPane[] days, LocalDate dates, JPanel calendar) {
+
+		DayOfWeek firstOfMonth = dates.withDayOfMonth(1).getDayOfWeek();
+
+		String[] dayOfWeek = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"};
+		int start = 0;
+		for(int i = 0; i < 7; i++) {
+			if(dayOfWeek[i] == firstOfMonth.toString()) {
+				start = i;
+			}
+		}
+
+		int y = 75;
+		start = start * 30 + 10;
+		int x = start;
+
+		for(int i = 1; i <= num; i++) {
+			days[i] = new JTextPane();
+			days[i].setText(String.valueOf(i));
+			if(x < 210) {
+				days[i].setBounds(x, y, 30, 30);
+				x = x + 30;
+			}
+			else {
+				x = 10;
+				y = y + 30;
+				days[i].setBounds(x, y, 30, 30);
+				x = x + 30;
+			}
+			days[i] = styler(days[i]);
+			calendar.add(days[i]);
+
+			calendar.add(days[i]);
+		}
+		return days;
+
+	}
+
+	public JTextPane styler(JTextPane box) {
+		box.setMargin(new Insets(8, 8, 8, 8));
+		box.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		box.setBackground(new Color(187, 223, 183, 25));
+		box.setForeground(new Color(239, 127, 127));
+		box.setBorder(null);
+		box.getHighlighter().removeAllHighlights();
+		box.setEditable(false);
+		box.setOpaque(false);
+		return box;
+	}
+
+
+
+//    public void createHomePage() {
+//        displayArea = new JPanel();
+//        displayArea.setBackground(new Color(255, 255, 255));
+//        displayArea.setBounds(169, 203, 537, 348);
+//        frame.getContentPane().add(displayArea);
+//        cards = new CardLayout();
+//        displayArea.setLayout(cards);
+//
+//        CourseLevels homePage = new CourseLevels();
+//        JPanel dashboard = new JPanel();
+//        dashboard = homePage.dashboard;
+//
+//        createBookmarks(dashboard);
+//
+//        timeWidget = new JTextPane();
+//        timeWidget = widgets(timeWidget, 20, dashboard);
+//
+//        widget_1 = new JTextPane();
+//        widget_1 = widgets(widget_1, 293, dashboard);
+//
+//
+//
+//        cards.show(displayArea, "dashboard");
+//
+//    }
+
+
+//    public void createBookmarks(JPanel dashboard) {
+//    	 JPanel bookmark = new JPanel();
+//         bookmark.setBounds(10, 90, 517, 247);
+//         dashboard.add(bookmark);
+//         GridBagLayout gbl_bookmark = new GridBagLayout();
+//         gbl_bookmark.columnWidths = new int[]{0, 0};
+//         gbl_bookmark.rowHeights = new int[]{50, 50, 0};
+//         gbl_bookmark.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+//         gbl_bookmark.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+//         bookmark.setLayout(gbl_bookmark);
+//         {
+//         	JLabel myCourses = new JLabel(" My Courses");
+//         	myCourses.setFont(new Font("Microsoft JhengHei", Font.BOLD, 20));
+//         	myCourses.setForeground(new Color(137, 180, 148));
+//         	GridBagConstraints gbc_myCourses = new GridBagConstraints();
+//         	gbc_myCourses.fill = GridBagConstraints.BOTH;
+//         	bookmark.add(myCourses, gbc_myCourses);
+//
+//         	JLabel pinCourse = new JLabel();
+//         	pinCourse = getBookmarks(1, bookmark, pinCourse, "<html> &nbsp;Course Name <br/>&nbsp;EECS #### </html>");
+//
+//         }
+//    }
+//
+//    public JLabel getBookmarks(int y, JPanel bookmark, JLabel pinCourse, String text) {
+//    	pinCourse = new JLabel(text);
+//        pinCourse.setFont(new Font("Microsoft JhengHei", Font.BOLD, 15));
+//     	pinCourse.setForeground(new Color(137, 180, 148));
+//        GridBagConstraints gbc_pinCourse = new GridBagConstraints();
+//        gbc_pinCourse.fill = GridBagConstraints.BOTH;
+//        gbc_pinCourse.gridy = 1;
+//        bookmark.add(pinCourse, gbc_pinCourse);
+//
+//    	return pinCourse;
+//    }
+
+//    public JTextPane widgets(JTextPane widget, int x, JPanel dashboard) {
+//        widget = new JTextPane() {
+//            @Override
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                Dimension arcs = new Dimension(30, 30);
+//                int width = getWidth();
+//                int height = getHeight();
+//                Graphics2D graphics = (Graphics2D) g;
+//                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//                graphics.setColor(new Color(202, 222, 237, 150));
+//                graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+//                graphics.setColor(new Color(202, 222, 237, 150));
+//                graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+//            }
+//
+//        };
+//        widget.setEditable(false);
+//        widget.setBounds(x, 10, 224, 57);
+//        widget.setBorder(null);
+//        widget.setOpaque(false);
+//
+//        if(x == 20) {
+//            LocalDateTime time = LocalDateTime.now();
+//            JLabel text = new JLabel();
+//            if(time.getMinute() < 10) {
+//                text.setText(String.valueOf(" " + time.getHour() + ":0"+ time.getMinute()));
+//            }
+//            else {
+//                text.setText(String.valueOf(" " + time.getHour() + ":"+ time.getMinute()));
+//            }
+//            text.setBounds(x, 10, 135, 57);
+//            text.setBorder(null);
+//            text.setBackground(new Color(219,237,255));
+//            text.setForeground(new Color(255, 255, 255));
+//            text.setFont(new Font("Arial Narrow", Font.PLAIN, 45));
+//            dashboard.add(text);
+//            String week = String.valueOf(time.getDayOfWeek());
+//            LocalDate day = LocalDate.now();
+//            String date = String.valueOf(day);
+//            JLabel dateText = new JLabel();
+//            dateText.setText("<html>" + week + "<br/>" + date + "<html>");
+//            dateText.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
+//            dateText.setBorder(null);
+//            dateText.setBackground(new Color(219,237,255));
+//            dateText.setForeground(new Color(255, 255, 255));
+//            dateText.setBounds(135, 10, 114, 57);
+//            dashboard.add(dateText);
+//        }
+//
+//        dashboard.add(widget);
+//
+//
+//        return widget;
+//    }
+
+	public JPanel panelBorder() {
+		JPanel panel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				Dimension arcs = new Dimension(50, 50);
+				int width = getWidth();
+				int height = getHeight();
+				Graphics2D graphics = (Graphics2D) g;
+				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				graphics.setColor(getBackground());
+				graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+				graphics.setColor(getForeground());
+				graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+			}
+		};
+
+		panel.setForeground(new Color(239, 239, 239, 75));
+		panel.setBackground(new Color(239, 239, 239, 75));
+
+		panel.setBorder(null);
+		panel.setOpaque(false);
+		panel.setLayout(null);
+
+
+		return panel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton[] menu = {dashboardBtn, courseBtn, uploadBtn, one, two, three};
+
+		for(JButton btn: menu) {
+			if(e.getSource() == btn) {
+				((JComponent) e.getSource()).setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(239, 127, 127)));
+				btn.setForeground(new Color(241, 171, 165));
+				if(btn == dashboardBtn) {
+					uploadBtn.setBounds(0, 283, 160, 40);
+					buttons.setBounds(0, 0, 0 ,0);
+
+				}
+				else if(btn == courseBtn) {
+					uploadBtn.setBounds(0, 403, 160, 40);
+					buttons.setBounds(0, 283, 160, 120);
+
+				}
+				else {
+					uploadBtn.setBounds(0, 283, 160, 40);
+					buttons.setBounds(0, 0, 0 ,0);
+				}
+			}
+			else {
+				btn.setBorder(null);
+				btn.setForeground(new Color(255, 255, 255));
+			}
+		}
+
+
+
 	}
 }
