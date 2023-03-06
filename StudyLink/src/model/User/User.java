@@ -1,6 +1,4 @@
-package model.User;
-
-import model.DOB;
+package model;
 
 import java.util.UUID;
 
@@ -8,26 +6,36 @@ import java.util.UUID;
  * Implementation of the User class using the Builder design pattern.
  */
 public class User {
+    private int user_id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private DOB dateOfBirth;
-    private String email;
+
+    public int getUser_id() {
+        return user_id;
+    }
+    public String getusername() {
+        return username;
+    }
+
+    public DOB getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+
     private final String uniqueId;
     private final String role;
+
 
     public String getPassword() {
         return password;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public String getEmail() {
-        return email;
-    }
+
+
 
     public String getFirstName() {
         return firstName;
@@ -51,22 +59,23 @@ public class User {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.dateOfBirth = builder.dateOfBirth;
-        this.email = builder.email;
+
         this.uniqueId = UUID.randomUUID().toString();
         this.role = builder.role;
     }
 
     public static class UserBuilder {
+        private int user_id;
         private String username;
         private String password;
         private String firstName;
         private String lastName;
-        private String email;
+
         private DOB dateOfBirth;
         private String role;
 
-        public UserBuilder(String email, String password) {
-            this.email = email;
+        public UserBuilder(String username, String password) {
+            this.username = username;
             this.password = password;
         }
 
@@ -84,16 +93,16 @@ public class User {
             this.lastName = lastName;
             return this;
         }
+        public UserBuilder setuser_id(int user_id){
+            this.user_id = user_id;
+            return  this;
+        }
 
         public UserBuilder setDOB(DOB dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public UserBuilder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
 
         public UserBuilder setRole(String role) {
             this.role = role;
