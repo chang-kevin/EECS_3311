@@ -8,8 +8,8 @@ import model.User.UserList;
  * password in the database.
  */
 public class Authenticator {
-    public static boolean authenticateUser(String email, String password) {
-        User user = UserList.getInstance().getUser(email);
+    public static boolean authenticateUser(String username, String password) throws SQLException {
+        User user = Userdao.getUser(username);
         if (user != null) {
             return user.getPassword().equals(password);
         }
