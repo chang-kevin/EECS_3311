@@ -1,7 +1,7 @@
 package helpers.Authenticator;
 import model.User.User;
+import model.User.UserDAO;
 import model.User.UserRole;
-import model.User.Userdao;
 import static org.junit.jupiter.api.Assertions.*;
 class AuthenticatorTest {
 
@@ -19,13 +19,12 @@ class AuthenticatorTest {
                     .setRole(UserRole.STUDENT)
                     .build();
 
-            Userdao.adduser(userJohn);
-
-
+            UserDAO.adduser(userJohn);
             assertTrue(Authenticator.authenticateUser(email1, password1));
             assertFalse(Authenticator.authenticateUser(email1, password2));
             assertFalse(Authenticator.authenticateUser(email2, password1));
-            Userdao.delete(email1);
+            UserDAO.delete(email1);
             assertFalse(Authenticator.authenticateUser(email1, password1));
         });
     }
+}

@@ -17,9 +17,9 @@ public class UserList {
     }
 
     public void addUser(User user) throws Exception {
-        String email = user.getEmail();
-        if (!doesUserExist(email)) {
-            userMap.put(email, user);
+        String username = user.getUsername();
+        if (!doesUserExist(username)) {
+            userMap.put(username, user);
         } else {
             throw new Exception("User exists already!");
         }
