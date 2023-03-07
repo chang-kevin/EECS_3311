@@ -8,33 +8,22 @@ import javax.swing.border.*;
 import javax.swing.text.*;
 
 
-public class Dashboard implements ActionListener{
+public class Dashboard {
 
 
 	private JFrame frame;
-	private JButton dashboardBtn;
-	private JButton courseBtn;
-	private JButton uploadBtn;
-	private JPanel taskbar;
 	private JPanel profile;
-	private JPanel buttons;
-	private JButton one;
-	private JButton two;
-	private JButton three;
-	private HomePage home;
+	private CardLayoutDisplay cardLayout;
+	
 
 	public Dashboard() {
 		frame = new JFrame();
 		frame = createFrame();
 		frame.setLocationRelativeTo(null);
 
-		createHomePage();
-		createTaskbarPanel();
+		createTaskbar();
 		createProfilePanel();
-
-
 		pageTitle("Dashboard");
-
 		createHeader();
 		createSearchbar();
 
@@ -61,8 +50,6 @@ public class Dashboard implements ActionListener{
 		profile.add(searchbar.searchbar);
 	}
 
-
-
 	public void pageTitle(String title) {
 		JTextPane pageTitle = new JTextPane();
 		pageTitle.getHighlighter().removeAllHighlights();
@@ -75,18 +62,16 @@ public class Dashboard implements ActionListener{
 		pageTitle.setBackground(new Color(255, 255, 255));
 
 	}
-
-	public void createDisplay() {
-
-
-
-
+	
+	public void createTaskbar() {
+		cardLayout = new CardLayoutDisplay();
+		frame.getContentPane().add(cardLayout.taskbar);
+		
+		createDisplay(cardLayout);
 	}
-
-
-	public void createHomePage() {
-		home = new HomePage();
-		frame.getContentPane().add(home.dashboard);
+	
+	public void createDisplay(CardLayoutDisplay cardLayout) {
+		frame.getContentPane().add(cardLayout.displayArea);
 	}
 
 	public void createHeader() {
@@ -132,99 +117,6 @@ public class Dashboard implements ActionListener{
 		greeting.setBounds(10, y, 250, 50);
 		greeting.setBorder(null);
 		return greeting;
-	}
-
-	public JButton createButton(JButton btn, String name, int y) {
-		btn = new JButton(name);
-		if(name == "Dashboard") {
-			btn.setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(239, 127, 127)));
-			btn.setForeground(new Color(241, 171, 165));
-		}
-		else {
-			btn.setForeground(new Color(255, 255, 255));
-		}
-		btn.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 18));
-		btn.setRolloverEnabled(false);
-		btn.setBounds(0, y, 160, 40);
-		btn.setBorder(null);
-		btn.setOpaque(false);
-		btn.setBackground(new Color(216, 237, 214, 100));
-		btn.setFocusPainted(false);
-		btn.addActionListener(this);
-		taskbar.add(btn);
-
-		return btn;
-	}
-
-	public void levelMenu() {
-		one = new JButton("1000 Level");
-		two = new JButton("2000 Level");
-		three = new JButton("3000 Level");
-		JButton[] arr = {one, two, three};
-		buttons = new JPanel();
-		buttons.setBorder(null);
-		buttons.setBounds(0, 0, 0, 0);
-		buttons.setBackground(new Color(216, 237, 214));
-		buttons.setLayout(null);
-
-
-		int y = 0;
-		for(int i = 0; i < 3; i++) {
-			arr[i].setBackground(new Color(216, 237, 214));
-			arr[i].setForeground(new Color(255, 255, 255));
-			arr[i].setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
-			arr[i].setBorder(null);
-			arr[i].setBorderPainted(false);
-			arr[i].addActionListener(this);
-			buttons.add(arr[i]);
-			arr[i].setBounds(0, y, 160, 40);
-			y = y + 40;
-		}
-
-		taskbar.add(buttons);
-
-
-	}
-
-	public JPanel createTaskbarPanel() {
-		taskbar = new JPanel();
-		taskbar.setBackground(new Color(216, 237, 214));
-		taskbar.setBounds(0, 0, 160, 561);
-		taskbar.setLayout(null);
-
-		JTextPane studylink = new JTextPane();
-		studylink.setMargin(new Insets(5, 10, 5, 10));
-		studylink.setFont(new Font("Microsoft JhengHei", Font.BOLD, 20));
-		StyledDocument style = studylink.getStyledDocument();
-		javax.swing.text.Style study = studylink.addStyle("style", null);
-		StyleConstants.setForeground(study, new Color(115, 165, 128));
-		try {
-			style.insertString(style.getLength(), "Study", study); }
-		catch(BadLocationException e) {}
-		StyleConstants.setForeground(study, new Color(239, 127, 127));
-		try {
-			style.insertString(style.getLength(), "Link", study); }
-		catch(BadLocationException e) {}
-
-
-		studylink.setBounds(32, 11, 101, 32);
-		studylink.getHighlighter().removeAllHighlights();
-		studylink.setEditable(false);
-		studylink.setBackground(new Color(216, 237, 214, 100));
-		studylink.setOpaque(false);
-		studylink.setBorder(null);
-		taskbar.add(studylink);
-
-		dashboardBtn = createButton(dashboardBtn, "Dashboard", 203);
-		courseBtn = createButton(courseBtn, "Course Levels", 243);
-		uploadBtn = createButton(uploadBtn, "Upload", 283);
-		levelMenu();
-
-		frame.getContentPane().add(taskbar);
-
-
-		return taskbar;
-
 	}
 
 	public JPanel createProfilePanel() {
@@ -374,125 +266,6 @@ public class Dashboard implements ActionListener{
 
 
 
-//    public void createHomePage() {
-//        displayArea = new JPanel();
-//        displayArea.setBackground(new Color(255, 255, 255));
-//        displayArea.setBounds(169, 203, 537, 348);
-//        frame.getContentPane().add(displayArea);
-//        cards = new CardLayout();
-//        displayArea.setLayout(cards);
-//
-//        CourseLevels homePage = new CourseLevels();
-//        JPanel dashboard = new JPanel();
-//        dashboard = homePage.dashboard;
-//
-//        createBookmarks(dashboard);
-//
-//        timeWidget = new JTextPane();
-//        timeWidget = widgets(timeWidget, 20, dashboard);
-//
-//        widget_1 = new JTextPane();
-//        widget_1 = widgets(widget_1, 293, dashboard);
-//
-//
-//
-//        cards.show(displayArea, "dashboard");
-//
-//    }
-
-
-//    public void createBookmarks(JPanel dashboard) {
-//    	 JPanel bookmark = new JPanel();
-//         bookmark.setBounds(10, 90, 517, 247);
-//         dashboard.add(bookmark);
-//         GridBagLayout gbl_bookmark = new GridBagLayout();
-//         gbl_bookmark.columnWidths = new int[]{0, 0};
-//         gbl_bookmark.rowHeights = new int[]{50, 50, 0};
-//         gbl_bookmark.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-//         gbl_bookmark.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-//         bookmark.setLayout(gbl_bookmark);
-//         {
-//         	JLabel myCourses = new JLabel(" My Courses");
-//         	myCourses.setFont(new Font("Microsoft JhengHei", Font.BOLD, 20));
-//         	myCourses.setForeground(new Color(137, 180, 148));
-//         	GridBagConstraints gbc_myCourses = new GridBagConstraints();
-//         	gbc_myCourses.fill = GridBagConstraints.BOTH;
-//         	bookmark.add(myCourses, gbc_myCourses);
-//
-//         	JLabel pinCourse = new JLabel();
-//         	pinCourse = getBookmarks(1, bookmark, pinCourse, "<html> &nbsp;Course Name <br/>&nbsp;EECS #### </html>");
-//
-//         }
-//    }
-//
-//    public JLabel getBookmarks(int y, JPanel bookmark, JLabel pinCourse, String text) {
-//    	pinCourse = new JLabel(text);
-//        pinCourse.setFont(new Font("Microsoft JhengHei", Font.BOLD, 15));
-//     	pinCourse.setForeground(new Color(137, 180, 148));
-//        GridBagConstraints gbc_pinCourse = new GridBagConstraints();
-//        gbc_pinCourse.fill = GridBagConstraints.BOTH;
-//        gbc_pinCourse.gridy = 1;
-//        bookmark.add(pinCourse, gbc_pinCourse);
-//
-//    	return pinCourse;
-//    }
-
-//    public JTextPane widgets(JTextPane widget, int x, JPanel dashboard) {
-//        widget = new JTextPane() {
-//            @Override
-//            protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                Dimension arcs = new Dimension(30, 30);
-//                int width = getWidth();
-//                int height = getHeight();
-//                Graphics2D graphics = (Graphics2D) g;
-//                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//                graphics.setColor(new Color(202, 222, 237, 150));
-//                graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-//                graphics.setColor(new Color(202, 222, 237, 150));
-//                graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-//            }
-//
-//        };
-//        widget.setEditable(false);
-//        widget.setBounds(x, 10, 224, 57);
-//        widget.setBorder(null);
-//        widget.setOpaque(false);
-//
-//        if(x == 20) {
-//            LocalDateTime time = LocalDateTime.now();
-//            JLabel text = new JLabel();
-//            if(time.getMinute() < 10) {
-//                text.setText(String.valueOf(" " + time.getHour() + ":0"+ time.getMinute()));
-//            }
-//            else {
-//                text.setText(String.valueOf(" " + time.getHour() + ":"+ time.getMinute()));
-//            }
-//            text.setBounds(x, 10, 135, 57);
-//            text.setBorder(null);
-//            text.setBackground(new Color(219,237,255));
-//            text.setForeground(new Color(255, 255, 255));
-//            text.setFont(new Font("Arial Narrow", Font.PLAIN, 45));
-//            dashboard.add(text);
-//            String week = String.valueOf(time.getDayOfWeek());
-//            LocalDate day = LocalDate.now();
-//            String date = String.valueOf(day);
-//            JLabel dateText = new JLabel();
-//            dateText.setText("<html>" + week + "<br/>" + date + "<html>");
-//            dateText.setFont(new Font("Arial Narrow", Font.PLAIN, 20));
-//            dateText.setBorder(null);
-//            dateText.setBackground(new Color(219,237,255));
-//            dateText.setForeground(new Color(255, 255, 255));
-//            dateText.setBounds(135, 10, 114, 57);
-//            dashboard.add(dateText);
-//        }
-//
-//        dashboard.add(widget);
-//
-//
-//        return widget;
-//    }
-
 	public JPanel panelBorder() {
 		JPanel panel = new JPanel() {
 			@Override
@@ -512,45 +285,11 @@ public class Dashboard implements ActionListener{
 
 		panel.setForeground(new Color(239, 239, 239, 75));
 		panel.setBackground(new Color(239, 239, 239, 75));
-
 		panel.setBorder(null);
 		panel.setOpaque(false);
 		panel.setLayout(null);
 
 
 		return panel;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JButton[] menu = {dashboardBtn, courseBtn, uploadBtn, one, two, three};
-
-		for(JButton btn: menu) {
-			if(e.getSource() == btn) {
-				((JComponent) e.getSource()).setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(239, 127, 127)));
-				btn.setForeground(new Color(241, 171, 165));
-				if(btn == dashboardBtn) {
-					uploadBtn.setBounds(0, 283, 160, 40);
-					buttons.setBounds(0, 0, 0 ,0);
-
-				}
-				else if(btn == courseBtn) {
-					uploadBtn.setBounds(0, 403, 160, 40);
-					buttons.setBounds(0, 283, 160, 120);
-
-				}
-				else {
-					uploadBtn.setBounds(0, 283, 160, 40);
-					buttons.setBounds(0, 0, 0 ,0);
-				}
-			}
-			else {
-				btn.setBorder(null);
-				btn.setForeground(new Color(255, 255, 255));
-			}
-		}
-
-
-
 	}
 }
