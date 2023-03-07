@@ -10,17 +10,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Userdao  {
+public class UserDAO {
     static Connection connection = DatabaseConnection.getConnection();
     public static int adduser(User user) throws SQLException{
-        String query = "insert into Users  values (?,?,?,?,?,?)";
+        String query = "insert into users(username, user_password, user_role, first_name, last_name) values (?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1,user.getUniqueId());
-        ps.setString(2,user.getUsername());
-        ps.setString(3,user.getPassword());
-        ps.setString(4,user.getRole());
-        ps.setString(5,user.getFirstName());
-        ps.setString(6,user.getLastName());
+        ps.setString(1, user.getUsername());
+        ps.setString(2, user.getPassword());
+        ps.setString(3, user.getRole());
+        ps.setString(4, user.getFirstName());
+        ps.setString(5, user.getLastName());
         int n = ps.executeUpdate();
         return n;
     }
@@ -34,7 +33,6 @@ public class Userdao  {
         String query = "select * from Users where username = ?";
 
         PreparedStatement ps = connection.prepareStatement(query);
-
         ps.setString(1, username);
 
         ResultSet rs = ps.executeQuery();
@@ -42,13 +40,14 @@ public class Userdao  {
         User user = null;
 
         while (rs.next()) {
-
             check = true;
-            user = new User.UserBuilder(username,rs.getString("user_password"))
+            user = new User.UserBuilder(username, rs.getString("user_password"))
+                    .setRole(rs.getString("user_role"))
                     .setFirstName(rs.getString("first_name"))
                     .setLastName(rs.getString("last_name"))
                     .build();
         }
+
         if (check == true) {
             return user;
         }

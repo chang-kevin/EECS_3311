@@ -2,9 +2,8 @@
 package controller;
 
 import model.User.User;
-import model.User.UserList;
 import model.User.UserRole;
-import model.User.Userdao;
+import model.User.UserDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,7 +47,7 @@ public class SignUp extends JFrame {
                             .setRole(UserRole.STUDENT)
                             .build();
                     try {
-                        Userdao.adduser(user);
+                        UserDAO.adduser(user);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(btnClick, ex.getMessage());
                         resetFields();
