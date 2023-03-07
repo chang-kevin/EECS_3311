@@ -6,6 +6,7 @@ import view.dashboard.Dashboard;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class AccountManagement extends MainJFrame {
     private JPanel panel1;
@@ -32,7 +33,11 @@ public class AccountManagement extends MainJFrame {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
-                new Dashboard();
+                try {
+                    new Dashboard();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
@@ -43,7 +48,11 @@ public class AccountManagement extends MainJFrame {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
-                new Dashboard();
+                try {
+                    new Dashboard();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

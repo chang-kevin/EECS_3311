@@ -1,9 +1,14 @@
 package view.dashboard;
 
+import model.Course.Course;
+import model.Course.CourseDAOImplementation;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -22,10 +27,12 @@ public class CourseLevel extends JPanel implements ActionListener{
 	private JButton bookmark;
 	private JButton view;
 
+	private List<Course> courseList;
+
     /*
      * Constructor 
      */
-    public CourseLevel(){
+    public CourseLevel() throws SQLException {
 		
 		oneLevel = new JPanel();
 		oneLevel = createCourseLevels(oneLevel, "1000 Level Courses");
@@ -48,7 +55,7 @@ public class CourseLevel extends JPanel implements ActionListener{
      * @param title Page title for the course page. 
      * @return Returns the panel for a course level page.
      */
-    public JPanel createCourseLevels(JPanel level, String title) {
+    public JPanel createCourseLevels(JPanel level, String title) throws SQLException {
 		
 		level = panelBorder(level);
 		
@@ -71,7 +78,7 @@ public class CourseLevel extends JPanel implements ActionListener{
 		
 		contentLabels(labelContainer);
     
-		generateCourses();
+		generateCourses(title);
 		
 		return level;
     }
@@ -138,27 +145,51 @@ public class CourseLevel extends JPanel implements ActionListener{
     /**
      * This method generates the courses and displays it on a list. 
      */
-    public void generateCourses() {
+    public void generateCourses(String title) throws SQLException {
     	//y-value of panel used to hold the a course 
     	int y = 40; 
     	
     	// get number of courses then iterate through this 
-    	
-    	//number of courses change value 
-    	int num = 2;
-    	String name = "name test";
-    	String code = "code 0000";
-    	
-//    	for(int i = 0; i < num; i++) {
-    		JPanel container = new JPanel(); 
-    		container = createContainer(container, y);
-    		courseContentPanel.add(container);  	
-    		createCourse(container, name, code);
-    		y = y + 40;
-    	//}
-    	
-    	
-    }
+		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
+		courseList = courseDAO.getAllCourses();
+
+    	//number of courses change value
+
+		if (title.equals("1000 Level Courses")) {
+			for(Course e: courseList) {
+				if (e.getCourseId() < 2000) {
+					JPanel container = new JPanel();
+					container = createContainer(container, y);
+					courseContentPanel.add(container);
+					createCourse(container, e.getCourseName(), e.getCourseCode());
+					y = y + 40;
+				}
+
+			}
+		} else if (title.equals("2000 Level Courses")) {
+			for(Course e: courseList) {
+				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
+					JPanel container = new JPanel();
+					container = createContainer(container, y);
+					courseContentPanel.add(container);
+					createCourse(container, e.getCourseName(), e.getCourseCode());
+					y = y + 40;
+				}
+			}
+		} else if (title.equals("3000 Level Courses")){
+			for(Course e: courseList) {
+				if (e.getCourseId() >= 3000) {
+					JPanel container = new JPanel();
+					container = createContainer(container, y);
+					courseContentPanel.add(container);
+					createCourse(container, e.getCourseName(), e.getCourseCode());
+					y = y + 40;
+				}
+			}
+		}
+
+
+	}
     
    
     /**
@@ -211,7 +242,7 @@ public class CourseLevel extends JPanel implements ActionListener{
     
     /**
 	 * This method creates a rounded border and sets the layout for each course level panel. 
-	 * @param panel JPanel for the course page 
+	 * @param level JPanel for the course page
 	 * @return Returns the course page panel with rounded border. 
 	 */
     public JPanel panelBorder(JPanel level) {

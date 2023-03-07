@@ -2,6 +2,7 @@ package view.dashboard;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.text.*;
@@ -35,7 +36,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 * Constructor
 	 */
 	
-	public CardLayoutDisplay() {			
+	public CardLayoutDisplay() throws SQLException {
 		displayArea = new JPanel();
 		displayArea = panelBorder(displayArea);
 		
@@ -50,7 +51,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	/**
 	 * This method creates an object of the display panel and adds it into the cardlayout.
 	 */
-	public void createCard() {
+	public void createCard() throws SQLException {
 		HomePage home = new HomePage();
 		CourseLevel courses = new CourseLevel(); 	
 		

@@ -1,11 +1,10 @@
 package view.dashboard;
 
 import java.awt.*;
-import java.awt.event.*;
+
+import java.sql.SQLException;
 import java.time.*;
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.text.*;
 
 
 public class Dashboard {
@@ -16,7 +15,7 @@ public class Dashboard {
 	private CardLayoutDisplay cardLayout;
 	
 
-	public Dashboard() {
+	public Dashboard() throws SQLException {
 		frame = new JFrame();
 		frame = createFrame();
 		frame.setLocationRelativeTo(null);
@@ -63,7 +62,7 @@ public class Dashboard {
 
 	}
 	
-	public void createTaskbar() {
+	public void createTaskbar() throws SQLException {
 		cardLayout = new CardLayoutDisplay();
 		frame.getContentPane().add(cardLayout.taskbar);
 		
