@@ -47,7 +47,7 @@ public class SignUp extends JFrame {
                             .setRole(UserRole.STUDENT)
                             .build();
                     try {
-                        UserDAO.adduser(user);
+                        UserDAO.add(user);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(btnClick, ex.getMessage());
                         resetFields();

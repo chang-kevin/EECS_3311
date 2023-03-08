@@ -100,6 +100,31 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     @Override
+    public List<Course> getUserPinnedCourses(String username) throws SQLException {
+        String query = "select courses.* from pinned_courses join courses on pinned_courses.course_id = courses.course_id where pinned_courses.username = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+        List<Course> lc = new ArrayList<>();
+        boolean check = false;
+        Course course;
+        while(rs.next()) {
+            check = true;
+            int courseId = rs.getInt("course_id");
+            course = new Course.CourseBuilder(courseId)
+                    .setCourseName(rs.getString("name"))
+                    .setCourseDesc(rs.getString("description"))
+                    .setCourseCode(rs.getString("course_code"))
+                    .build();
+            lc.add(course);
+        }
+        if (check == true) {
+            return lc;
+        }
+        return null;
+    }
+
+    @Override
     public void update(Course course) throws SQLException {
         String query = "update courses set name = ?, description = ?, course_code = ? where course_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);

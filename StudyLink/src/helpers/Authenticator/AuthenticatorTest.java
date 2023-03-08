@@ -19,7 +19,7 @@ class AuthenticatorTest {
                     .setRole(UserRole.STUDENT)
                     .build();
 
-            UserDAO.adduser(userJohn);
+            UserDAO.add(userJohn);
             assertTrue(Authenticator.authenticateUser(email1, password1));
             assertFalse(Authenticator.authenticateUser(email1, password2));
             assertFalse(Authenticator.authenticateUser(email2, password1));

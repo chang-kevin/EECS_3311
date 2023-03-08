@@ -14,5 +14,7 @@ public interface CourseDAO {
 
     public List<Course> searchCourse(String courseColumn) throws SQLException;
 
+    public List<Course> getUserPinnedCourses(String username) throws SQLException;
+
     public void update(Course course) throws SQLException;
 }
