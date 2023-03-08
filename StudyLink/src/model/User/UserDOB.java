@@ -7,7 +7,7 @@ import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-public class userDOB {
+public class UserDOB {
     private String[] datesList;
     private String[] monthsShortList;
     private String[] years;
@@ -16,7 +16,7 @@ public class userDOB {
     private JComboBox yearBox;
     private JLabel dobLabel;
 
-    public userDOB(){
+    public UserDOB(){
         Bounds dobBounds = new Bounds(50, 200, 50, 25);
         dobLabel = ComponentFactory.generateLabelComponent("DOB", dobBounds);
 
