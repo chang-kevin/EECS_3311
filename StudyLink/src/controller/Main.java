@@ -5,7 +5,6 @@ import model.Course.CourseDAOImplementation;
 import view.dashboard.Dashboard;
 
 import java.sql.*;
-import java.util.List;
 
 import javax.swing.*;
 

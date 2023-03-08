@@ -2,6 +2,9 @@
 
 import helpers.Authenticator.Authenticator;
 import helpers.MainJFrame;
+import model.User.User;
+import model.User.UserDAO;
+import model.User.UserSession;
 import view.dashboard.Dashboard;
 
 import javax.swing.*;
@@ -15,14 +18,16 @@ public class Login extends MainJFrame {
     private JLabel Password;
     private JButton SignUp;
     private JButton ForgotPassword;
-    private JTextField textField2;
+    private JTextField username;
     private JPasswordField passwordField1;
     private JLabel EmailAddress;
     private JLabel SignUpText;
     private JButton btnClick;
+    private UserSession userSession;
 
     public Login() {
         super();
+        userSession = UserSession.getInstance();
         setContentPane(panel);
         setUpLoginBtn();
         setUpSignUpBtn();
@@ -33,13 +38,14 @@ public class Login extends MainJFrame {
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textField2.getText().isBlank() && passwordField1.getText().isBlank()) {
+                if (username.getText().isBlank() && passwordField1.getText().isBlank()) {
                     JOptionPane.showMessageDialog(btnClick, "Please enter both the username and password.");
                     return;
                 }
 
                 try {
                     if (isUserAuthenticated()) {
+                        setUserSession();
                         setVisible(false);
                         new Dashboard();
                         return;
@@ -52,6 +58,13 @@ public class Login extends MainJFrame {
                 clearFields();
             }
         });
+    }
+
+    private void setUserSession() throws SQLException {
+        User user = UserDAO.getUser(username.getText());
+        if (user != null) {
+            UserSession.setCurrentUser(user);
+        }
     }
 
     private void setUpSignUpBtn() {
@@ -77,11 +90,11 @@ public class Login extends MainJFrame {
     }
 
     private boolean isUserAuthenticated() throws SQLException {
-        return Authenticator.authenticateUser(textField2.getText(), passwordField1.getText());
+        return Authenticator.authenticateUser(username.getText(), passwordField1.getText());
     }
 
     private void clearFields() {
-        textField2.setText("");
+        username.setText("");
         passwordField1.setText("");
     }
 }
