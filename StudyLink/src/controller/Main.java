@@ -1,10 +1,6 @@
 package controller;
 
-import model.Course.Course;
-import model.Course.CourseDAOImplementation;
-
 import java.sql.*;
-import java.util.List;
 
 import javax.swing.*;
 
