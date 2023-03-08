@@ -1,5 +1,7 @@
 package model.Course;
 
+import javax.swing.*;
+
 /**
  * Implementation of the Course class using the Builder design pattern.
  */
@@ -9,11 +11,17 @@ public class Course {
     private String courseName;
     private String courseDesc;
 
+    private JButton viewButton;
+
+    private JButton bookmarkButton;
+
     private Course(CourseBuilder builder) {
         this.courseId = builder.courseId;
         this.courseCode = builder.courseCode;
         this.courseName = builder.courseName;
         this.courseDesc = builder.courseDesc;
+        this.viewButton = builder.viewButton;
+        this.bookmarkButton = builder.bookmarkButton;
     }
 
     public int getCourseId() {
@@ -32,11 +40,27 @@ public class Course {
         return courseCode;
     }
 
+    public JButton getViewButton() { return this.viewButton; }
+
+    public JButton getBookmarkButton() { return this.bookmarkButton; }
+
+    public void setViewButton(JButton view) {
+        this.viewButton = view;
+    }
+
+    public void setBookmarkButton (JButton bookmark) {
+        this.bookmarkButton = bookmark;
+    }
+
     public static class CourseBuilder {
         private int courseId;
         private String courseName;
         private String courseDesc;
         private String courseCode;
+
+        private JButton viewButton;
+
+        private JButton bookmarkButton;
 
         public CourseBuilder(int courseId) {
             this.courseId = courseId;

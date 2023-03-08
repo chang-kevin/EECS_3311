@@ -1,5 +1,9 @@
 package controller;
 
+import model.Course.Course;
+import model.Course.CourseDAOImplementation;
+import view.dashboard.Dashboard;
+
 import java.sql.*;
 
 import javax.swing.*;
