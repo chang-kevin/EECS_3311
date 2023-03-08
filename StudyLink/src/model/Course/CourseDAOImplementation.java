@@ -87,6 +87,7 @@ public class CourseDAOImplementation implements CourseDAO {
         List<Course> lc = new ArrayList<>();
 
         while (rs.next()) {
+
             int courseId = rs.getInt("course_id");
             Course course = new Course.CourseBuilder(courseId)
                     .setCourseName(rs.getString("name"))

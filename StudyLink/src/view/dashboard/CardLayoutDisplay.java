@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.text.*;
+import java.util.List;
 
 /**
  * 
@@ -16,7 +17,9 @@ import javax.swing.text.*;
 public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 	private CardLayout cardLayout;
-	JPanel displayArea; 
+
+	CourseLevel courses;
+	JPanel displayArea;
 	private JButton one;
 	private JButton two;
 	private JButton three;
@@ -45,18 +48,17 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		
 		createTaskbarPanel();
 		createCard();
-		
-		
+
 	}
 	/**
 	 * This method creates an object of the display panel and adds it into the cardlayout.
 	 */
 	public void createCard() throws SQLException {
 		HomePage home = new HomePage();
-		CourseLevel courses = new CourseLevel(); 	
+		courses = new CourseLevel();
 		
 		addCard(home.dashboard, dashboardPanel);	
-		addCard(courses.oneLevel, onePanel);	
+		addCard(courses.oneLevel, onePanel);
 		addCard(courses.twoLevel, twoPanel);
 		addCard(courses.threeLevel, threePanel);
 	}
@@ -67,6 +69,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 * @param key String key that identifies the component to be added. 
 	 */
 	public void addCard(JPanel page, String key) {
+
 		displayArea.add(page, key);
 	}
 	
@@ -234,6 +237,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 					cardLayout.show(displayArea, onePanel);
 					uploadBtn.setBounds(0, 403, 160, 40);
 					buttons.setBounds(0, 283, 160, 120);
+
 				}
 				else if(btn == two) {
 					cardLayout.show(displayArea, twoPanel);

@@ -8,7 +8,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.sql.SQLException;
+import java.util.*;
 import java.util.List;
+
+//import static com.sun.tools.javac.main.Option.J;
 
 
 /**
@@ -27,7 +30,11 @@ public class CourseLevel extends JPanel implements ActionListener{
 	private JButton bookmark;
 	private JButton view;
 
+	private List<JButton> bookmarkButtonList;
+
 	private List<Course> courseList;
+
+	private List<Course> courseWithButtons;
 
     /*
      * Constructor 
@@ -36,16 +43,13 @@ public class CourseLevel extends JPanel implements ActionListener{
 		
 		oneLevel = new JPanel();
 		oneLevel = createCourseLevels(oneLevel, "1000 Level Courses");
-		
-		
+
 		twoLevel = new JPanel();
 		twoLevel = createCourseLevels(twoLevel, "2000 Level Courses");
 		
 		
 		threeLevel = new JPanel();
 		threeLevel = createCourseLevels(threeLevel, "3000 Level Courses");
-		
-		
     	
     }
     
@@ -66,20 +70,22 @@ public class CourseLevel extends JPanel implements ActionListener{
 		pageTitle.setText(title);
 		pageTitle.setBounds(10, 11, 142, 29);
 		level.add(pageTitle);
-		
+
+
 		courseContentPanel = new JPanel();
-		courseContentPanel = coursePanel(); 
-		level.add(courseContentPanel);
-			
-		
+		courseContentPanel = coursePanel();
+
 		labelContainer = new JPanel();
+
 		labelContainer = createContainer(labelContainer, 0);
 		courseContentPanel.add(labelContainer);
 		
 		contentLabels(labelContainer);
     
 		generateCourses(title);
-		
+
+		level.add(courseContentPanel);
+
 		return level;
     }
     /**
@@ -138,7 +144,6 @@ public class CourseLevel extends JPanel implements ActionListener{
 		courseContentPanel.setBackground(new Color(255, 255, 255));
 		courseContentPanel.setBounds(10, 48, 517, 289);
 		courseContentPanel.setLayout(null);
-		
 		return courseContentPanel; 
     }
     
@@ -148,41 +153,98 @@ public class CourseLevel extends JPanel implements ActionListener{
     public void generateCourses(String title) throws SQLException {
     	//y-value of panel used to hold the a course 
     	int y = 40; 
-    	
-    	// get number of courses then iterate through this 
-		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
-		courseList = courseDAO.getAllCourses();
+
+    	// get number of courses then iterate through this
 
     	//number of courses change value
+		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
+		courseList = courseDAO.getAllCourses();
+		courseWithButtons = new ArrayList<>();
+
+
+		bookmarkButtonList = new ArrayList<>();
+
+		for (Course course: courseList) {
+
+			String text = "View";
+			view = new JButton();
+			view = buttonStyler(view, text);
+			view.setBounds(408, 7, 80, 25);
+			course.setViewButton(view);
+
+			String state = "Bookmark";
+			bookmark = new JButton();
+			bookmark = buttonStyler(bookmark, state);
+			bookmark.setBounds(308, 7, 80, 25);
+			bookmark.addActionListener(this);
+			bookmarkButtonList.add(bookmark);
+			course.setBookmarkButton(bookmark);
+
+			courseWithButtons.add(course);
+		}
 
 		if (title.equals("1000 Level Courses")) {
-			for(Course e: courseList) {
+			for(Course e: courseWithButtons) {
 				if (e.getCourseId() < 2000) {
 					JPanel container = new JPanel();
 					container = createContainer(container, y);
 					courseContentPanel.add(container);
 					createCourse(container, e.getCourseName(), e.getCourseCode());
+
+					e.getViewButton().addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent ae) {
+							if (ae.getSource() == e.getViewButton()) {
+								// should show the course description and study materials
+							}
+						}
+					});
+					container.add(e.getBookmarkButton());
+					container.add(e.getViewButton());
 					y = y + 40;
 				}
-
 			}
-		} else if (title.equals("2000 Level Courses")) {
-			for(Course e: courseList) {
+		}
+		else if (title.equals("2000 Level Courses")) {
+			for(Course e: courseWithButtons) {
 				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
 					JPanel container = new JPanel();
 					container = createContainer(container, y);
 					courseContentPanel.add(container);
 					createCourse(container, e.getCourseName(), e.getCourseCode());
+
+					e.getViewButton().addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent ae) {
+							if (ae.getSource() == e.getViewButton()) {
+								// should show the course description and study materials
+							}
+						}
+					});
+
+					container.add(e.getBookmarkButton());
+					container.add(e.getViewButton());
 					y = y + 40;
 				}
 			}
 		} else if (title.equals("3000 Level Courses")){
-			for(Course e: courseList) {
+			for(Course e: courseWithButtons) {
 				if (e.getCourseId() >= 3000) {
 					JPanel container = new JPanel();
 					container = createContainer(container, y);
 					courseContentPanel.add(container);
 					createCourse(container, e.getCourseName(), e.getCourseCode());
+					e.getViewButton().addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent ae) {
+							if (ae.getSource() == e.getViewButton()) {
+								// should show the course description and study materials
+							}
+						}
+					});
+
+					container.add(e.getBookmarkButton());
+					container.add(e.getViewButton());
 					y = y + 40;
 				}
 			}
@@ -204,19 +266,7 @@ public class CourseLevel extends JPanel implements ActionListener{
     	createLabels(code, 0, 100, container);
     	
     	JLabel name = new JLabel(courseName); 
-    	createLabels(name, 100, 197, container); 
-    	
-    	String state = "Bookmark";
-    	bookmark = new JButton(); 
-    	bookmark = buttonStyler(bookmark, state);
-    	container.add(bookmark);
-    	bookmark.setBounds(308, 7, 80, 25);
-    	
-    	String text = "View";
-    	view = new JButton();
-    	view = buttonStyler(view, text); 
-    	container.add(view);
-    	view.setBounds(408, 7, 80, 25);
+    	createLabels(name, 100, 197, container);
     	
     }
     
@@ -278,6 +328,8 @@ public class CourseLevel extends JPanel implements ActionListener{
 	  */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+
 		if(e.getSource() == bookmark) {
 			if(bookmark.getText() == "Bookmark")
 			{
