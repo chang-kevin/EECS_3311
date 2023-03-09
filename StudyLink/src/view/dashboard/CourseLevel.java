@@ -25,11 +25,8 @@ public class CourseLevel extends JPanel implements ActionListener{
 	JPanel threeLevel;
 	JPanel oneLevel;
 	JFrame frame;
-	private JPanel courseContentPanel1;
 
-	private JPanel courseContentPanel2;
-
-	private JPanel courseContentPanel3;
+	private JPanel courseContentPanel;
 
 	private JPanel labelContainer;
 	private JButton bookmark;
@@ -39,9 +36,7 @@ public class CourseLevel extends JPanel implements ActionListener{
 
 	private List<JButton> bookmarkButtonList;
 
-	private List<Course> courseList;
-
-	private List<Course> courseWithButtons;
+	List<Course> courseList;
 
     /*
      * Constructor 
@@ -78,53 +73,37 @@ public class CourseLevel extends JPanel implements ActionListener{
 		level.add(pageTitle);
 
 		if (title.equals("1000 Level Courses")) {
-			courseContentPanel1 = new JPanel();
-			courseContentPanel1 = coursePanel(courseContentPanel1);
-
-			labelContainer = new JPanel();
-
-			labelContainer = createContainer(labelContainer, 0);
-			courseContentPanel1.add(labelContainer);
-
-			contentLabels(labelContainer);
-
-			generateCourses(title);
-
-			level.add(courseContentPanel1);
+			fillCourseContentPanel(title);
+			level.add(courseContentPanel);
 		}
 		if (title.equals("2000 Level Courses")) {
-			courseContentPanel2 = new JPanel();
-			courseContentPanel2 = coursePanel(courseContentPanel2);
-
-			labelContainer = new JPanel();
-
-			labelContainer = createContainer(labelContainer, 0);
-			courseContentPanel2.add(labelContainer);
-
-			contentLabels(labelContainer);
-
-			generateCourses(title);
-
-			level.add(courseContentPanel2);
+			fillCourseContentPanel(title);
+			level.add(courseContentPanel);
 		}
 		if (title.equals("3000 Level Courses")) {
-			courseContentPanel3 = new JPanel();
-			courseContentPanel3 = coursePanel(courseContentPanel3);
-
-			labelContainer = new JPanel();
-
-			labelContainer = createContainer(labelContainer, 0);
-			courseContentPanel3.add(labelContainer);
-
-			contentLabels(labelContainer);
-
-			generateCourses(title);
-
-			level.add(courseContentPanel3);
+			fillCourseContentPanel(title);
+			level.add(courseContentPanel);
 		}
 
 		return level;
     }
+
+	/**
+	 * Used for defining the courseContentPanel
+	 *
+	 * @param level The course level
+	 * @throws SQLException
+	 */
+	public void fillCourseContentPanel(String level) throws SQLException {
+		courseContentPanel = new JPanel();
+		courseContentPanel = coursePanel(courseContentPanel);
+		labelContainer = new JPanel();
+		labelContainer = createContainer(labelContainer, 0);
+		courseContentPanel.add(labelContainer);
+		contentLabels(labelContainer);
+		generateCourses(level);
+	}
+
     /**
      * This method sets a layout for the JPanel container of each course to be displayed as a list. 
      * @param container JPanel component containing the course information. 
@@ -188,19 +167,68 @@ public class CourseLevel extends JPanel implements ActionListener{
      * This method generates the courses and displays it on a list. 
      */
     public void generateCourses(String title) throws SQLException {
-    	//y-value of panel used to hold the a course 
-
-
+    	//y-value of panel used to hold the a course
 		int y = 40;
 
-    	// get number of courses then iterate through this
-
-    	//number of courses change value
 		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
 		courseList = courseDAO.getAllCourses();
+		setCourseButtons();
 
+		if (title.equals("1000 Level Courses")) {
+			for(Course e: courseList) {
+				if (e.getCourseId() < 2000) {
+					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
+					JPanel container = new JPanel();
+					container = createContainer(container, y);
+					courseContentPanel.add(container);
+					createCourse(container, e.getCourseName(), e.getCourseCode());
+					container.add(e.getBookmarkButton());
+					container.add(e.getViewButton());
+
+					viewButtonList.add(viewButton);
+					y = y + 40;
+				}
+			}
+		}
+		else if (title.equals("2000 Level Courses")) {
+			for(Course e: courseList) {
+				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
+					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
+					JPanel container = new JPanel();
+					container = createContainer(container, y);
+					courseContentPanel.add(container);
+					createCourse(container, e.getCourseName(), e.getCourseCode());
+					container.add(e.getBookmarkButton());
+					container.add(e.getViewButton());
+
+					viewButtonList.add(viewButton);
+					y = y + 40;
+				}
+			}
+		}
+		else if (title.equals("3000 Level Courses")){
+			for(Course e: courseList) {
+				if (e.getCourseId() >= 3000) {
+					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
+					JPanel container = new JPanel();
+					container = createContainer(container, y);
+					courseContentPanel.add(container);
+					createCourse(container, e.getCourseName(), e.getCourseCode());
+					container.add(e.getBookmarkButton());
+					container.add(e.getViewButton());
+
+					viewButtonList.add(viewButton);
+					y = y + 40;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Assigns view and bookmark button to the each course
+	 */
+	public void setCourseButtons () {
 		bookmarkButtonList = new ArrayList<>();
-
 		for (Course course: courseList) {
 
 			String text = "View";
@@ -216,63 +244,9 @@ public class CourseLevel extends JPanel implements ActionListener{
 			bookmark.addActionListener(this);
 			bookmarkButtonList.add(bookmark);
 			course.setBookmarkButton(bookmark);
-
 		}
-
-		if (title.equals("1000 Level Courses")) {
-			for(Course e: courseList) {
-				if (e.getCourseId() < 2000) {
-					JPanel container = new JPanel();
-					container = createContainer(container, y);
-					courseContentPanel1.add(container);
-					createCourse(container, e.getCourseName(), e.getCourseCode());
-					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-					viewButtonList.add(viewButton);
-					container.add(e.getBookmarkButton());
-					container.add(e.getViewButton());
-					y = y + 40;
-				}
-			}
-		}
-		else if (title.equals("2000 Level Courses")) {
-			for(Course e: courseList) {
-				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
-					JPanel container = new JPanel();
-					container = createContainer(container, y);
-					courseContentPanel2.add(container);
-					createCourse(container, e.getCourseName(), e.getCourseCode());
-
-					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-					viewButtonList.add(viewButton);
-
-					container.add(e.getBookmarkButton());
-					container.add(e.getViewButton());
-					y = y + 40;
-				}
-			}
-		}
-		else if (title.equals("3000 Level Courses")){
-			for(Course e: courseList) {
-				if (e.getCourseId() >= 3000) {
-					JPanel container = new JPanel();
-					container = createContainer(container, y);
-					courseContentPanel3.add(container);
-					createCourse(container, e.getCourseName(), e.getCourseCode());
-
-					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-					viewButtonList.add(viewButton);
-
-					container.add(e.getBookmarkButton());
-					container.add(e.getViewButton());
-					y = y + 40;
-				}
-			}
-		}
-
-
 	}
-    
-   
+
     /**
      * This method creates the components for the information on each courses (course code, name, bookmark, view course). 
      * @param container JPanel container for absolute placement of the course components. 
