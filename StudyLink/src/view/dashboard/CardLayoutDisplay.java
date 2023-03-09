@@ -42,12 +42,13 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 */
 	
 	public CardLayoutDisplay() throws SQLException {
+		viewButtonsList = new ArrayList<>();
 		displayArea = new JPanel();
 		displayArea = panelBorder(displayArea);
 		
 		cardLayout = new CardLayout(0, 0);	
 		displayArea.setLayout(cardLayout);
-		
+
 		createTaskbarPanel();
 		createCard();
 
@@ -58,9 +59,16 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	public void createCard() throws SQLException {
 		HomePage home = new HomePage();
 		courses = new CourseLevel();
-		viewButtonsList = new ArrayList<>();
+
 		for (ViewButtons e: courses.viewButtonList) {
-			e.getViewButton().addActionListener(this);
+			e.getViewButton().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent ae) {
+
+					System.out.println(e.getCourse().getCourseName());
+
+ 				}
+			});
 			viewButtonsList.add(e);
 		}
 
@@ -225,11 +233,11 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton[] menu = {dashboardBtn, courseBtn, uploadBtn, one, two, three};
 
-		for (ViewButtons vb: viewButtonsList) {
+		/*for (ViewButtons vb: viewButtonsList) {
 			if(e.getSource() == vb.getViewButton()) {
 				System.out.println(vb.getCourse().getCourseCode());
 			}
-		}
+		}*/
 
 		for(JButton btn: menu) {
 			if(e.getSource() == btn) {
