@@ -39,7 +39,7 @@ public class SearchBar extends JLabel {
 
         searchIcon.setBackground(new Color(255, 255, 255));
         searchIcon.setOpaque(true);
-        searchIcon.setBounds(10, 232, 210, 36);
+        searchIcon.setBounds(10, 245, 210, 36);
         searchIcon.setIcon(addIcon());
 
         return searchIcon;
@@ -58,7 +58,7 @@ public class SearchBar extends JLabel {
     public HintTextField textField() {
         searchbar = new HintTextField("Search for e.g:- EECS 3311");
         searchbar.setBorder(null);
-        searchbar.setBounds(49, 232, 157, 36);
+        searchbar.setBounds(49, 245, 157, 36);
         searchbar.setColumns(10);
 
         return (HintTextField) searchbar;

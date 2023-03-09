@@ -1,22 +1,81 @@
 package view.dashboard;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import javax.swing.*;
 
 public class Profile extends JPanel {
 
-
     JPanel profile;
+    JButton profileBtn;
+    private JLabel profileImagePanel;
+
 
     public Profile() {
         profile = new JPanel();
-        profile = profileDisplay();
+        profile = panelBorder(profile);
+        profile.setBounds(10, 40, 208, 194);
 
+        setName();
+        viewProfileBtn();
+        setProfileImage();
 
     }
 
-    public JPanel profileDisplay() {
-        profile = new JPanel() {
+
+
+    public void setName() {
+        JLabel userName = new JLabel("User Name");
+        userName.setForeground(new Color(128, 128, 128));
+        userName.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
+        userName.setBorder(null);
+        userName.setHorizontalAlignment(SwingConstants.CENTER);
+        userName.setBounds(43, 124, 120, 25);
+        profile.add(userName);
+
+    }
+
+
+    public void viewProfileBtn() {
+        profileBtn = new JButton("View Profile");
+        profileBtn.setFocusPainted(false);
+        profileBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
+        profileBtn.setForeground(new Color(244, 181, 181));
+        profileBtn.setBackground(new Color(255, 255, 255, 200));
+        profileBtn.setBorder(null);
+        profileBtn.setOpaque(false);
+        profileBtn.setBounds(59, 160, 90, 23);
+        profile.add(profileBtn);
+
+    }
+
+    private Image getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 2, 1, w, h, null);
+        g2.dispose();
+
+        return resizedImg;
+    }
+
+    public void setProfileImage() {
+        profileImagePanel = new JLabel();
+        profileImagePanel.setBounds(45, 11, 115, 110);
+
+        String path = "/profilepicture.png";
+        ImageIcon image = new ImageIcon(getClass().getResource(path));
+        Image newImage = getScaledImage(image.getImage(), profileImagePanel.getWidth(), profileImagePanel.getHeight());
+        ImageIcon icon = new ImageIcon(newImage);
+
+        profileImagePanel.setIcon(icon);
+        profile.add(profileImagePanel);
+    }
+
+    public JPanel panelBorder(JPanel panel) {
+        panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -25,20 +84,16 @@ public class Profile extends JPanel {
                 int height = getHeight();
                 Graphics2D graphics = (Graphics2D) g;
                 graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                graphics.setColor(new Color(255, 255, 255));
+                graphics.setColor(new Color(255, 255, 255, 200));
                 graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
                 graphics.setColor(new Color(216, 237, 214));
                 graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
             }
         };
-        profile.setOpaque(false);
+        panel.setOpaque(false);
+        panel.setLayout(null);
 
 
-        profile.setBounds(10, 11, 208, 194);
-
-        return profile;
+        return panel;
     }
-
-
-
 }
