@@ -100,6 +100,11 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     @Override
+    public List<Course> getUserPinnedCourses(String username) throws SQLException {
+        return null;
+    }
+
+    @Override
     public void update(Course course) throws SQLException {
         String query = "update courses set name = ?, description = ?, course_code = ? where course_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
@@ -108,5 +113,17 @@ public class CourseDAOImplementation implements CourseDAO {
         ps.setString(3, course.getCourseCode());
         ps.setInt(4, course.getCourseId());
         ps.executeUpdate();
+    }
+
+    public List<String> getTopicList() throws SQLException{
+        String query = "select * from Topics";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        List<String> topics = new ArrayList<>();
+
+        while (rs.next()){
+            topics.add(rs.getString("topic_id") + ": " + rs.getString("topic_name"));
+        }
+        return topics;
     }
 }

@@ -12,8 +12,6 @@ public class SearchBar extends JLabel {
     JTextField searchbar;
     JLabel searchIcon;
 
-
-
     public SearchBar() {
 
         searchIcon = new JLabel();
@@ -21,8 +19,6 @@ public class SearchBar extends JLabel {
 
         searchbar = new JTextField();
         searchbar = textField();
-
-
     }
 
     private Image getScaledImage(Image srcImg, int w, int h){
@@ -57,14 +53,10 @@ public class SearchBar extends JLabel {
     }
 
     public JTextField textField() {
-
         searchbar.setBorder(null);
         searchbar.setBounds(49, 232, 157, 36);
         searchbar.setColumns(10);
 
         return searchbar;
     }
-
-
-
 }

@@ -48,6 +48,7 @@ public class Login extends MainJFrame {
                         setUserSession();
                         setVisible(false);
                         new Dashboard();
+                        globalVariable.s = username.getText();
                         return;
                     }
                 } catch (SQLException ex) {
@@ -92,6 +93,7 @@ public class Login extends MainJFrame {
     private boolean isUserAuthenticated() throws SQLException {
         return Authenticator.authenticateUser(username.getText(), passwordField1.getText());
     }
+
 
     private void clearFields() {
         username.setText("");
