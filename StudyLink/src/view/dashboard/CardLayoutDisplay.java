@@ -6,16 +6,20 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.text.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
- * Class to create the cardlayout for the dashboard display area.
+ * 
+ * Class to create the cardlayout for the dashboard display area. 
  *
  */
 
 public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 	private CardLayout cardLayout;
+
+	CourseLevel courses;
 	JPanel displayArea;
 	private JButton one;
 	private JButton two;
@@ -25,28 +29,27 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	private JButton dashboardBtn;
 	JPanel taskbar;
 	private JPanel buttons;
-
-	private static final String dashboardPanel = "Dashboard";
-	private static final String uploadPanel = "Upload";
-	private static final String onePanel = "One";
+	private List<ViewButtons> viewButtonsList;
+	
+	private static final String dashboardPanel = "Dashboard"; 
+	private static final String uploadPanel = "Upload"; 
+	private static final String onePanel = "One"; 
 	private static final String twoPanel = "Two";
-	private static final String threePanel = "Three";
-	private static final String profilePanel = "Profile";
+	private static final String threePanel = "Three"; 
 
 	/**
 	 * Constructor
 	 */
-
+	
 	public CardLayoutDisplay() throws SQLException {
 		displayArea = new JPanel();
 		displayArea = panelBorder(displayArea);
-
-		cardLayout = new CardLayout(0, 0);
+		
+		cardLayout = new CardLayout(0, 0);	
 		displayArea.setLayout(cardLayout);
-
+		
 		createTaskbarPanel();
 		createCard();
-
 
 	}
 	/**
@@ -54,34 +57,36 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 */
 	public void createCard() throws SQLException {
 		HomePage home = new HomePage();
-		CourseLevel courses = new CourseLevel();
-		Profile profile = new Profile();
-		UploadFile upload = new UploadFile();
+		courses = new CourseLevel();
+		viewButtonsList = new ArrayList<>();
+		for (ViewButtons e: courses.viewButtonList) {
+			e.getViewButton().addActionListener(this);
+			viewButtonsList.add(e);
+		}
 
-		addCard(home.dashboard, dashboardPanel);
+		addCard(home.dashboard, dashboardPanel);	
 		addCard(courses.oneLevel, onePanel);
 		addCard(courses.twoLevel, twoPanel);
 		addCard(courses.threeLevel, threePanel);
-		addCard(upload.upload, uploadPanel);
-		addCard(profile.profile, profilePanel);
 	}
 
 	/**
-	 * This method adds the panels in the cardlayout.
+	 * This method adds the panels in the cardlayout. 
 	 * @param page JPanel component to be added to the cardlayout.
-	 * @param key String key that identifies the component to be added.
+	 * @param key String key that identifies the component to be added. 
 	 */
 	public void addCard(JPanel page, String key) {
+
 		displayArea.add(page, key);
 	}
-
-
+	
+	
 	/**
-	 * This method sets the layout for the taskbar buttons.
-	 * @param btn JButton component
+	 * This method sets the layout for the taskbar buttons. 
+	 * @param btn JButton component 
 	 * @param name Identifier name for the JButton
 	 * @param y y-bound for JButton location
-	 * @return JButton with custom layouts
+	 * @return JButton with custom layouts 
 	 */
 	public JButton createButton(JButton btn, String name, int y) {
 		btn = new JButton(name);
@@ -105,9 +110,9 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		return btn;
 	}
 	/**
-	 * This method adds JButtons to a panel creating a drop down menu.
+	 * This method adds JButtons to a panel creating a drop down menu. 
 	 */
-
+	
 	public void levelMenu() {
 		one = new JButton("1000 Level");
 		two = new JButton("2000 Level");
@@ -140,7 +145,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	}
 	/**
 	 * This method creates the side panel containing the taskbar buttons and application name.
-	 * @return JPanel component for the taskbar
+	 * @return JPanel component for the taskbar 
 	 */
 	public JPanel createTaskbarPanel() {
 		taskbar = new JPanel();
@@ -180,45 +185,51 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 	}
 	/**
-	 * This method creates a rounded border and sets the layout for the panel display.
-	 * @param panel parent JPanel of the cardlayout
-	 * @return Returns the parent panel with rounded boarder.
+	 * This method creates a rounded border and sets the layout for the panel display. 
+	 * @param panel parent JPanel of the cardlayout 
+	 * @return Returns the parent panel with rounded boarder. 
 	 */
-	public JPanel panelBorder(JPanel panel) {
-		panel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				Dimension arcs = new Dimension(50, 50);
-				int width = getWidth();
-				int height = getHeight();
-				Graphics2D graphics = (Graphics2D) g;
-				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-				graphics.setColor(getBackground());
-				graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-				graphics.setColor(getForeground());
-				graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-			}
-		};
+	 public JPanel panelBorder(JPanel panel) {
+	        panel = new JPanel() {
+	            @Override
+	            protected void paintComponent(Graphics g) {
+	                super.paintComponent(g);
+	                Dimension arcs = new Dimension(50, 50);
+	                int width = getWidth();
+	                int height = getHeight();
+	                Graphics2D graphics = (Graphics2D) g;
+	                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	                graphics.setColor(getBackground());
+	                graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+	                graphics.setColor(getForeground());
+	                graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+	            }
+	        };
 
-		panel.setForeground(new Color(239, 239, 239, 75));
-		panel.setBackground(new Color(239, 239, 239, 75));
-		panel.setBounds(169, 203, 537, 348);
-		panel.setBorder(null);
-		panel.setOpaque(false);
-		panel.setLayout(null);
-
-
-		return panel;
-	}
+	        panel.setForeground(new Color(239, 239, 239, 75));
+	        panel.setBackground(new Color(239, 239, 239, 75));
+	        panel.setBounds(169, 203, 537, 348);
+	        panel.setBorder(null);
+	        panel.setOpaque(false);
+	        panel.setLayout(null);
 
 
-	/**
-	 * Invoked on button click and displays a card.
-	 */
+	        return panel;
+	    }
+
+
+	 /**
+	  * Invoked on button click and displays a card. 
+	  */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton[] menu = {dashboardBtn, courseBtn, uploadBtn, one, two, three};
+
+		for (ViewButtons vb: viewButtonsList) {
+			if(e.getSource() == vb.getViewButton()) {
+				System.out.println(vb.getCourse().getCourseCode());
+			}
+		}
 
 		for(JButton btn: menu) {
 			if(e.getSource() == btn) {
@@ -239,6 +250,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 					cardLayout.show(displayArea, onePanel);
 					uploadBtn.setBounds(0, 403, 160, 40);
 					buttons.setBounds(0, 283, 160, 120);
+
 				}
 				else if(btn == two) {
 					cardLayout.show(displayArea, twoPanel);
@@ -251,7 +263,6 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 					buttons.setBounds(0, 283, 160, 120);
 				}
 				else {
-					cardLayout.show(displayArea, uploadPanel);
 					uploadBtn.setBounds(0, 283, 160, 40);
 					buttons.setBounds(0, 0, 0 ,0);
 				}
@@ -261,8 +272,8 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 				btn.setForeground(new Color(255, 255, 255));
 			}
 		}
-
+		
 	}
-
-
+	
+	
 }
