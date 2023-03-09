@@ -1,5 +1,7 @@
 package view.dashboard;
 
+import model.Course.Course;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,10 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 	private List<ViewButtons> viewButtonsList;
 
+	ViewCourse view;
+
+	SearchBar search;
+
 	private static final String dashboardPanel = "Dashboard";
 	private static final String uploadPanel = "Upload";
 	private static final String onePanel = "One";
@@ -47,7 +53,6 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 */
 
 	public CardLayoutDisplay() throws SQLException {
-		viewButtonsList = new ArrayList<>();
 
 		displayArea = new JPanel();
 		displayArea = panelBorder(displayArea);
@@ -55,11 +60,11 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		cardLayout = new CardLayout(0, 0);
 		displayArea.setLayout(cardLayout);
 
+		viewButtonsList = new ArrayList<>();
+		search = Dashboard.searchbar;
+
 		createTaskbarPanel();
 		createCard();
-
-
-
 
 	}
 	/**
@@ -71,15 +76,14 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		callButton();
 		Profile profile = new Profile();
 		UploadFile upload = new UploadFile();
-		ViewCourse view = new ViewCourse();
 
 		addCard(home.dashboard, dashboardPanel);
 		addCard(courses.oneLevel, onePanel);
 		addCard(courses.twoLevel, twoPanel);
 		addCard(courses.threeLevel, threePanel);
 		addCard(upload.upload, uploadPanel);
-		addCard(view.coursePage, viewPanel);
 		addCard(profile.profile, profilePanel);
+		searchAction();
 	}
 
 	/**
@@ -235,6 +239,36 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		return panel;
 	}
 
+	/**
+	 * Used for implementing the search bar upon pressing the enter key, given a successful input
+	 */
+	public void searchAction() {
+		search.searchbar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String courseCode = search.searchbar.getText();
+					for (Course course: courses.courseList) {
+						if (courseCode.equalsIgnoreCase(course.getCourseCode())) {
+							view = new ViewCourse();
+							view.setCourse(course);
+							addCard(view.coursePage, viewPanel);
+							cardLayout.show(displayArea, viewPanel);
+						}
+					}
+					String courseName = search.searchbar.getText();
+					for (Course course: courses.courseList) {
+						if (courseName.equalsIgnoreCase(course.getCourseName())) {
+							view = new ViewCourse();
+							view.setCourse(course);
+							addCard(view.coursePage, viewPanel);
+							cardLayout.show(displayArea, viewPanel);
+						}
+					}
+				}
+			}
+		});
+	}
 
 	/**
 	 * Invoked on button click and displays a card.
@@ -245,6 +279,9 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 		for (ViewButtons btn : courses.viewButtonList) {
 			if(e.getSource() == btn.getViewButton()) {
+				view = new ViewCourse();
+				view.setCourse(btn.getCourse());
+				addCard(view.coursePage, viewPanel);
 				cardLayout.show(displayArea, viewPanel);
 			}
 		}

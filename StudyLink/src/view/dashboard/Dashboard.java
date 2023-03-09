@@ -12,6 +12,8 @@ public class Dashboard {
 
 	private JFrame frame;
 	private JPanel profile;
+
+	static SearchBar searchbar;
 	private CardLayoutDisplay cardLayout;
 	
 
@@ -20,11 +22,12 @@ public class Dashboard {
 		frame = createFrame();
 		frame.setLocationRelativeTo(null);
 
-		createTaskbar();
 		createProfilePanel();
+		createSearchbar();
+		createTaskbar();
 		pageTitle("Dashboard");
 		createHeader();
-		createSearchbar();
+
 
 	}
 
@@ -44,7 +47,7 @@ public class Dashboard {
 	}
 
 	public void createSearchbar() {
-		SearchBar searchbar = new SearchBar();
+		searchbar = new SearchBar();
 		profile.add(searchbar.searchIcon);
 		profile.add(searchbar.searchbar);
 	}
