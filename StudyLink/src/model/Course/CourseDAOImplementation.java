@@ -100,6 +100,11 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     @Override
+    public List<Course> getUserPinnedCourses(String username) throws SQLException {
+        return null;
+    }
+
+    @Override
     public void update(Course course) throws SQLException {
         String query = "update courses set name = ?, description = ?, course_code = ? where course_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
