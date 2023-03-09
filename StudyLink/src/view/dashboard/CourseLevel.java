@@ -47,13 +47,12 @@ public class CourseLevel extends JPanel implements ActionListener{
      * Constructor 
      */
     public CourseLevel() throws SQLException {
-		
+		viewButtonList = new ArrayList<>();
 		oneLevel = new JPanel();
 		oneLevel = createCourseLevels(oneLevel, "1000 Level Courses");
 
 		twoLevel = new JPanel();
 		twoLevel = createCourseLevels(twoLevel, "2000 Level Courses");
-		
 		
 		threeLevel = new JPanel();
 		threeLevel = createCourseLevels(threeLevel, "3000 Level Courses");
@@ -190,7 +189,7 @@ public class CourseLevel extends JPanel implements ActionListener{
      */
     public void generateCourses(String title) throws SQLException {
     	//y-value of panel used to hold the a course 
-    	viewButtonList = new ArrayList<>();
+
 
 		int y = 40;
 
@@ -199,8 +198,6 @@ public class CourseLevel extends JPanel implements ActionListener{
     	//number of courses change value
 		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
 		courseList = courseDAO.getAllCourses();
-		courseWithButtons = new ArrayList<>();
-
 
 		bookmarkButtonList = new ArrayList<>();
 
@@ -220,11 +217,10 @@ public class CourseLevel extends JPanel implements ActionListener{
 			bookmarkButtonList.add(bookmark);
 			course.setBookmarkButton(bookmark);
 
-			courseWithButtons.add(course);
 		}
 
 		if (title.equals("1000 Level Courses")) {
-			for(Course e: courseWithButtons) {
+			for(Course e: courseList) {
 				if (e.getCourseId() < 2000) {
 					JPanel container = new JPanel();
 					container = createContainer(container, y);
@@ -239,7 +235,7 @@ public class CourseLevel extends JPanel implements ActionListener{
 			}
 		}
 		else if (title.equals("2000 Level Courses")) {
-			for(Course e: courseWithButtons) {
+			for(Course e: courseList) {
 				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
 					JPanel container = new JPanel();
 					container = createContainer(container, y);
@@ -254,8 +250,9 @@ public class CourseLevel extends JPanel implements ActionListener{
 					y = y + 40;
 				}
 			}
-		} else if (title.equals("3000 Level Courses")){
-			for(Course e: courseWithButtons) {
+		}
+		else if (title.equals("3000 Level Courses")){
+			for(Course e: courseList) {
 				if (e.getCourseId() >= 3000) {
 					JPanel container = new JPanel();
 					container = createContainer(container, y);
