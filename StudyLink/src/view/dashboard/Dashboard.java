@@ -1,33 +1,36 @@
 package view.dashboard;
 
-import java.awt.*;
+import controller.Login;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.*;
 import javax.swing.*;
 
 
-public class Dashboard {
-
+public class Dashboard implements ActionListener{
 
 	private JFrame frame;
 	private JPanel profile;
-
 	static SearchBar searchbar;
 	private CardLayoutDisplay cardLayout;
-	
+	private JButton logoutBtn;
+
 
 	public Dashboard() throws SQLException {
 		frame = new JFrame();
 		frame = createFrame();
 		frame.setLocationRelativeTo(null);
 
+
 		createProfilePanel();
 		createSearchbar();
 		createTaskbar();
 		pageTitle("Dashboard");
 		createHeader();
-
+		createLogout();
 
 	}
 
@@ -64,14 +67,55 @@ public class Dashboard {
 		pageTitle.setBackground(new Color(255, 255, 255));
 
 	}
-	
+
 	public void createTaskbar() throws SQLException {
 		cardLayout = new CardLayoutDisplay();
 		frame.getContentPane().add(cardLayout.taskbar);
-		
+
 		createDisplay(cardLayout);
 	}
-	
+
+	public JButton createLogout() {
+		logoutBtn = new JButton("Log out");
+		logoutBtn.setForeground(new Color(239, 127, 127));
+		logoutBtn.setMargin(new Insets(0, 0, 0, 0));
+		logoutBtn.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 13));
+		logoutBtn.setHorizontalAlignment(SwingConstants.LEFT);
+		logoutBtn.setBorderPainted(false);
+		logoutBtn.setBackground(new Color(216, 237, 214));
+		logoutBtn.setBounds(135, 0, 86, 30);
+		logoutBtn.setFocusPainted(false);
+		logoutBtn.setOpaque(false);
+		logoutBtn.setContentAreaFilled(false);
+		logoutIcon();
+		logoutSize();
+
+		profile.add(logoutBtn);
+
+		return logoutBtn;
+	}
+
+	public void logoutIcon() {
+		String path = "/logout.png";
+		ImageIcon icon = new ImageIcon(getClass().getResource(path));
+		Image newIcon = icon.getImage();
+		newIcon = newIcon.getScaledInstance(30, 25, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newIcon);
+		logoutBtn.setIcon(icon);
+		logoutBtn.setIconTextGap(3);
+
+		logoutBtn.setHorizontalAlignment(SwingConstants.RIGHT);
+		logoutBtn.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		logoutBtn.setHorizontalTextPosition(SwingConstants.LEFT);
+	}
+	public void logoutSize() {
+		Dimension size = new Dimension(40, 30);
+		logoutBtn.setPreferredSize(size);
+		logoutBtn.setMaximumSize(size);
+		logoutBtn.setMinimumSize(size);
+		logoutBtn.addActionListener(this);
+	}
+
 	public void createDisplay(CardLayoutDisplay cardLayout) {
 		frame.getContentPane().add(cardLayout.displayArea);
 	}
@@ -293,5 +337,14 @@ public class Dashboard {
 
 
 		return panel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == logoutBtn){
+			frame.dispose();
+			Login login = new Login();
+		}
+
 	}
 }
