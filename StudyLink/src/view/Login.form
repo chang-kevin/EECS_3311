@@ -11,7 +11,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="1c507" class="javax.swing.JButton" binding="Login">
+      <component id="1c507" class="javax.swing.JButton" binding="loginBtn">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -69,7 +69,7 @@
           <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="874be" class="javax.swing.JButton" binding="ForgotPassword">
+      <component id="874be" class="javax.swing.JButton" binding="forgotPasswordBtn">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -79,7 +79,7 @@
           <text value="Forgot Password"/>
         </properties>
       </component>
-      <component id="bc3ee" class="javax.swing.JButton" binding="SignUp">
+      <component id="bc3ee" class="javax.swing.JButton" binding="signUpBtn">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -111,7 +111,7 @@
           <text value="Password"/>
         </properties>
       </component>
-      <component id="c740c" class="javax.swing.JLabel" binding="SignUpText">
+      <component id="c740c" class="javax.swing.JLabel" binding="loginHeader">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
