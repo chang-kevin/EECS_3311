@@ -114,4 +114,16 @@ public class CourseDAOImplementation implements CourseDAO {
         ps.setInt(4, course.getCourseId());
         ps.executeUpdate();
     }
+
+    public List<String> getTopicList() throws SQLException{
+        String query = "select * from Topics";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        List<String> topics = new ArrayList<>();
+
+        while (rs.next()){
+            topics.add(rs.getString("topic_id") + ": " + rs.getString("topic_name"));
+        }
+        return topics;
+    }
 }
