@@ -8,8 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="mysql.connector.j" level="project" />
     <orderEntry type="library" name="io.github.cdimascio.dotenv.java" level="project" />
+    <orderEntry type="library" name="mysql.connector.j" level="project" />
     <orderEntry type="module-library">
       <library name="JUnit5.8.1">
         <CLASSES>
@@ -26,5 +26,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="mockito.all" level="project" />
   </component>
 </module>
