@@ -15,12 +15,12 @@ import java.sql.SQLException;
 public class Login extends MainJFrame {
     public JPanel panel;
     private JButton Login;
-    private JLabel Password;
+    private JLabel passwordLabel;
     private JButton SignUp;
     private JButton ForgotPassword;
     private JTextField username;
-    private JPasswordField passwordField1;
-    private JLabel EmailAddress;
+    private JPasswordField passwordField;
+    private JLabel usernameLabel;
     private JLabel SignUpText;
     private JButton btnClick;
     private UserSession userSession;
@@ -32,13 +32,21 @@ public class Login extends MainJFrame {
         setUpLoginBtn();
         setUpSignUpBtn();
         setUpForgotPasswordBtn();
+        setUpAnchors();
+    }
+
+    private void setUpAnchors() {
+        username.setName("usernameField");
+        usernameLabel.setName("usernameLabel");
+        passwordField.setName("passwordField");
+        passwordLabel.setName("passwordLabel");
     }
 
     private void setUpLoginBtn() {
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (username.getText().isBlank() && passwordField1.getText().isBlank()) {
+                if (username.getText().isBlank() && passwordField.getText().isBlank()) {
                     JOptionPane.showMessageDialog(btnClick, "Please enter both the username and password.");
                     return;
                 }
@@ -90,11 +98,11 @@ public class Login extends MainJFrame {
     }
 
     private boolean isUserAuthenticated() throws SQLException {
-        return Authenticator.authenticateUser(username.getText(), passwordField1.getText());
+        return Authenticator.authenticateUser(username.getText(), passwordField.getText());
     }
 
     private void clearFields() {
         username.setText("");
-        passwordField1.setText("");
+        passwordField.setText("");
     }
 }
