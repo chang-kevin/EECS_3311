@@ -1,6 +1,82 @@
 # EECS_3311
 EECS 3311 team repository
 
+### Iteration 2
+TA and QA login: TA and QA need to sign up using the username/email and password of their choice when first logging in. 
+
+### Mar 9
+- Added the account/ profile page
+- Added the upload functionality
+- Added the logout feature
+- Refactorede the code
+
+### Mar 8
+- Added courses to the course level panel
+- Added pinned course query and user themes
+- Deleted unused user list class
+- Added the Upload feature
+- Added the view course panel
+- Refactored the code
+
+### Mar 7
+- Added the card layout design to the Dashboard and Dashboard related panels
+- Added the course levels panel
+- Added support for account panel
+- Refactored the code
+
+### Mar 6
+- Refactored the Dashboard
+- Updated the Login feature
+- Updated the Authenticator testing
+- Fixed the user DAO
+
+### Mar 5
+- added env variables to remove hardcoded credentials
+- added mainjframe class
+- added jsdoc to classes
+- refactored the code
+
+### Mar 4
+- Connection of the database to the application
+- Deleted courselist class
+- Updated upload file class
+- Added the search functionality
+
+### Feb 27
+- Refactored the course class to use the builder pattern
+- Added logger class using chain of responsibility pattern
+- Refactored the user class
+
+### Feb 26
+- Added the Account Management page
+- Refactored the Dashboard page
+
+### Feb 24
+- Added data to the database 
+- Refactored the Dashboard
+- Start of the re-design of the Dashboard page
+
+### Feb 20
+- Creation/Instantiation of the database
+- Refactored code from Iteration 1
+- Refactored the Login UI
+
+### Feb 19
+- Refactored the sign up feature
+- Changed the design of the Login UI
+- Added JUnit testing for autheticator (helper) class
+- Refactored code from Iteration 1
+
+### Feb 18
+- Added the authenticator class
+- Refactored the code from Iteration 1
+
+### Feb 17
+- Refactored the Login and Forgot password feature
+- Added user role
+
+### Iteration 1
+
 ### Feb 9
 - Refactored Dashboard (Kevin/Angela)
 - Refactored SignUp Flow (Ammiel)
@@ -32,6 +108,7 @@ EECS 3311 team repository
 - Forgot password Page setup (Ammiel)
 - SignUp Page setup (Ammiel)
 - Finalize SignUp Page (Manasvi)
+
 
 ## Built with
 
