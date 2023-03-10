@@ -165,7 +165,7 @@ public class Dashboard implements ActionListener{
 		return greeting;
 	}
 
-	public JPanel createProfilePanel() {
+	public JPanel createProfilePanel() throws SQLException {
 		profile = new JPanel();
 		profile.setBackground(new Color(216, 237, 214));
 		profile.setBounds(716, 0, 228, 561);
