@@ -21,7 +21,7 @@ public class UserDAOTest {
             .setLastName("Doe")
             .setRole(UserRole.STUDENT)
             .build();
-    User sean = new User.UserBuilder(email1, password2)
+    User sean = new User.UserBuilder(email2, password2)
             .setFirstName("Sean")
             .setLastName("Harper")
             .setRole(UserRole.STUDENT)
