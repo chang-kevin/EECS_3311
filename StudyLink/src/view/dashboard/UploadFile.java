@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 import model.Course.*;
-import model.Topic.Topic;
+import model.Topic.TopicDAO;
 
 public class UploadFile extends JPanel implements ActionListener {
-    Topic topic = new Topic();
+    TopicDAO topic = new TopicDAO();
     CourseDAOImplementation course = new CourseDAOImplementation();
     JPanel upload;
     private JPanel panel;

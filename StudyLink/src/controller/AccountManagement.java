@@ -3,7 +3,7 @@ package controller;
 import helpers.MainJFrame;
 import model.User.User;
 import model.User.UserDAO;
-import model.User.UserRole;
+import helpers.UserRole;
 import model.User.UserSession;
 import view.dashboard.Dashboard;
 

@@ -3,13 +3,11 @@ package tests.unit;
 import controller.AccountManagement;
 import model.User.User;
 import model.User.UserDAO;
-import model.User.UserRole;
+import helpers.UserRole;
 import model.User.UserSession;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
-import view.dashboard.Dashboard;
-import javax.swing.*;
 import java.sql.SQLException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

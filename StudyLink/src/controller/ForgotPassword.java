@@ -4,101 +4,94 @@ import helpers.Authenticator.authusername;
 import helpers.MainJFrame;
 import model.User.User;
 import model.User.UserDAO;
-import model.User.UserSession;
-import model.queries;
+import model.SecurityQuestion.SecurityQuestionDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ForgotPassword extends MainJFrame {
     private JPanel panel1;
-    private JButton ResetPasswordBtn;
-    private JTextField textField2;
-    private JLabel EmailAddress;
+    private JButton resetPasswordBtn;
+    private JTextField usernameField;
+    private JLabel usernameLabel;
     private JLabel ForgotPasswordTitle;
-    private JButton GoBack;
+    private JButton goBackBtn;
     private JTextField Answer;
     private JPasswordField passwordField1;
-    private JLabel Password;
-    private JLabel question;
+    private JLabel newPasswordLabel;
+    private JLabel securityQuestionLabel;
     private JButton btnClick;
 
     public ForgotPassword() {
         super();
+
         setContentPane(panel1);
         setUpResetBtn();
         setUpGoBackBtn();
+
         this.Answer.setVisible(false);
         this.passwordField1.setVisible(false);
-        this.question.setVisible(false);
-        this.Password.setVisible(false);
-
-
+        this.securityQuestionLabel.setVisible(false);
+        this.newPasswordLabel.setVisible(false);
     }
 
     private void setUpResetBtn() {
-        ResetPasswordBtn.addActionListener(new ActionListener() {
+        resetPasswordBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textField2.getText().equals("")) {
+                if (usernameField.getText().equals("")) {
                     JOptionPane.showMessageDialog(btnClick, "Please enter email address");
                     return;
                 }
-                String z = textField2.getText();
-                try {
 
-                    if(authusername.authuser(textField2.getText())) {
-                        List x = queries.securityQuestion(textField2.getText());
-                        question.setText(x.get(0).toString());
-                        question.setVisible(true);
+                String z = usernameField.getText();
+                try {
+                    if (authusername.authuser(usernameField.getText())) {
+                        List x = SecurityQuestionDAO.getUserSecurityQuestion(usernameField.getText());
+                        securityQuestionLabel.setText(x.get(0).toString());
+                        securityQuestionLabel.setVisible(true);
                         Answer.setVisible(true);
-                        if(Answer.getText().equals(x.get(1))){Password.setVisible(true);
-                        passwordField1.setVisible(true);
-                        User user = UserDAO.getUser(textField2.getText());
+
+                        if (Answer.getText().equals(x.get(1))) {
+                            newPasswordLabel.setVisible(true);
+                            passwordField1.setVisible(true);
+
+                            User user = UserDAO.getUser(usernameField.getText());
                             user.setPassword(passwordField1.getText());
                             UserDAO.update(user);
-                            if(!passwordField1.getText().isBlank()){JOptionPane.showMessageDialog(btnClick,"password changed");}
 
-
+                            if (!passwordField1.getText().isBlank()) {
+                                JOptionPane.showMessageDialog(btnClick,"Your password was changed successfully!");
+                            }
                         }
 
-
-                            if(!Answer.getText().equals(x.get(1)) && !Answer.getText().isBlank()) {Answer.setText("");
-                                JOptionPane.showMessageDialog(btnClick,"Your Answer is wrong try again");
-
+                        if (!Answer.getText().equals(x.get(1)) && !Answer.getText().isBlank()) {
+                            Answer.setText("");
+                            JOptionPane.showMessageDialog(btnClick,"Incorrect answer. Please try again.");
                             return;
-
-                            }
-
-
-
-
-
-
-
+                        }
+                    } else {
+                        resetFields();
+                        JOptionPane.showMessageDialog(btnClick,"Please enter a valid email");
+                        return;
                     }
-                    else{resetFields();
-                        JOptionPane.showMessageDialog(btnClick,"Please enter valid email");
-                    return;}
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                if(hasAllFields()){
+
+                if (hasAllFields()) {
                     cleanUpFrame();
-                new Login();}
-
-
-
+                    new Login();
+                }
             }
         });
     }
 
     private void setUpGoBackBtn() {
-        GoBack.addActionListener(new ActionListener() {
+        goBackBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cleanUpFrame();
@@ -110,15 +103,15 @@ public class ForgotPassword extends MainJFrame {
     private void cleanUpFrame() {
         dispose();
         setVisible(false);
-        textField2.setText("");
+        usernameField.setText("");
     }
     private boolean hasAllFields() {
         return !passwordField1.getText().isBlank() &&
-                !textField2.getText().isBlank() &&
+                !usernameField.getText().isBlank() &&
                 !Answer.getText().isBlank() ;
     }
     private void resetFields() {
-        textField2.setText("");
+        usernameField.setText("");
         Answer.setText("");
         Answer.setText("");
     }
