@@ -35,6 +35,7 @@ public class Login extends MainJFrame {
     }
 
     private void setUpLoginBtn() {
+        username.setName("username");
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

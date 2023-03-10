@@ -3,8 +3,8 @@ import model.User.User;
 import model.User.UserDAO;
 import model.User.UserRole;
 import static org.junit.jupiter.api.Assertions.*;
-class AuthenticatorTest {
 
+class AuthenticatorTest {
     @org.junit.jupiter.api.Test
     void authenticateUser() {
         assertAll(() -> {
