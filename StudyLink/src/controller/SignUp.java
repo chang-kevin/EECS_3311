@@ -4,6 +4,7 @@ package controller;
 import model.User.User;
 import model.User.UserRole;
 import model.User.UserDAO;
+import model.queries;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,12 +18,16 @@ public class SignUp extends JFrame {
     private JButton signUpBtn;
     private JButton btnClick;
     private JPasswordField passwordField;
-    private JLabel Password;
+    private JPanel signUpPanel;
     private JLabel Email;
+    private JLabel Password;
     private JLabel lastName;
     private JLabel firstName;
     private JLabel signUpTitle;
-    private JPanel signUpPanel;
+    private JCheckBox checkBox1;
+
+    private JComboBox comboBox1;
+    private JTextField AnswerField;
 
     public SignUp() {
         setVisible(true);
@@ -34,6 +39,7 @@ public class SignUp extends JFrame {
 
         setUpSignUpBtn();
         setUpCancelBtn();
+
     }
 
     private void setUpSignUpBtn() {
@@ -47,7 +53,13 @@ public class SignUp extends JFrame {
                             .setRole(UserRole.STUDENT)
                             .build();
                     try {
-                        UserDAO.add(user);
+                        int n =UserDAO.add(user);
+                        String x = String.valueOf(comboBox1.getSelectedIndex()+1);
+                        queries.addSecurityQNA(user.getUsername(),x,AnswerField.getText());
+
+
+
+
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(btnClick, ex.getMessage());
                         resetFields();
@@ -71,10 +83,12 @@ public class SignUp extends JFrame {
         });
     }
 
+
     private boolean hasAllFields() {
         return !passwordField.getText().isBlank() &&
                 !emailField.getText().isBlank() &&
                 !firstNameField.getText().isBlank() &&
+                !AnswerField.getText().isBlank()&&
                 !lastNameField.getText().isBlank();
     }
 
@@ -89,6 +103,12 @@ public class SignUp extends JFrame {
         emailField.setText("");
         firstNameField.setText("");
         lastNameField.setText("");
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+         String[] questions = {"What is the name of your first pet?","What was your first car?","What is the name of the town where you were born?","What elementary school did you attend?","What is your mother's maiden name?"};
+        comboBox1 = new JComboBox(questions);
     }
 }
 
