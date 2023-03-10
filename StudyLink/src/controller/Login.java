@@ -14,14 +14,14 @@ import java.sql.SQLException;
 
 public class Login extends MainJFrame {
     public JPanel panel;
-    private JButton Login;
+    private JButton loginBtn;
     private JLabel passwordLabel;
-    private JButton SignUp;
-    private JButton ForgotPassword;
+    private JButton signUpBtn;
+    private JButton forgotPasswordBtn;
     private JTextField username;
     private JPasswordField passwordField;
     private JLabel usernameLabel;
-    private JLabel SignUpText;
+    private JLabel loginHeader;
     private JButton btnClick;
     private UserSession userSession;
 
@@ -40,10 +40,14 @@ public class Login extends MainJFrame {
         usernameLabel.setName("usernameLabel");
         passwordField.setName("passwordField");
         passwordLabel.setName("passwordLabel");
+        loginBtn.setName("loginBtn");
+        signUpBtn.setName("signUpBtn");
+        forgotPasswordBtn.setName("forgotPasswordBtn");
+        loginHeader.setName("loginHeader");
     }
 
     private void setUpLoginBtn() {
-        Login.addActionListener(new ActionListener() {
+        loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (username.getText().isBlank() && passwordField.getText().isBlank()) {
@@ -76,7 +80,7 @@ public class Login extends MainJFrame {
     }
 
     private void setUpSignUpBtn() {
-        SignUp.addActionListener(new ActionListener() {
+        signUpBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
@@ -87,7 +91,7 @@ public class Login extends MainJFrame {
     }
 
     private void setUpForgotPasswordBtn() {
-        ForgotPassword.addActionListener(new ActionListener() {
+        forgotPasswordBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
