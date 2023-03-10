@@ -9,7 +9,7 @@ EECS_3311(Folder) -> right click on resources(Folder) -> Mark Directory as -> Re
 
 EECS_311(Folder) -> .env -> set the password to Kungfuhustle10*
 
-Libraries added 
+### Libraries added 
 JUnit.5.8.1
 From Maven
 io.github.cdimascio.dotenv.java (Project Library)
