@@ -35,8 +35,8 @@ public class ViewCourse {
 
     public void courseTitle() {
         if(course != null) {
-            JLabel courseName = new JLabel(course.getCourseName());
-            courseName.setBounds(10, 11, 246, 38);
+            JLabel courseName = new JLabel(course.getCourseCode() + ": " + course.getCourseName());
+            courseName.setBounds(10, 11, 517, 38);
             coursePage.add(courseName);
             courseName.setForeground(new Color(241, 146, 146));
             courseName.setBackground(new Color(255, 255, 255));
@@ -72,7 +72,7 @@ public class ViewCourse {
 
     public void courseInformation() {
         if(course != null) {
-            JLabel courseInfo = new JLabel(course.getCourseDesc());
+            JLabel courseInfo = new JLabel( "<html>" + course.getCourseDesc() + "</html>");
             courseInfo.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
             courseInfo.setVerticalAlignment(SwingConstants.TOP);
             courseInfo.setBounds(20, 30, 487, 55);
@@ -136,7 +136,7 @@ public class ViewCourse {
         panel.setBounds(169, 203, 537, 348);
         panel.setOpaque(false);
         panel.setLayout(null);
-        JLabel courseName = new JLabel("Course Name");
+        JLabel courseName = new JLabel();
         courseName.setBounds(10, 11, 246, 38);
         panel.add(courseName);
         courseName.setForeground(new Color(241, 146, 146));
