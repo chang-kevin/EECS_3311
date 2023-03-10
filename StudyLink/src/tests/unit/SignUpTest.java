@@ -1,4 +1,4 @@
-package tests;
+package tests.unit;
 
 public class SignUpTest {
 }
