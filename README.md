@@ -6,15 +6,15 @@ EECS 3311 team repository
 TA and QA login: TA and QA need to sign up using the username/email and password of their choice when first logging in
 
 ## Steps to do before running the program
-EECS_3311(Folder) -> right click on resources(Folder) -> Mark Directory as -> Resource Root
+**EECS_3311(Folder)** -> right click on **resources(Folder)** -> **Mark Directory as** -> **Resource Root**
 
-view the databaseSetup.sql  to set up the database
+view the **databaseSetup.sql** script to set up the database **EECS_3311/databaseSetup.sql**
 
 add the following dependencies
 ### Libraries added 
 - JUnit.5.8.1
 
-From Maven
+**From Maven***
 - io.github.cdimascio.dotenv.java (Project Library)
 - org.mockito:mockito-all:1.10.19 (Project Library)
 - mysql.connector.j (Project Library)
