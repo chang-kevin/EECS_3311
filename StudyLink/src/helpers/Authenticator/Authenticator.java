@@ -17,4 +17,12 @@ public class Authenticator {
         }
         return false;
     }
+
+    public static boolean hasUser(String username) throws SQLException {
+        User user = UserDAO.getUser(username);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
 }
