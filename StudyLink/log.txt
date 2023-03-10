@@ -87,17 +87,22 @@ Iteration 2
 
 [Feb. 16] [Meeting with the client team and developer team]
 Meeting with the client team (team 6) [zoom-session] [duration 30 minutes] [1:00 pm to 1:30 pm]
+{
     Team 6 (Client team meeting summary)
     Client team suggested a search feature and implementation of that feature for the courses
     The search feature is to be added in Iteration 2
+}
 
 Meeting with the developer team (team 4) [in-person lab session] [duration 30 minutes] [10:45am - 11:15 am]
+{
     Team 4 (Developer team)
     Developer team presented to us their sandwich ordering application
     Client team suggested a feature that would show past orders (sandwich orders which were previously ordered by the user)
     Show Past Order feature to be added in Iteration 2
+}
 
 [Feb. 16] [Group meeting] [in-person]
+{
     Development tasks distributed to team members for Iteration 2
 
     Angela: Refactoring the Dashboard GUI
@@ -121,7 +126,7 @@ Meeting with the developer team (team 4) [in-person lab session] [duration 30 mi
              Refactoring the code
 
     Made a decision to push the course rating feature to Iteration 3
-
+}
 
 Development for Iteration 2 begins
 
@@ -189,10 +194,30 @@ Second group meeting (discord) [duration 114 minutes]
            Added the view course panel
            Refactored the code
 
+Third group meeting (discord) [duration 132 minutes]
+{
+           added more JUnit/Integration tests
+           Decided to properly implement the study materials and categorize them by topics fetched from the database, in Iteration 3.
+}
+
 [Mar. 9]   Added the account/ profile page
            Added the upload functionality
            Added the logout feature
            Refactored the code
+
+Actual time taken for the development tasks
+Updating study materials: 7 days
+● Add study materials: 6 days
+● View study materials: 1 day
+● View study materials by topics: 1 day
+Account Management for application: 7 days
+● View profile information: 2 days
+● Change password : 5 days
+● Change username/ email: 1 day
+Search for courses: 2 days
+● Search courses by course code: 1 day
+● Search courses by course name: 1 day
+● Search input format hint: 2 days
 
 
 

@@ -1,18 +1,26 @@
 package view.dashboard;
 
+import controller.AccountManagement;
+import model.User.User;
+import model.User.UserDAO;
+import model.User.UserSession;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
-public class Profile extends JPanel {
+public class Profile extends JPanel implements ActionListener {
 
     JPanel profile;
     JButton profileBtn;
     private JLabel profileImagePanel;
 
 
-    public Profile() {
+    public Profile() throws SQLException {
         profile = new JPanel();
         profile = panelBorder(profile);
         profile.setBounds(10, 40, 208, 194);
@@ -25,8 +33,14 @@ public class Profile extends JPanel {
 
 
 
-    public void setName() {
-        JLabel userName = new JLabel("User Name");
+    public void setName() throws SQLException {
+
+        UserDAO userDAO = new UserDAO();
+        User sessionUser = UserSession.getInstance().getCurrentUser();
+        User user = userDAO.getUser(sessionUser.getUsername());
+
+
+        JLabel userName = new JLabel(user.getFirstName() + " " + user.getLastName());
         userName.setForeground(new Color(128, 128, 128));
         userName.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
         userName.setBorder(null);
@@ -46,6 +60,7 @@ public class Profile extends JPanel {
         profileBtn.setBorder(null);
         profileBtn.setOpaque(false);
         profileBtn.setBounds(59, 160, 90, 23);
+        profileBtn.addActionListener(this);
         profile.add(profileBtn);
 
     }
@@ -95,5 +110,17 @@ public class Profile extends JPanel {
 
 
         return panel;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == profileBtn) {
+            try {
+                new AccountManagement();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        }
     }
 }
