@@ -1,4 +1,14 @@
-DROP 
+/*This is the script for the production version of the app (actual database instance).
+Create your database using this script and the credentials below:
+String driver = "com.mysql.cj.jdbc.Driver";
+String url = "jdbc:mysql://localhost:3306/studylink";
+String username = "root";
+String password = "Kungfuhustle10*";
+
+Schema - studylink
+*/
+
+DROP
   DATABASE IF EXISTS studylink;
 CREATE DATABASE studylink;
 USE studylink;
