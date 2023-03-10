@@ -75,7 +75,7 @@ public class ViewCourse {
             JLabel courseInfo = new JLabel( "<html>" + course.getCourseDesc() + "</html>");
             courseInfo.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
             courseInfo.setVerticalAlignment(SwingConstants.TOP);
-            courseInfo.setBounds(20, 30, 487, 55);
+            courseInfo.setBounds(20, 30, 487, 180);
             container.add(courseInfo);
         }
 
@@ -93,7 +93,7 @@ public class ViewCourse {
         JLabel topicTitle = new JLabel("Topic here");
         topicTitle.setForeground(new Color(241, 146, 146));
         topicTitle.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-        topicTitle.setBounds(10, 84, 497, 27);
+        topicTitle.setBounds(10, 212, 497, 27);
         container.add(topicTitle);
     }
 
@@ -111,7 +111,7 @@ public class ViewCourse {
         JLabel content = new JLabel();
         content.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
         content.setText("list all content ");
-        content.setBounds(20, 111, 487, 27);
+        content.setBounds(20, 239, 487, 27);
         container.add(content);
     }
 
@@ -146,8 +146,5 @@ public class ViewCourse {
 
         return panel;
     }
-
-
-
 
 }
