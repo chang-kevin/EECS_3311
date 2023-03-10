@@ -54,11 +54,6 @@ public class AccountManagement extends MainJFrame {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
-                try {
-                    new Dashboard();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
             }
         });
     }
@@ -80,11 +75,6 @@ public class AccountManagement extends MainJFrame {
 
                 setVisible(false);
                 dispose();
-                try {
-                    new Dashboard();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
             }
         });
     }
