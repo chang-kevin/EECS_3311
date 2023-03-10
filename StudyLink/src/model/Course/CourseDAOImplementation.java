@@ -1,6 +1,6 @@
 package model.Course;
 
-import model.DatabaseConnection;
+import model.Database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

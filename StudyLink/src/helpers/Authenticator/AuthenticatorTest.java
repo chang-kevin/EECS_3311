@@ -1,7 +1,7 @@
 package helpers.Authenticator;
 import model.User.User;
 import model.User.UserDAO;
-import model.User.UserRole;
+import helpers.UserRole;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticatorTest {

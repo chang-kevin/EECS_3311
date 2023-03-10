@@ -3,7 +3,7 @@ package controller;
 import helpers.MainJFrame;
 import model.User.User;
 import model.User.UserDAO;
-import model.User.UserRole;
+import helpers.UserRole;
 import model.User.UserSession;
 import view.dashboard.Dashboard;
 
@@ -19,10 +19,10 @@ public class AccountManagement extends MainJFrame {
     private JTextField usernameText;
     private JTextField firstNameText;
     private JTextField lastNameText;
-    private JLabel username;
-    private JLabel firstName;
-    private JLabel lastName;
-    private JLabel role;
+    private JLabel usernameLabel;
+    private JLabel firstNameLabel;
+    private JLabel lastNameLabel;
+    private JLabel roleLabel;
     private JTextField roleTextField;
     private User user;
     private UserDAO userDAO;
@@ -35,10 +35,21 @@ public class AccountManagement extends MainJFrame {
         sessionUser = UserSession.getInstance().getCurrentUser();
         user = userDAO.getUser(sessionUser.getUsername());
 
+        setUpAnchors();
         setContentPane(panel1);
         setUpCancelBtn();
         setUpSaveBtn();
         setUpFields();
+    }
+
+    private void setUpAnchors() {
+        usernameText.setName("usernameText");
+        firstNameText.setName("firstNameText");
+        lastNameText.setName("lastNameText");
+        usernameLabel.setName("usernameLabel");
+        firstNameLabel.setName("firstNameLabel");
+        lastNameLabel.setName("lastNameLabel");
+        roleLabel.setName("roleLabel");
     }
 
     private void setUpFields() throws SQLException {
@@ -54,6 +65,11 @@ public class AccountManagement extends MainJFrame {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
+                try {
+                    new Dashboard();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
@@ -75,6 +91,11 @@ public class AccountManagement extends MainJFrame {
 
                 setVisible(false);
                 dispose();
+                try {
+                    new Dashboard();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

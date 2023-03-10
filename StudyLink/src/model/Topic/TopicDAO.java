@@ -1,6 +1,6 @@
 package model.Topic;
 
-import model.DatabaseConnection;
+import model.Database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Topic {
+public class TopicDAO {
     static Connection connection = DatabaseConnection.getConnection();
 
     public List<String> getTopicList() throws SQLException{

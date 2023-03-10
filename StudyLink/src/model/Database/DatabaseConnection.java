@@ -1,4 +1,4 @@
-package model;
+package model.Database;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

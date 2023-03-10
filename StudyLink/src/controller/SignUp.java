@@ -2,9 +2,9 @@
 package controller;
 
 import model.User.User;
-import model.User.UserRole;
+import helpers.UserRole;
 import model.User.UserDAO;
-import model.queries;
+import model.SecurityQuestion.SecurityQuestionDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,9 @@ public class SignUp extends JFrame {
     private JCheckBox checkBox1;
 
     private JComboBox comboBox1;
-    private JTextField AnswerField;
+    private JTextField securityQuestionField;
+    private JLabel securityQuestionLabel;
+    private JLabel securityQuestion;
 
     public SignUp() {
         setVisible(true);
@@ -55,7 +57,7 @@ public class SignUp extends JFrame {
                     try {
                          UserDAO.add(user);
                         String x = String.valueOf(comboBox1.getSelectedIndex()+1);
-                        queries.addSecurityQNA(user.getUsername(),x,AnswerField.getText());
+                        SecurityQuestionDAO.addSecurityQNA(user.getUsername(),x, securityQuestionField.getText());
 
 
 
@@ -88,7 +90,7 @@ public class SignUp extends JFrame {
         return !passwordField.getText().isBlank() &&
                 !emailField.getText().isBlank() &&
                 !firstNameField.getText().isBlank() &&
-                !AnswerField.getText().isBlank()&&
+                !securityQuestionField.getText().isBlank()&&
                 !lastNameField.getText().isBlank();
     }
 
