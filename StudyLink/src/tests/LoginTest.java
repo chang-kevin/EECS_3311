@@ -15,7 +15,10 @@ public class LoginTest {
         login = new Login();
         assertNotNull(login);
 
-        JTextField username = (JTextField) TestUtils.getChildNamed(login, "username");
-        assertNotNull(username);
+        JTextField usernameField = (JTextField) TestUtils.getChildNamed(login, "usernameField");
+        assertNotNull(usernameField);
+
+        JTextField passwordField = (JTextField) TestUtils.getChildNamed(login, "passwordField");
+        assertNotNull(passwordField);
     }
 }
