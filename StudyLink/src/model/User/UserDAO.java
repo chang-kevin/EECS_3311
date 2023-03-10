@@ -26,7 +26,6 @@ public class UserDAO {
     }
 
     public static void delete(String username) throws SQLException {
-        if(UserDAO.getUser(username) == null){return 0;}
         String query = "delete from Users where username = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1,username);
