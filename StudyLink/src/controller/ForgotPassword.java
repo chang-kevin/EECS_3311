@@ -5,12 +5,12 @@ import helpers.MainJFrame;
 import model.User.User;
 import model.User.UserDAO;
 import model.SecurityQuestion.SecurityQuestionDAO;
+import model.User.UserSecurityQuestion;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ForgotPassword extends MainJFrame {
     private JPanel panel1;
@@ -43,19 +43,22 @@ public class ForgotPassword extends MainJFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (usernameField.getText().equals("")) {
-                    JOptionPane.showMessageDialog(btnClick, "Please enter email address");
+                    JOptionPane.showMessageDialog(btnClick, "Please enter your username.");
                     return;
                 }
 
                 String z = usernameField.getText();
                 try {
                     if (authusername.authuser(usernameField.getText())) {
-                        List x = SecurityQuestionDAO.getUserSecurityQuestion(usernameField.getText());
-                        securityQuestionLabel.setText(x.get(0).toString());
+                        UserSecurityQuestion sq = SecurityQuestionDAO.getUserSecurityQuestion(usernameField.getText());
+                        String securityQuestion = sq.getSecurityQuestion().getQuestionText();
+                        String securityQuestionAnswer = sq.getSecurityQuestionAnswer();
+
+                        securityQuestionLabel.setText(securityQuestion);
                         securityQuestionLabel.setVisible(true);
                         Answer.setVisible(true);
 
-                        if (Answer.getText().equals(x.get(1))) {
+                        if (Answer.getText().equals(securityQuestionAnswer)) {
                             newPasswordLabel.setVisible(true);
                             passwordField1.setVisible(true);
 
@@ -68,7 +71,7 @@ public class ForgotPassword extends MainJFrame {
                             }
                         }
 
-                        if (!Answer.getText().equals(x.get(1)) && !Answer.getText().isBlank()) {
+                        if (!Answer.getText().equals(securityQuestionAnswer) && !Answer.getText().isBlank()) {
                             Answer.setText("");
                             JOptionPane.showMessageDialog(btnClick,"Incorrect answer. Please try again.");
                             return;

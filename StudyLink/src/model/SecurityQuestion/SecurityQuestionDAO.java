@@ -1,6 +1,7 @@
 package model.SecurityQuestion;
 
 import model.Database.DatabaseConnection;
+import model.User.UserSecurityQuestion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,17 +13,22 @@ import java.util.List;
 public class SecurityQuestionDAO {
     static Connection connection = DatabaseConnection.getConnection();
 
-    public static List getUserSecurityQuestion(String username) throws SQLException {
-        String query = "Select Security_Questions.question_text,User_Security_Questions.answer from Security_Questions join User_Security_Questions on User_Security_Questions.question_id = Security_Questions.question_id where User_Security_Questions.username =?";
+    public static UserSecurityQuestion getUserSecurityQuestion(String username) throws SQLException {
+        String query = "Select user_security_questions.question_id, question_text, answer from Security_Questions join User_Security_Questions on User_Security_Questions.question_id = Security_Questions.question_id where User_Security_Questions.username =?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
-        List securityQuestions = new ArrayList();
+
+        UserSecurityQuestion usq = null;
+        SecurityQuestion sq = null;
         while (rs.next()) {
-            securityQuestions.add(rs.getString("question_text"));
-            securityQuestions.add(rs.getString("answer"));
+            String securityQuestionId = rs.getString("question_id");
+            String securityQuestion = rs.getString("question_text");
+            String securityQuestionAnswer = rs.getString("answer");
+            sq = new SecurityQuestion(securityQuestionId, securityQuestion);
+            usq = new UserSecurityQuestion(sq, securityQuestionAnswer, username);
         }
-        return securityQuestions;
+        return usq;
     }
 
     public static int addSecurityQNA(String username, String questionId, String questionAnswer) throws SQLException {
