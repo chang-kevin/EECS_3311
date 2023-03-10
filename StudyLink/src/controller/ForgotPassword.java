@@ -1,6 +1,6 @@
 package controller;
 
-import helpers.Authenticator.authusername;
+import helpers.Authenticator.Authenticator;
 import helpers.MainJFrame;
 import model.User.User;
 import model.User.UserDAO;
@@ -49,7 +49,7 @@ public class ForgotPassword extends MainJFrame {
 
                 String z = usernameField.getText();
                 try {
-                    if (authusername.authuser(usernameField.getText())) {
+                    if (Authenticator.hasUser(usernameField.getText())) {
                         UserSecurityQuestion sq = SecurityQuestionDAO.getUserSecurityQuestion(usernameField.getText());
                         String securityQuestion = sq.getSecurityQuestion().getQuestionText();
                         String securityQuestionAnswer = sq.getSecurityQuestionAnswer();
