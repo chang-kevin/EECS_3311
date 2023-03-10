@@ -253,23 +253,19 @@ public class UploadFile extends JPanel implements ActionListener {
         int courseId;
         int topicId;
         JFileChooser file = new JFileChooser();
-        System.out.println(file);
         int file2;
         if(e.getActionCommand().equals("Upload")){
             file2 = file.showSaveDialog(null);
-            System.out.println(file);
             if(file2 != JFileChooser.APPROVE_OPTION){
                 JOptionPane.showMessageDialog(null, "Please choose a file");
                 return;
             }
             else{
-                System.out.println("Line 266" + file.getSelectedFile());
                 selectedFile = file.getSelectedFile();
             }
         }
 
         if(e.getActionCommand().equals("Submit")){
-            System.out.println(selectedFile);
 //            String s = file.getSelectedFile().getAbsolutePath();
 ////          Files files = new Files.Filesbuilder().setFile_name(file.getSelectedFile());
 //            String id = UUID.randomUUID().toString();
@@ -288,7 +284,6 @@ public class UploadFile extends JPanel implements ActionListener {
         String s = (String) box.getSelectedItem();
         String[] arr = s.split(" ");
         String code = (arr[1] == null || arr[1].length() == 0) ? null : (arr[1].substring(0, arr[1].length() - 1));
-        System.out.println(code);
         return Integer.parseInt(code);
     }
 
@@ -296,7 +291,6 @@ public class UploadFile extends JPanel implements ActionListener {
         String s = (String) box.getSelectedItem();
         String[] arr = s.split(":");
         String code = arr[0];
-        System.out.println(code);
         return Integer.parseInt(code);
     }
 
