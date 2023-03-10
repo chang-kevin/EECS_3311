@@ -6,15 +6,13 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
 import java.util.Vector;
-import model.Course.Course;
-import model.Course.CourseDAOImplementation;
-//import model.Files.Files;
-import model.User.UserSession;
+import model.Course.*;
+import model.Topic.Topic;
 
 public class UploadFile extends JPanel implements ActionListener {
-    CourseDAOImplementation imp = new CourseDAOImplementation();
+    Topic topic = new Topic();
+    CourseDAOImplementation course = new CourseDAOImplementation();
     JPanel upload;
     private JPanel panel;
     private JTextField textField;
@@ -45,7 +43,7 @@ public class UploadFile extends JPanel implements ActionListener {
      * */
     public JComboBox generateCourseBox() throws SQLException {
         Vector<String> courseCodeName = new Vector<String>();
-        courseList = imp.getAllCourses();
+        courseList = course.getAllCourses();
         for(Course c: courseList){
             String s = c.getCourseCode() + ": " + c.getCourseName();
             courseCodeName.add(s);
@@ -58,7 +56,7 @@ public class UploadFile extends JPanel implements ActionListener {
      * This method generates a combobox that will show a list of all the topics that is in our database.
      *  */
     public JComboBox generateTopicBox() throws SQLException{
-        JComboBox box = new JComboBox(imp.getTopicList().toArray(new String[0]));
+        JComboBox box = new JComboBox(topic.getTopicList().toArray(new String[0]));
         return box;
     }
 
@@ -108,9 +106,7 @@ public class UploadFile extends JPanel implements ActionListener {
         displayBtns();
     }
 
-    /**
-     *FIX
-     */
+
     public void createPanel() {
         upload = new JPanel();
         upload = createUpload();
@@ -266,17 +262,7 @@ public class UploadFile extends JPanel implements ActionListener {
         }
 
         if(e.getActionCommand().equals("Submit")){
-//            String s = file.getSelectedFile().getAbsolutePath();
-////          Files files = new Files.Filesbuilder().setFile_name(file.getSelectedFile());
-//            String id = UUID.randomUUID().toString();
-//            String username = UserSession.getInstance().getCurrentUser().getUsername();
-//            try {
-//                courseId = getCourseCode(generateCourseBox());
-//                topicId = getTopicId(generateTopicBox());
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            }
-//            String filetype =
+
         }
     }
 
@@ -293,11 +279,6 @@ public class UploadFile extends JPanel implements ActionListener {
         String code = arr[0];
         return Integer.parseInt(code);
     }
-
-//    public File FileBuilder(File fileNew){
-//
-//    }
-
 
 }
 
