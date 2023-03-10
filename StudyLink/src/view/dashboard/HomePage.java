@@ -53,7 +53,7 @@ public class HomePage extends JPanel{
             bookmark.add(myCourses, gbc_myCourses);
 
             JLabel pinCourse = new JLabel();
-            pinCourse = getBookmarks(1, bookmark, pinCourse, "<html> &nbsp;Course Name <br/>&nbsp;EECS #### </html>");
+            pinCourse = getBookmarks(1, bookmark, pinCourse, "");
 
         }
 
