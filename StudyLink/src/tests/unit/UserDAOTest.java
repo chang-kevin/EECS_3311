@@ -5,13 +5,12 @@ import helpers.UserRole;
 import model.User.User;
 import model.User.UserDAO;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class userCRUDTest {
+public class UserDAOTest {
     String email1 = "johndoe@my.yorku.ca";
     String email2 = "foobar@my.yorku.ca";
     String password1 = "12345";
