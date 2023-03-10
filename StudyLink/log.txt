@@ -83,4 +83,127 @@ Actual time spent on each developmental task:
 	Upload study materials to the app (6 days)
 	Domain specific objects (2 days)
   
-   
+Iteration 2
+
+[Feb. 16] [Meeting with the client team and developer team]
+Meeting with the client team (team 6) [zoom-session] [duration 30 minutes] [1:00 pm to 1:30 pm]
+    Team 6 (Client team meeting summary)
+    Client team suggested a search feature and implementation of that feature for the courses
+    The search feature is to be added in Iteration 2
+
+Meeting with the developer team (team 4) [in-person lab session] [duration 30 minutes] [10:45am - 11:15 am]
+    Team 4 (Developer team)
+    Developer team presented to us their sandwich ordering application
+    Client team suggested a feature that would show past orders (sandwich orders which were previously ordered by the user)
+    Show Past Order feature to be added in Iteration 2
+
+[Feb. 16] [Group meeting] [in-person]
+    Development tasks distributed to team members for Iteration 2
+
+    Angela: Refactoring the Dashboard GUI
+            Designing the GUI
+            Adding data to the database
+
+    Manasvi: Implementation of the search bar by course code (e.g:- EECS 3311) and course name (e.g:- Software Design)
+             Creating/ Instantiation of the Database
+             Upload feature
+
+    Ammiel: Refactoring the code
+            Refactoring the Login GUI/ Login feature
+            Adding data to the database
+
+    Kevin: Refactoring the Dashboard GUI
+           Connecting the database to the Dashboard
+           Adding data to the database
+
+    Yuvtesh: Adding data to the database
+             JUnit Testing and Integration Testing
+             Refactoring the code
+
+    Made a decision to push the course rating feature to Iteration 3
+
+
+Development for Iteration 2 begins
+
+[Feb. 17]: Refactored the Login and Forgot password page
+           Added the user role feature
+
+[Feb. 18]: Added the authenticator class
+           Refactored the code from Iteration 1
+           Moved the userList to the model folder
+
+[Feb. 19]: Refactored the sign-up page
+           Added J-Unit testing for authenticator (helper) class
+
+[Feb. 20]: Instantiation of the database
+           Updated the Login GUI
+
+[Feb. 24]: More refactoring of the code
+           Added some data to the database
+
+[Feb. 26]: added the Account Management page
+           Re-designing of the Dashboard page underway
+
+[Feb. 27]: Refactored the course class to use the builder pattern
+           Added logger class using chain of responsibility pattern
+           Refactored the user class
+
+Second group meeting (discord) [duration 114 minutes]
+[Feb. 28]: Reviewed the progress made and looked forward to what tasks lie ahead
+           Decided to drop the pinned courses feature
+           Presentation of the new Dashboard GUI
+
+           Re-assigned development tasks to group members
+
+           Dashboard GUI - Angela
+           Search Feature - Kevin
+           Testing - Yuvtesh
+           Upload Feature - Manasvi
+           Database - Ammiel/Manasvi/Yuvtesh
+
+
+[Mar. 4]:  Connection of the database to the application
+           Deleted courselist class
+           Updated upload file class
+           Added the search functionality
+
+[Mar. 5]:  added env variables to remove hardcoded credentials
+           added mainjframe class
+           added jsdoc to classes
+           refactored the code
+
+[Mar. 6]:  Refactored the Dashboard
+           Updated the Login feature
+           Updated user Authenticator testing
+           Fixed the user DAO
+
+[Mar. 7]:  Added the card layout design to the Dashboard and Dashboard related panels
+           Added the course levels panel
+           Added support for account panel
+           Rerfactored the code
+
+[Mar. 8]   Added courses to the course level panel
+           added pinned course query and user themes
+           Deleted unused user list class
+           Added the Upload feature
+           Added the view course panel
+           Refactored the code
+
+[Mar. 9]   Added the account/ profile page
+           Added the upload functionality
+           Added the logout feature
+           Refactored the code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
