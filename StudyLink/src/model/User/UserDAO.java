@@ -109,7 +109,7 @@ public class UserDAO {
         return null;
     }
 
-    public static void update(User user) throws SQLException {
+    public static void updateUserInfo(User user) throws SQLException {
         String query = "update Users set user_password = ?, first_name = ? ,last_name = ? where username = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, user.getPassword());
@@ -118,6 +118,23 @@ public class UserDAO {
         ps.setString(4,user.getUsername());
         ps.executeUpdate();
     }
+
+    public static void addUserCourse(String username, Course course) throws SQLException {
+        String query = "insert into user_courses values(?,?,?)";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, username);
+        ps.setInt(2, course.getCourseId());
+        ps.setString(3, course.getCourseCode());
+        ps.executeUpdate();
+    }
+
+    public static void removeUserCourse(String courseId) throws SQLException {
+        String query = "delete from user_courses where course_id = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, courseId);
+        ps.executeUpdate();
+    }
+
     public static int countUsers() throws SQLException {
         int count = 0;
         String query = "select count(*) from Users";

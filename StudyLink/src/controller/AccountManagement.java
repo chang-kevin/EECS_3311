@@ -84,7 +84,7 @@ public class AccountManagement extends MainJFrame {
                         .setRole(UserRole.STUDENT)
                         .build();
                 try {
-                    userDAO.update(updatedUser);
+                    userDAO.updateUserInfo(updatedUser);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

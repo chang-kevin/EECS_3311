@@ -65,7 +65,7 @@ public class UserDAOTest {
         john.setPassword(password2);
 
         // then we check if the password was updated
-        UserDAO.update(john);
+        UserDAO.updateUserInfo(john);
         User user = UserDAO.getUser(email1);
         assertTrue(user.getPassword().equals(password2));
     }
