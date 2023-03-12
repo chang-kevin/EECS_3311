@@ -1,6 +1,8 @@
 package view.dashboard;
 
 import controller.Login;
+import model.User.User;
+import model.User.UserSession;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -341,10 +343,10 @@ public class Dashboard implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == logoutBtn){
+		if (e.getSource() == logoutBtn) {
 			frame.dispose();
-			Login login = new Login();
+			new Login();
+			UserSession.clearCurrentUser();
 		}
-
 	}
 }

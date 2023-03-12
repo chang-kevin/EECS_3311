@@ -24,4 +24,8 @@ public class UserSession {
     public static void setCurrentUser(User user) {
         currentUser = user;
     }
+
+    public static void clearCurrentUser() {
+        currentUser = null;
+    }
 }
