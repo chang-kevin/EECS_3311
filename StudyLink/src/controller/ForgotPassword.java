@@ -64,7 +64,7 @@ public class ForgotPassword extends MainJFrame {
 
                             User user = UserDAO.getUser(usernameField.getText());
                             user.setPassword(passwordField1.getText());
-                            UserDAO.update(user);
+                            UserDAO.updateUserInfo(user);
 
                             if (!passwordField1.getText().isBlank()) {
                                 JOptionPane.showMessageDialog(btnClick,"Your password was changed successfully!");
