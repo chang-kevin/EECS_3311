@@ -1,5 +1,7 @@
 package model.Course;
 
+import model.Topic.Topic;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public interface CourseDAO {
 
     public List<Course> searchCourse(String courseColumn) throws SQLException;
 
-    public List<Course> getUserPinnedCourses(String username) throws SQLException;
-
     public void update(Course course) throws SQLException;
+
+    public List<Topic> getCourseTopics(String courseId) throws SQLException;
 }

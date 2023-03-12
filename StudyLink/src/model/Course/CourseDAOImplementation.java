@@ -1,6 +1,7 @@
 package model.Course;
 
 import model.Database.DatabaseConnection;
+import model.Topic.Topic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -100,11 +101,6 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     @Override
-    public List<Course> getUserPinnedCourses(String username) throws SQLException {
-        return null;
-    }
-
-    @Override
     public void update(Course course) throws SQLException {
         String query = "update courses set name = ?, description = ?, course_code = ? where course_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
@@ -115,14 +111,15 @@ public class CourseDAOImplementation implements CourseDAO {
         ps.executeUpdate();
     }
 
-    public List<String> getTopicList() throws SQLException{
-        String query = "select * from Topics";
+    @Override
+    public List<Topic> getCourseTopics(String courseId) throws SQLException {
+        String query = "SELECT course_topics.course_id, course_topics.topic_id, topics.topic_name FROM course_topics JOIN topics ON course_topics.topic_id = topics.topic_id WHERE course_topics.topic_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, courseId);
         ResultSet rs = ps.executeQuery();
-        List<String> topics = new ArrayList<>();
-
-        while (rs.next()){
-            topics.add(rs.getString("topic_id") + ": " + rs.getString("topic_name"));
+        List<Topic> topics = new ArrayList<>();
+        while (rs.next()) {
+            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id")));
         }
         return topics;
     }
