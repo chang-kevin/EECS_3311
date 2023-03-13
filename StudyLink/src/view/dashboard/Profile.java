@@ -5,13 +5,12 @@ import model.User.User;
 import model.User.UserDAO;
 import model.User.UserSession;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.sql.SQLException;
-
-import javax.swing.*;
 
 public class Profile extends JPanel implements ActionListener {
 

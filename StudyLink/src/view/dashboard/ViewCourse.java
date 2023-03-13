@@ -2,8 +2,8 @@ package view.dashboard;
 
 import model.Course.Course;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 
 public class ViewCourse {

@@ -1,14 +1,17 @@
 package view.dashboard;
-import java.awt.*;
+
+import model.Course.Course;
+import model.Course.CourseDAOImplementation;
+import model.Topic.TopicDAO;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
-import model.Course.*;
-import model.Topic.TopicDAO;
 
 public class UploadFile extends JPanel implements ActionListener {
     TopicDAO topic = new TopicDAO();

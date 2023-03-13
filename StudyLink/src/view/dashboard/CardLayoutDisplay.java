@@ -2,15 +2,19 @@ package view.dashboard;
 
 import model.Course.Course;
 
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.SQLException;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.text.*;
 
 
 /**

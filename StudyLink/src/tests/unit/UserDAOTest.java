@@ -6,9 +6,11 @@ import model.User.User;
 import model.User.UserDAO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserDAOTest {
     String email1 = "johndoe@my.yorku.ca";
