@@ -34,10 +34,11 @@ public class CourseDAOImplementation implements CourseDAO {
     }
 
     public Course getCourseByNameOrId(String searchTerm) throws SQLException {
-        String query = "select * from courses where course_id like ? or name like ?";
+        String query = "select * from courses where name like lower(?) or (lower(course_code) like lower(?) or replace(lower(course_code), 'eecs ', '') = lower(?))";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, searchTerm);
         ps.setString(2, searchTerm);
+        ps.setString(3, searchTerm);
 
         ResultSet rs = ps.executeQuery();
         boolean check = false;
