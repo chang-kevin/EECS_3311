@@ -19,4 +19,6 @@ public interface CourseDAO {
     public void update(Course course) throws SQLException;
 
     public List<Topic> getCourseTopics(String courseId) throws SQLException;
+
+    public void setCourseRating(String username, String courseId, String rating) throws SQLException;
 }

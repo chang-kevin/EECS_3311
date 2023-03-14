@@ -123,4 +123,15 @@ public class CourseDAOImplementation implements CourseDAO {
         }
         return topics;
     }
+
+    @Override
+    public void setCourseRating(String username, String courseId, String rating) throws SQLException {
+        String query = "insert into course_ratings (course_id, username, rating) values (?, ?, ?) ON DUPLICATE KEY UPDATE rating = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, courseId);
+        ps.setString(2, username);
+        ps.setString(3, rating);
+        ps.setString(4, rating);
+        ps.executeUpdate();
+    }
 }
