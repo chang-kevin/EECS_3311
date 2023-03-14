@@ -1,7 +1,8 @@
 package helpers.Authenticator;
+
+import helpers.UserRole;
 import model.User.User;
 import model.User.UserDAO;
-import helpers.UserRole;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

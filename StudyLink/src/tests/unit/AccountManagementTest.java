@@ -1,15 +1,15 @@
 package tests.unit;
 
 import controller.AccountManagement;
+import helpers.UserRole;
 import model.User.User;
 import model.User.UserDAO;
-import helpers.UserRole;
 import model.User.UserSession;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import java.sql.SQLException;
-import static org.mockito.Mockito.verify;
+
 import static org.mockito.Mockito.when;
 
 public class AccountManagementTest {

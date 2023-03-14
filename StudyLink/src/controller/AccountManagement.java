@@ -1,9 +1,9 @@
 package controller;
 
 import helpers.MainJFrame;
+import helpers.UserRole;
 import model.User.User;
 import model.User.UserDAO;
-import helpers.UserRole;
 import model.User.UserSession;
 import view.dashboard.Dashboard;
 

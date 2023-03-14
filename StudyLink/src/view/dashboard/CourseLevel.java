@@ -3,12 +3,14 @@ package view.dashboard;
 import model.Course.Course;
 import model.Course.CourseDAOImplementation;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 //import static com.sun.tools.javac.main.Option.J;

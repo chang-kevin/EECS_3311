@@ -2,9 +2,9 @@ package controller;
 
 import helpers.Authenticator.Authenticator;
 import helpers.MainJFrame;
+import model.SecurityQuestion.SecurityQuestionDAO;
 import model.User.User;
 import model.User.UserDAO;
-import model.SecurityQuestion.SecurityQuestionDAO;
 import model.User.UserSecurityQuestion;
 
 import javax.swing.*;

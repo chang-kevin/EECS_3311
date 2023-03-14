@@ -1,10 +1,10 @@
  
 package controller;
 
-import model.User.User;
 import helpers.UserRole;
-import model.User.UserDAO;
 import model.SecurityQuestion.SecurityQuestionDAO;
+import model.User.User;
+import model.User.UserDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
