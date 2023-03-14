@@ -33,11 +33,11 @@ public class CourseDAOImplementation implements CourseDAO {
         ps.executeUpdate();
     }
 
-    @Override
-    public Course getCourseById(int id) throws SQLException {
-        String query = "select * from courses where course_id = ?";
+    public Course getCourseByNameOrId(String searchTerm) throws SQLException {
+        String query = "select * from courses where course_id like ? or name like ?";
         PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, id);
+        ps.setString(1, searchTerm);
+        ps.setString(2, searchTerm);
 
         ResultSet rs = ps.executeQuery();
         boolean check = false;
@@ -45,7 +45,7 @@ public class CourseDAOImplementation implements CourseDAO {
 
         while (rs.next()) {
             check = true;
-            course = new Course.CourseBuilder(id)
+            course = new Course.CourseBuilder(rs.getInt("course_id"))
                 .setCourseName(rs.getString("name"))
                 .setCourseDesc(rs.getString("description"))
                 .setCourseCode(rs.getString("course_code"))
