@@ -10,7 +10,7 @@ public interface CourseDAO {
 
     public void delete(int id) throws SQLException;
 
-    public Course getCourseById(int id) throws SQLException;
+    public Course getCourseByNameOrId(String searchTerm) throws SQLException;
 
     public List<Course> getAllCourses() throws SQLException;
 
