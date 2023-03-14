@@ -249,10 +249,10 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		search.searchbar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String courseCode = e.getActionCommand();
+				String searchTerm = e.getActionCommand();
 				CourseDAO courseDAO = new CourseDAOImplementation();
 				try {
-					Course course = courseDAO.getCourseByNameOrId(courseCode);
+					Course course = courseDAO.getCourseByNameOrId(searchTerm);
 					view = new ViewCourse();
 					view.setCourse(course);
 					addCard(view.coursePage, viewPanel);
