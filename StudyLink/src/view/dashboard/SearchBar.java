@@ -17,11 +17,8 @@ public class SearchBar extends JLabel {
 
 
     public SearchBar() {
-
-        searchIcon = new JLabel();
-        searchIcon = createSearchBar(searchIcon);
+        searchIcon = createSearchBar(new JLabel());
         searchbar = textField();
-
     }
 
     private Image getScaledImage(Image srcImg, int w, int h){
@@ -35,14 +32,12 @@ public class SearchBar extends JLabel {
         return resizedImg;
     }
 
-    public JLabel createSearchBar(JLabel searchIcon) {
+    public JLabel createSearchBar(JLabel currentSearchIcon) {
+        currentSearchIcon.setBackground(new Color(255, 255, 255));
+        currentSearchIcon.setBounds(10, 245, 210, 36);
+        currentSearchIcon.setIcon(addIcon());
 
-        searchIcon.setBackground(new Color(255, 255, 255));
-        searchIcon.setOpaque(true);
-        searchIcon.setBounds(10, 245, 210, 36);
-        //searchIcon.setIcon(addIcon());
-
-        return searchIcon;
+        return currentSearchIcon;
     }
 
 

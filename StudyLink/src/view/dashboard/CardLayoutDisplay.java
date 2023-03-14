@@ -1,6 +1,8 @@
 package view.dashboard;
 
 import model.Course.Course;
+import model.Course.CourseDAO;
+import model.Course.CourseDAOImplementation;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
@@ -237,7 +239,6 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		panel.setOpaque(false);
 		panel.setLayout(null);
 
-
 		return panel;
 	}
 
@@ -248,51 +249,19 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		search.searchbar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String courseCode = search.searchbar.getText();
-				for (Course course: courses.courseList) {
-					if (courseCode.equalsIgnoreCase(course.getCourseCode())) {
-						view = new ViewCourse();
-						view.setCourse(course);
-						addCard(view.coursePage, viewPanel);
-						cardLayout.show(displayArea, viewPanel);
-					}
-				}
-				String courseName = search.searchbar.getText();
-				for (Course course: courses.courseList) {
-					if (courseName.equalsIgnoreCase(course.getCourseName())) {
-						view = new ViewCourse();
-						view.setCourse(course);
-						addCard(view.coursePage, viewPanel);
-						cardLayout.show(displayArea, viewPanel);
-					}
+				int courseCode = Integer.parseInt(e.getActionCommand());
+				CourseDAO courseDAO = new CourseDAOImplementation();
+				try {
+					Course course = courseDAO.getCourseById(courseCode);
+					view = new ViewCourse();
+					view.setCourse(course);
+					addCard(view.coursePage, viewPanel);
+					cardLayout.show(displayArea, viewPanel);
+				} catch (SQLException ex) {
+					throw new RuntimeException(ex);
 				}
 			}
 		});
-
-
-			/*@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					String courseCode = search.searchbar.getText();
-					for (Course course: courses.courseList) {
-						if (courseCode.equalsIgnoreCase(course.getCourseCode())) {
-							view = new ViewCourse();
-							view.setCourse(course);
-							addCard(view.coursePage, viewPanel);
-							cardLayout.show(displayArea, viewPanel);
-						}
-					}
-					String courseName = search.searchbar.getText();
-					for (Course course: courses.courseList) {
-						if (courseName.equalsIgnoreCase(course.getCourseName())) {
-							view = new ViewCourse();
-							view.setCourse(course);
-							addCard(view.coursePage, viewPanel);
-							cardLayout.show(displayArea, viewPanel);
-						}
-					}
-				}
-			}*/
 	}
 
 	/**
