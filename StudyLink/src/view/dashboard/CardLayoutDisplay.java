@@ -10,8 +10,6 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +107,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 */
 	public JButton createButton(JButton btn, String name, int y) {
 		btn = new JButton(name);
-		if(name == "Dashboard") {
+		if(name.equals("Dashboard")) {
 			btn.setBorder(new MatteBorder(0, 0, 0, 3, (Color) new Color(239, 127, 127)));
 			btn.setForeground(new Color(241, 171, 165));
 		}
@@ -247,8 +245,32 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 * Used for implementing the search bar upon pressing the enter key, given a successful input
 	 */
 	public void searchAction() {
-		search.searchbar.addKeyListener(new KeyAdapter() {
+		search.searchbar.addActionListener(new ActionListener() {
 			@Override
+			public void actionPerformed(ActionEvent e) {
+				String courseCode = search.searchbar.getText();
+				for (Course course: courses.courseList) {
+					if (courseCode.equalsIgnoreCase(course.getCourseCode())) {
+						view = new ViewCourse();
+						view.setCourse(course);
+						addCard(view.coursePage, viewPanel);
+						cardLayout.show(displayArea, viewPanel);
+					}
+				}
+				String courseName = search.searchbar.getText();
+				for (Course course: courses.courseList) {
+					if (courseName.equalsIgnoreCase(course.getCourseName())) {
+						view = new ViewCourse();
+						view.setCourse(course);
+						addCard(view.coursePage, viewPanel);
+						cardLayout.show(displayArea, viewPanel);
+					}
+				}
+			}
+		});
+
+
+			/*@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String courseCode = search.searchbar.getText();
@@ -270,8 +292,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 						}
 					}
 				}
-			}
-		});
+			}*/
 	}
 
 	/**

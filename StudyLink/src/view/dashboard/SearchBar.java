@@ -40,7 +40,7 @@ public class SearchBar extends JLabel {
         searchIcon.setBackground(new Color(255, 255, 255));
         searchIcon.setOpaque(true);
         searchIcon.setBounds(10, 245, 210, 36);
-        searchIcon.setIcon(addIcon());
+        //searchIcon.setIcon(addIcon());
 
         return searchIcon;
     }
