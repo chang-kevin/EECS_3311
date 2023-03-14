@@ -60,7 +60,7 @@ public class CourseDAOImplementation implements CourseDAO {
 
     @Override
     public List<Course> getAllCourses() throws SQLException {
-        String query = "select courses.course_id, courses.name, courses.description, courses.course_id, AVG(course_ratings.rating) AS average_rating from courses left join course_ratings ON courses.course_id = course_ratings.course_id group by courses.course_id order by courses.course_id";
+        String query = "select courses.course_id, courses.name, courses.description, courses.course_code, AVG(course_ratings.rating) AS average_rating from courses left join course_ratings ON courses.course_id = course_ratings.course_id group by courses.course_id order by courses.course_id";
         PreparedStatement ps = connection.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         List<Course> lc = new ArrayList<>();
