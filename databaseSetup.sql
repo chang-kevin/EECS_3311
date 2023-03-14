@@ -8,8 +8,7 @@ String password = "Kungfuhustle10*";
 Schema - studylink
 */
 
-DROP
-  DATABASE IF EXISTS studylink;
+DROP DATABASE IF EXISTS studylink;
 CREATE DATABASE studylink;
 USE studylink;
 CREATE TABLE IF NOT EXISTS users (
@@ -73,12 +72,12 @@ CREATE TABLE IF NOT EXISTS course_study_materials (
   FOREIGN KEY(study_material_id) REFERENCES study_materials(material_id)
 );
 CREATE TABLE IF NOT EXISTS course_ratings (
-  rating_id VARCHAR(45) NOT NULL, 
-  course_id INT, 
-  FOREIGN KEY(course_id) REFERENCES courses(course_id), 
-  username VARCHAR(45), 
-  FOREIGN KEY(username) REFERENCES users(username), 
-  rating ENUM("1", "2", "3", "4", "5")
+  course_id INT,
+  FOREIGN KEY(course_id) REFERENCES courses(course_id),
+  username VARCHAR(45),
+  FOREIGN KEY(username) REFERENCES users(username),
+  rating ENUM("1", "2", "3", "4", "5"),
+  PRIMARY KEY (username, course_id)
 );
 CREATE TABLE IF NOT EXISTS user_settings (
   user_settings_id VARCHAR(45) NOT NULL, 
