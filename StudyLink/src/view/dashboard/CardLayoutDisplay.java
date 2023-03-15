@@ -65,7 +65,8 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		displayArea.setLayout(cardLayout);
 
 		viewButtonsList = new ArrayList<>();
-		search = Dashboard.searchbar;
+
+		search = Profile.searchbar;
 
 		createTaskbarPanel();
 		createCard();

@@ -25,8 +25,8 @@ public class Dashboard implements ActionListener{
 		frame = createFrame();
 		frame.setLocationRelativeTo(null);
 
-		createTaskbar();
 		createProfile();
+		createTaskbar();
 		pageTitle("Dashboard");
 		createHeader();
 		getLogoutButton();
@@ -48,6 +48,11 @@ public class Dashboard implements ActionListener{
 		return frame;
 	}
 
+	public void createSearchbar() {
+		searchbar = new SearchBar();
+		profile.add(searchbar.searchIcon);
+		profile.add(searchbar.searchbar);
+	}
 	public void pageTitle(String title) {
 		JTextPane pageTitle = new JTextPane();
 		pageTitle.getHighlighter().removeAllHighlights();

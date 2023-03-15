@@ -24,7 +24,7 @@ public class Profile extends JPanel {
     private JLabel profileImagePanel;
     JPanel profile;
     JButton logoutBtn;
-    private SearchBar searchbar;
+    static SearchBar searchbar;
     private JLabel role;
 
 
