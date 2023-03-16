@@ -20,6 +20,7 @@ public class StudymaterialDAO {
             ps.setInt(4, rating);
             ps.executeUpdate();
         }
+        // add joption pane for else statement
     }
     public static double getRating(String Study_material_id) throws SQLException{
         double averageRating = 0;
