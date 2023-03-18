@@ -13,9 +13,6 @@ public class Studymaterial {
         this.url = url;
         this.rating = StudymaterialDAO.getRating(material_id);
     }
-
-
-
     public String getStudy_material_id() {
         return material_id;
     }
