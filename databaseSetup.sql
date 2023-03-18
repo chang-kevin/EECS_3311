@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS study_materials_urls (
     FOREIGN KEY(material_id) REFERENCES study_materials(material_id),
     url VARCHAR(500)
     );
+
 CREATE TABLE IF NOT EXISTS course_study_materials (
                                                       course_id INT,
                                                       FOREIGN KEY (course_id) REFERENCES courses(course_id),
@@ -79,13 +80,14 @@ CREATE TABLE IF NOT EXISTS course_ratings (
     rating ENUM("1", "2", "3", "4", "5"),
     PRIMARY KEY (username, course_id)
     );
+    
 CREATE TABLE IF NOT EXISTS Study_materials_ratings (
-    Study_material_id VARCHAR(45) NOT NULL,
+    material_id VARCHAR(45) NOT NULL,
     username VARCHAR(45),
     FOREIGN KEY(username) REFERENCES users(username),
     rating INT NOT NULL ,
     CHECK (rating >= 1 AND rating <= 5),
-    PRIMARY KEY (username,Study_material_id)
+    PRIMARY KEY (username,material_id)
     );
 
 CREATE TABLE IF NOT EXISTS user_settings (
@@ -407,6 +409,7 @@ VALUES
     (
         1, 1, 'https://www.youtube.com/playlist?list=PLuZ_bd9XlByzTIP5j1aWXo7smCIxvzd2D'
     ),
+    (39,1,'https://www.youtube.com/watch?v=PkJIc5tBRUE'),
     (
         2, 2, 'https://www.youtube.com/watch?v=2Rr2tW9zvRg'
     ),
@@ -591,8 +594,7 @@ VALUES
     (
         'aemcruz@my.yorku.ca', 3, 'Toronto'
     );
-Insert into Study_materials_ratings values (1,'ymann@my.yorku.ca',4),(2,'ymann@my.yorku.ca',4),(1,'manasvij@my.yorku.ca',3),(1,'aemcruz@my.yorku.ca',4),(1,'gelailai@my.yorku.ca',5),(1,'kev10th@my.yorku.ca',2);
-
-SELECT AVG(rating) AS AverageRating FROM Study_materials_ratings where Study_material_id = 1 ;
+Insert into Study_materials_ratings values (1,'ymann@my.yorku.ca',4),(1,'manasvij@my.yorku.ca',3),(1,'aemcruz@my.yorku.ca',4),(1,'gelailai@my.yorku.ca',5),(1,'kev10th@my.yorku.ca',2),(2,'ymann@my.yorku.ca',4),(2,'manasvij@my.yorku.ca',5),(2,'aemcruz@my.yorku.ca',4),(2,'gelailai@my.yorku.ca',3),(2,'kev10th@my.yorku.ca',3);
+SELECT AVG(rating) AS AverageRating FROM Study_materials_ratings where material_id ='1';
 
 
