@@ -1,7 +1,5 @@
 package model.Topic;
 
-import model.Studyresources.Studymaterial;
-
 public class Topic {
     private String topicId;
     private String topicName;

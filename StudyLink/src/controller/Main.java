@@ -1,7 +1,5 @@
 package controller;
 
-import model.Studyresources.StudymaterialDAO;
-
 import javax.swing.*;
 import java.sql.SQLException;
 
