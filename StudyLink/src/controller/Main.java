@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 public class Main extends JFrame {
     public static void main(String[] args) throws SQLException {
-        System.out.println(StudymaterialDAO.getRating("1"));
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
