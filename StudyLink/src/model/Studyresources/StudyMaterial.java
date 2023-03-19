@@ -4,17 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class StudyMaterial {
-    private String materialId;
+    private String material_id;
     private List<String> url;
     private double rating ;
 
-    public StudyMaterial(String materialId, List<String> url, double rating) throws SQLException {
-        this.materialId = materialId;
+    public StudyMaterial(String material_id, List<String> url) throws SQLException {
+        this.material_id = material_id;
         this.url = url;
-        this.rating = rating;
+        this.rating = StudyMaterialDAO.getRating(material_id);
     }
-    public String getStudyMaterialId() {
-        return materialId;
+    public String getStudy_material_id() {
+        return material_id;
     }
 
     public List<String> getUrl() {
@@ -25,8 +25,8 @@ public class StudyMaterial {
         return rating;
     }
 
-    public void setMaterialId(String material_id) {
-        this.materialId = materialId;
+    public void setmaterial_id(String material_id) {
+        this.material_id = material_id;
     }
 
     public void setUrl(List<String> url) {
