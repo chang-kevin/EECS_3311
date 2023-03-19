@@ -1,6 +1,5 @@
 package controller;
 
-
 import javax.swing.*;
 import java.sql.SQLException;
 
