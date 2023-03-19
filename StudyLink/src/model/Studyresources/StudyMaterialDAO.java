@@ -1,7 +1,9 @@
 package model.Studyresources;
 
 import model.Database.DatabaseConnection;
+import model.Topic.Topic;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
