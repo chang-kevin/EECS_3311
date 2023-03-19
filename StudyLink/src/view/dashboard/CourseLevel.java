@@ -4,8 +4,7 @@ import model.Course.Course;
 import model.Course.CourseDAOImplementation;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,60 +12,58 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static com.sun.tools.javac.main.Option.J;
-
 
 /**
- * 
- * Class for creating the course page by level and displays the courses under each one. 
- * 
+ *
+ * Class for creating the course page by level and displays the courses under each one.
+ *
  */
 public class CourseLevel extends JPanel implements ActionListener{
-    
-	JPanel twoLevel; 
+
+	JPanel twoLevel;
 	JPanel threeLevel;
 	JPanel oneLevel;
-	JFrame frame;
-
 	private JPanel courseContentPanel;
-
-	private JPanel labelContainer;
 	private JButton bookmark;
 	private JButton view;
-
 	List<ViewButtons> viewButtonList;
-
 	private List<JButton> bookmarkButtonList;
-
 	List<Course> courseList;
+	private JPanel scrollPanel;
+	private JLabel pageTitle;
+	private List<Course> course;
 
-    /*
-     * Constructor 
-     */
-    public CourseLevel() throws SQLException {
+	/*
+	 * Constructor
+	 */
+	public CourseLevel() throws SQLException {
 		viewButtonList = new ArrayList<>();
+		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
+		courseList = courseDAO.getAllCourses();
+		setCourseButtons();
+
 		oneLevel = new JPanel();
 		oneLevel = createCourseLevels(oneLevel, "1000 Level Courses");
 
 		twoLevel = new JPanel();
 		twoLevel = createCourseLevels(twoLevel, "2000 Level Courses");
-		
+
 		threeLevel = new JPanel();
 		threeLevel = createCourseLevels(threeLevel, "3000 Level Courses");
-    	
-    }
-    
-    /**
-     * This method creates and sets layout the JPanel component for each course level.
-     * @param level JPanel component for a course level.
-     * @param title Page title for the course page. 
-     * @return Returns the panel for a course level page.
-     */
-    public JPanel createCourseLevels(JPanel level, String title) throws SQLException {
-		
+
+	}
+
+	/**
+	 * This method creates and sets layout the JPanel component for each course level.
+	 * @param level JPanel component for a course level.
+	 * @param title Page title for the course page.
+	 * @return Returns the panel for a course level page.
+	 */
+	public JPanel createCourseLevels(JPanel level, String title) throws SQLException {
+
 		level = panelBorder(level);
-		
-		JLabel pageTitle = new JLabel();
+
+		pageTitle = new JLabel();
 		pageTitle.setForeground(new Color(241, 171, 165));
 		pageTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		pageTitle.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 15));
@@ -74,161 +71,120 @@ public class CourseLevel extends JPanel implements ActionListener{
 		pageTitle.setBounds(10, 11, 142, 29);
 		level.add(pageTitle);
 
-		if (title.equals("1000 Level Courses")) {
-			fillCourseContentPanel(title);
-			level.add(courseContentPanel);
-		}
-		if (title.equals("2000 Level Courses")) {
-			fillCourseContentPanel(title);
-			level.add(courseContentPanel);
-		}
-		if (title.equals("3000 Level Courses")) {
-			fillCourseContentPanel(title);
-			level.add(courseContentPanel);
-		}
+		createContainer(level);
+
+		addScrollPane();
+
+		addCourses();
 
 		return level;
-    }
-
-	/**
-	 * Used for defining the courseContentPanel
-	 *
-	 * @param level The course level
-	 * @throws SQLException
-	 */
-	public void fillCourseContentPanel(String level) throws SQLException {
-		courseContentPanel = new JPanel();
-		courseContentPanel = coursePanel(courseContentPanel);
-		labelContainer = new JPanel();
-		labelContainer = createContainer(labelContainer, 0);
-		courseContentPanel.add(labelContainer);
-		contentLabels(labelContainer);
-		generateCourses(level);
 	}
+	public void createContainer(JPanel level) {
+		scrollPanel = new JPanel();
+		scrollPanel.setBackground(new Color(255, 255, 255));
+		scrollPanel.setBounds(10, 48, 517, 289);
+		level.add(scrollPanel);
 
-    /**
-     * This method sets a layout for the JPanel container of each course to be displayed as a list. 
-     * @param container JPanel component containing the course information. 
-     * @param y-bound value for container placement. 
-     * @return Returns the container panel.
-     */
-    public JPanel createContainer(JPanel container, int y) {	
-    	container.setBackground(new Color(255, 255, 255));
-    	container.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-    	container.setBounds(10, y, 497, 40);
-    	container.setLayout(null);
-		return container;
-    }
-    /**
-     * This method creates the information label for each list of courses per course page. 
-     * @param labelContainer JPanel container for the label for absolute label placement.
-     */
-    public void contentLabels(JPanel labelContainer) {
-    	JLabel courseCode = new JLabel("Course Code");
-		createLabels(courseCode, 0, 100, labelContainer);	
-		
-		JLabel courseName = new JLabel("Course Name");
-		createLabels(courseName, 100, 197, labelContainer);
-		
-		JLabel bookmarkLabel = new JLabel("Bookmark");
-		createLabels(bookmarkLabel, 297, 100, labelContainer); 	
-		
-		JLabel viewCourse = new JLabel("View Course");
-		createLabels(viewCourse, 397, 100, labelContainer);
-
-    }
-    
-    /**
-     * This method sets the layout for the labels. 
-     * @param label JLabel containing the label for each course information. 
-     * @param x x-bound value for placement.
-     * @param width The width of the label. 
-     * @param container JPanel container where the labels are to be added. 
-     */
-    public void createLabels(JLabel label, int x, int width, JPanel container) {
-    	label.setLayout(null);
-    	label.setForeground(new Color(150, 150, 150));
-    	label.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-    	label.setBounds(x, 0, width, 40);
-    	label.setHorizontalAlignment(SwingConstants.CENTER);
-    	container.add(label);
-    }
-    
-    /**
-     * This method sets the layout for the panel containing the list of the courses. 
-     * @return
-     */
-    public JPanel coursePanel(JPanel courseContentPanel) {
+		courseContentPanel = new JPanel();
 		courseContentPanel.setBackground(new Color(255, 255, 255));
 		courseContentPanel.setBounds(10, 48, 517, 289);
-		courseContentPanel.setLayout(null);
-		return courseContentPanel; 
-    }
-    
-    /**
-     * This method generates the courses and displays it on a list. 
-     */
-    public void generateCourses(String title) throws SQLException {
-    	//y-value of panel used to hold the a course
-		int y = 40;
+	}
+	public void addScrollPane() {
+		JScrollPane scrollpane = new JScrollPane(courseContentPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollpane.setPreferredSize(new Dimension(517, 289));
+		scrollpane.getVerticalScrollBar().setUnitIncrement(5);
+		scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
+		scrollpane.getVerticalScrollBar().setBackground(new Color(255, 255, 255));
+		scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
+		scrollpane.setBorder(null);
+		scrollPanel.add(scrollpane);
+	}
 
-		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
-		courseList = courseDAO.getAllCourses();
+	public List<Course> courseInList() {
+		course = new ArrayList<>();
+
+		if(pageTitle.getText().equals("1000 Level Courses")) {
+			for (Course e : courseList) {
+				if (e.getCourseId() < 2000) {
+					course.add(e);
+				}
+			}
+		}
+		else if(pageTitle.getText().equals("2000 Level Courses")) {
+			for (Course e : courseList) {
+				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
+					course.add(e);
+				}
+			}
+		}
+		else if (pageTitle.getText().equals("3000 Level Courses")) {
+			for(Course e : courseList) {
+				if (e.getCourseId() >= 3000) {
+					course.add(e);
+				}
+			}
+		}
+		return course;
+	}
+
+	public void addCourses() {
+		courseContentPanel.setLayout(new BoxLayout(courseContentPanel, BoxLayout.Y_AXIS));
+
+		courseInList();
 		setCourseButtons();
 
-		if (title.equals("1000 Level Courses")) {
-			for(Course e: courseList) {
-				if (e.getCourseId() < 2000) {
-					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-					JPanel container = new JPanel();
-					container = createContainer(container, y);
-					courseContentPanel.add(container);
-					createCourse(container, e.getCourseName(), e.getCourseCode());
-					container.add(e.getBookmarkButton());
-					container.add(e.getViewButton());
+		JPanel labelPanel = new JPanel();
+		coursePanel(labelPanel);
+		labelPanel = createLabels(labelPanel);
+		labelPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		courseContentPanel.add(labelPanel);
 
-					viewButtonList.add(viewButton);
-					y = y + 40;
-				}
-			}
-		}
-		else if (title.equals("2000 Level Courses")) {
-			for(Course e: courseList) {
-				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
-					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-					JPanel container = new JPanel();
-					container = createContainer(container, y);
-					courseContentPanel.add(container);
-					createCourse(container, e.getCourseName(), e.getCourseCode());
-					container.add(e.getBookmarkButton());
-					container.add(e.getViewButton());
+		for(Course e : course) {
+			JPanel boxPanel = new JPanel();
+			coursePanel(boxPanel);
+			ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
+			createCourse(boxPanel, e.getCourseName(), e.getCourseCode(), e);
+			viewButtonList.add(viewButton);
+			courseContentPanel.add(boxPanel);
 
-					viewButtonList.add(viewButton);
-					y = y + 40;
-				}
-			}
-		}
-		else if (title.equals("3000 Level Courses")){
-			for(Course e: courseList) {
-				if (e.getCourseId() >= 3000) {
-					ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-					JPanel container = new JPanel();
-					container = createContainer(container, y);
-					courseContentPanel.add(container);
-					createCourse(container, e.getCourseName(), e.getCourseCode());
-					container.add(e.getBookmarkButton());
-					container.add(e.getViewButton());
-
-					viewButtonList.add(viewButton);
-					y = y + 40;
-				}
-			}
 		}
 	}
 
-	/**
-	 * Assigns view and bookmark button to the each course
-	 */
+	public JPanel createLabels(JPanel labelPanel) {
+		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
+		String[] labelNames = {"Course Code", "Course Name", "Bookmark", "View Course"};
+		labelPanel.add(Box.createHorizontalGlue());
+		for(int i = 0; i < 4; i++) {
+			JLabel label = new JLabel(labelNames[i]);
+			labelLayout(label);
+			if(i == 1) {
+				label.setPreferredSize(new Dimension(197, 40));
+				label.setMaximumSize(new Dimension(197, 40));
+			}
+			else {
+				label.setPreferredSize(new Dimension(100, 40));
+				label.setMaximumSize(new Dimension(100, 40));
+			}
+			labelPanel.add(label);
+
+		}
+
+		return labelPanel;
+	}
+	public void labelLayout(JLabel label) {
+		label.setLayout(null);
+		label.setForeground(new Color(150, 150, 150));
+		label.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+	}
+
+	public void coursePanel(JPanel container) {
+		container.setBackground(new Color(255, 255, 255));
+		container.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
+		container.setPreferredSize(new Dimension(495, 40));
+		container.setMaximumSize(new Dimension(495, 40));
+	}
+
 	public void setCourseButtons () {
 		bookmarkButtonList = new ArrayList<>();
 		for (Course course: courseList) {
@@ -236,61 +192,66 @@ public class CourseLevel extends JPanel implements ActionListener{
 			String text = "View";
 			view = new JButton();
 			view = buttonStyler(view, text);
-			view.setBounds(408, 7, 80, 25);
 			course.setViewButton(view);
 
 			String state = "Bookmark";
 			bookmark = new JButton();
 			bookmark = buttonStyler(bookmark, state);
-			bookmark.setBounds(308, 7, 80, 25);
 			bookmark.addActionListener(this);
 			bookmarkButtonList.add(bookmark);
 			course.setBookmarkButton(bookmark);
 		}
 	}
 
-    /**
-     * This method creates the components for the information on each courses (course code, name, bookmark, view course). 
-     * @param container JPanel container for absolute placement of the course components. 
-     * @param courseName Course name to be displayed. 
-     * @param courseCode Course code to be displayed. 
-     */
-    public void createCourse(JPanel container, String courseName, String courseCode) {
-    	
-    	JLabel code = new JLabel(courseCode);
-    	createLabels(code, 0, 100, container);
-    	
-    	JLabel name = new JLabel(courseName); 
-    	createLabels(name, 100, 197, container);
-    	
-    }
-    
-    
-    /**
-     * This method sets the layout for the bookmark and view buttons. 
-     * @param button JButton component for the courses. 
-     * @param text Name to be displayed as text on the button. 
-     * @return Returns the customized JButton.
-     */
-    public JButton buttonStyler(JButton button, String text) {
-    	button.setText(text);
+	public void createCourse(JPanel boxPanel, String courseName, String courseCode, Course e) {
+		boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
+
+		JLabel name = new JLabel(courseName);
+		labelLayout(name);
+		name.setMaximumSize(new Dimension(205, 40));
+		name.setPreferredSize(new Dimension(205, 40));
+
+
+		JLabel code = new JLabel(courseCode);
+		code.setMaximumSize(new Dimension(100, 40));
+		code.setPreferredSize(new Dimension(100, 40));
+		labelLayout(code);
+		JLabel space = new JLabel();
+		space.setMaximumSize(new Dimension(13, 40));
+		space.setPreferredSize(new Dimension(13, 40));
+
+		JLabel spacer = new JLabel();
+		spacer.setMaximumSize(new Dimension(17, 40));
+		spacer.setPreferredSize(new Dimension(17, 40));
+
+		boxPanel.add(Box.createHorizontalGlue());
+
+		boxPanel.add(code);
+		boxPanel.add(name);
+		boxPanel.add(e.getBookmarkButton());
+		boxPanel.add(spacer);
+		boxPanel.add(e.getViewButton());
+		boxPanel.add(space);
+
+
+	}
+
+	public JButton buttonStyler(JButton button, String text) {
+		button.setText(text);
 		button.setFont(new Font("Dubai", Font.BOLD, 13));
 		button.setOpaque(true);
 		button.setBackground(new Color(216, 237, 214));
 		button.setForeground(new Color(255, 255, 255));
-		button.setFocusPainted(false);		
+		button.setFocusPainted(false);
+		button.setPreferredSize(new Dimension(80, 25));
+		button.setPreferredSize(new Dimension(80, 40));
 		button.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		button.addActionListener(this);
 		return button;
-    	
-    }
-    
-    /**
-	 * This method creates a rounded border and sets the layout for each course level panel. 
-	 * @param level JPanel for the course page
-	 * @return Returns the course page panel with rounded border. 
-	 */
-    public JPanel panelBorder(JPanel level) {
+
+	}
+
+	public JPanel panelBorder(JPanel level) {
 		level = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -310,16 +271,12 @@ public class CourseLevel extends JPanel implements ActionListener{
 		level.setForeground(new Color(207, 234, 204));
 		level.setOpaque(false);
 		level.setBackground(new Color(207, 234, 204));
-		level.setBounds(169, 203, 537, 348);		
-		level.setLayout(null);	
+		level.setBounds(169, 203, 537, 348);
+		level.setLayout(null);
 
 		return level;
 	}
-    
-    
-    /**
-	  * Invoked on button click which changes the bookmark state. 
-	  */
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -335,8 +292,8 @@ public class CourseLevel extends JPanel implements ActionListener{
 				bookmark.setBackground(new Color(216, 237, 214));
 			}
 		}
-		
+
 	}
-    
-	
+
+
 }
