@@ -3,20 +3,18 @@ package model.Studyresources;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Studymaterial {
-    private String material_id;
+public class StudyMaterial {
+    private String materialId;
     private List<String> url;
     private double rating ;
 
-    public Studymaterial(String material_id, List<String> url,double rating) throws SQLException {
-        this.material_id = material_id;
+    public StudyMaterial(String materialId, List<String> url, double rating) throws SQLException {
+        this.materialId = materialId;
         this.url = url;
         this.rating = rating;
-
-
     }
-    public String getStudy_material_id() {
-        return material_id;
+    public String getStudyMaterialId() {
+        return materialId;
     }
 
     public List<String> getUrl() {
@@ -27,8 +25,8 @@ public class Studymaterial {
         return rating;
     }
 
-    public void setmaterial_id(String material_id) {
-        this.material_id = material_id;
+    public void setMaterialId(String material_id) {
+        this.materialId = materialId;
     }
 
     public void setUrl(List<String> url) {

@@ -1,9 +1,7 @@
 package model.Studyresources;
 
 import model.Database.DatabaseConnection;
-import model.Topic.Topic;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,14 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudymaterialDAO {
+public class StudyMaterialDAO {
     static Connection connection = DatabaseConnection.getConnection();
 
-    public static void setmaterialRating(String username, String material_id, int rating) throws SQLException {
+    public static void setMaterialRating(String username, String material_id, int rating) throws SQLException {
         if (rating < 1 || rating > 5){
             return;
         }
-            String query = "insert into Study_materials_ratings (material_id, username, rating) values (?, ?, ?) ON DUPLICATE KEY UPDATE rating = ?";
+            String query = "INSERT INTO Study_materials_ratings (material_id, username, rating) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE rating = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, material_id);
             ps.setString(2, username);
@@ -29,7 +27,7 @@ public class StudymaterialDAO {
 
     public static double getRating(String material_id) throws SQLException {
         double averageRating = 0;
-        String query = "SELECT AVG(rating) AS AverageRating FROM Study_materials_ratings where material_id = ?";
+        String query = "SELECT AVG(rating) AS AverageRating FROM Study_materials_ratings WHERE material_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, material_id);
         ResultSet rs = ps.executeQuery();
@@ -39,8 +37,8 @@ public class StudymaterialDAO {
         return averageRating;
     }
 
-    public static Studymaterial getStudymaterial(String topicId) throws SQLException {
-        Studymaterial studymaterial = null;
+    public static StudyMaterial getStudyMaterial(String topicId) throws SQLException {
+        StudyMaterial studymaterial = null;
         List<String> url = new ArrayList<>();
         String query = "select study_materials.material_id,study_materials_urls.url from study_materials JOIN  study_materials_urls ON study_materials.material_id = study_materials_urls.material_id  WHERE study_materials.topic_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
@@ -48,7 +46,7 @@ public class StudymaterialDAO {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             url.add(rs.getString("url"));
-             studymaterial = new Studymaterial(rs.getString("material_id"),url,getRating(rs.getString("material_id")));
+             studymaterial = new StudyMaterial(rs.getString("material_id"),url,getRating(rs.getString("material_id")));
         }
         return studymaterial;
     }
