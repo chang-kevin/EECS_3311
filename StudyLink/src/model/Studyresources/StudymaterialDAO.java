@@ -48,7 +48,7 @@ public class StudymaterialDAO {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             url.add(rs.getString("url"));
-             studymaterial = new Studymaterial(rs.getString("material_id"),url);
+             studymaterial = new Studymaterial(rs.getString("material_id"),url,getRating(rs.getString("material_id")));
         }
         return studymaterial;
     }

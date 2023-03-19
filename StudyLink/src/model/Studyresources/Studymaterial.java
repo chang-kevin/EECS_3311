@@ -8,10 +8,12 @@ public class Studymaterial {
     private List<String> url;
     private double rating ;
 
-    public Studymaterial(String material_id, List<String> url) throws SQLException {
+    public Studymaterial(String material_id, List<String> url,double rating) throws SQLException {
         this.material_id = material_id;
         this.url = url;
-        this.rating = StudymaterialDAO.getRating(material_id);
+        this.rating = rating;
+
+
     }
     public String getStudy_material_id() {
         return material_id;
