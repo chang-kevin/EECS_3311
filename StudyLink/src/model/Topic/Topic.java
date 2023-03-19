@@ -6,12 +6,10 @@ public class Topic {
 
     private String courseId;
 
-
     public Topic(String topicId, String topicName, String courseId) {
         this.topicName = topicName;
         this.topicId = topicId;
         this.courseId = courseId;
-
     }
 
     public String getTopicCourseId() {
