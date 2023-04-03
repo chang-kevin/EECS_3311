@@ -14,9 +14,11 @@ public class HyperlinkReg {
 
     public HyperlinkReg(final String link) {
 
-        hyperlink = new JLabel(link);
-		hyperlink.setForeground(Color.BLUE);
+        hyperlink = new JLabel("   " + link);
+		hyperlink.setForeground(new Color(78, 78, 194));
+        hyperlink.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 10));
 		hyperlink.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 
 		hyperlink.addMouseListener(new MouseAdapter () {
 			@Override
@@ -30,7 +32,7 @@ public class HyperlinkReg {
  
             @Override
             public void mouseExited(MouseEvent e) {
-                hyperlink.setText(link);
+                hyperlink.setText("   " + link);
             }
  
             @Override

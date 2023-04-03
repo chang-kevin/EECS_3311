@@ -1,9 +1,15 @@
 package view.dashboard;
 
+import helpers.HyperlinkReg;
 import model.Course.Course;
-
+import model.Course.CourseDAO;
+import model.Course.CourseDAOImplementation;
+import model.Topic.Topic;
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class ViewCourse {
@@ -12,27 +18,114 @@ public class ViewCourse {
     JPanel coursePage;
     private JPanel container;
 
+    JPanel scrollPanel;
+    List<Topic> topicList;
 
-    public ViewCourse() {
+    /**
+     * Constructor
+     */
+    public ViewCourse(Course course) throws SQLException {
+
         createPanel();
-        createContainer();
-        courseTitle();
-        createDescription();
-        courseInformation();
-        getTopics();
-        courseContent();
-    }
 
-    public void createPanel() {
-        coursePage = new JPanel();
-        coursePage = panelBorder(coursePage);
-    }
-
-    public void setCourse(Course course) {
         this.course = course;
         update();
+
+        topicList = getTopics();
+
+        courseTitle();
+
+        createContainer();
+
+        addScrollPane();
+
+        CoursePage();
+
     }
 
+
+    /**
+     * This method creates the base panel of the course page, which acts like a border for the primary panel.
+     */
+    public void createPanel() {
+
+        coursePage = panelBorder(coursePage);
+
+    }
+
+
+    /**
+     * This method creates the primary panel of the course page
+     */
+    public void CoursePage() {
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+        showDescription();
+
+        showTopicsAndMaterials();
+
+    }
+
+    /**
+     * This method is used to show the description of the course
+     */
+    public void showDescription() {
+        JPanel descriptionHeader = new JPanel();
+        coursePanel(descriptionHeader);
+        createHeaderLabel(descriptionHeader, "Description");
+        container.add(descriptionHeader);
+
+        JPanel description = new JPanel();
+        coursePanel(description);
+        description.setPreferredSize(new Dimension(495, 200));
+        description.setMaximumSize(new Dimension(495, 200));
+        description.setBorder(null);
+        createLabel(description, "<html>" + course.getCourseDesc() + "</html>");
+        container.add(description);
+    }
+
+    /**
+     * This method is used to show the Topics of the course and the Study Materials under these topics
+     */
+    public void showTopicsAndMaterials(){
+        JPanel topicHeader = new JPanel();
+        coursePanel(topicHeader);
+        createHeaderLabel(topicHeader, "Topics");
+        container.add(topicHeader);
+        spacePanel();
+
+        for(Topic t: topicList) {
+            JPanel topicPanel = new JPanel();
+            coursePanel(topicPanel);
+            createLabel(topicPanel, t.getTopicName());
+            container.add(topicPanel);
+
+            JPanel studyMaterialsUrl = new JPanel();
+            coursePanel(studyMaterialsUrl);
+            createURLLabel(studyMaterialsUrl, t.getURL());
+            container.add(studyMaterialsUrl);
+
+            spacePanel();
+        }
+    }
+
+
+    /**
+     * This method creates the layout of the JLabels used in this class
+     * @param title is the text of the label
+     * @return JLabel label
+     */
+    public JLabel labelLayout(String title) {
+        JLabel label = new JLabel(title);
+        label.setForeground(new Color(150, 150, 150));
+        label.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+        return label;
+    }
+
+
+    /**
+     * This method sets the title of the course. For e.g :- EECS 3311: Software Design
+     */
     public void courseTitle() {
         if(course != null) {
             JLabel courseName = new JLabel(course.getCourseCode() + ": " + course.getCourseName());
@@ -51,70 +144,111 @@ public class ViewCourse {
             courseName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
         }
 
+    }
+
+
+    /**
+     * This method sets the size and color of the panels used in the course panel
+     * @param container
+     */
+    public void coursePanel(JPanel container) {
+        container.setBackground(new Color(255, 255, 255));
+        container.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
+        container.setPreferredSize(new Dimension(495, 30));
+        container.setMaximumSize(new Dimension(495, 30));
+    }
+
+    /**
+     * This method creates an empty panel
+     */
+    public void spacePanel() {
+        JPanel space = new JPanel();
+        space.setBackground(new Color(255, 255, 255));
+        space.setBorder(null);
+        space.setPreferredSize(new Dimension(495, 20));
+        space.setMaximumSize(new Dimension(495, 20));
+        container.add(space);
+    }
+
+
+    /**
+     * This method creates the header for each section in the content section, description and topics, of the course page
+     * @param headerPanel panel in which the JLabel is added to
+     * @param headerName the JLabel text
+     */
+    public void createHeaderLabel(JPanel headerPanel, String headerName) {
+
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.X_AXIS));
+
+        JLabel label = new JLabel(headerName);
+        label.setForeground(new Color(75, 74, 74));
+        label.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+
+        headerPanel.add(label);
+
+        label.setHorizontalAlignment(SwingConstants.SOUTH_EAST);
+    }
+
+
+    /**
+     * this method creates the several labels used in this class
+     * @param labelPanel panel in which the JLabel is added to
+     * @param labelName the text of the Jlabel
+     */
+    public void createLabel(JPanel labelPanel, String labelName) {
+        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
+
+        JLabel label = labelLayout(labelName);
+
+        labelPanel.add(label);
+
+        label.setHorizontalAlignment(SwingConstants.SOUTH_EAST);
+    }
+
+
+    /**
+     * This method adds the hyperlink to the panel.
+     * @param labelPanel panel to which the hyperlink is added to
+     * @param url the hyperlink
+     */
+    public void createURLLabel(JPanel labelPanel, HyperlinkReg url) {
+        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
+        labelPanel.add(url.getHyperlink());
 
     }
 
+
     public void createContainer() {
+        scrollPanel = new JPanel();
+        scrollPanel.setBackground(new Color(255, 255, 255));
+        scrollPanel.setBounds(10, 60, 517, 277);
+
+        coursePage.add(scrollPanel);
+
         container = new JPanel();
         container.setBackground(new Color(255, 255, 255));
         container.setBounds(10, 60, 517, 277);
-        coursePage.add(container);
         container.setLayout(null);
     }
 
-    public void createDescription() {
-        JLabel descriptionTitle = new JLabel("Description");
-        descriptionTitle.setForeground(new Color(241, 146, 146));
-        descriptionTitle.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-        descriptionTitle.setBounds(10, 0, 144, 27);
-        container.add(descriptionTitle);
+    public void addScrollPane() {
+        JScrollPane scrollpane = new JScrollPane(container, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollpane.setPreferredSize(new Dimension(517, 277));
+        scrollpane.getVerticalScrollBar().setUnitIncrement(5);
+        scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
+        scrollpane.getVerticalScrollBar().setBackground(new Color(255, 255, 255));
+        scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
+        scrollpane.setBorder(null);
+        scrollPanel.add(scrollpane);
     }
 
-    public void courseInformation() {
-        if(course != null) {
-            JLabel courseInfo = new JLabel( "<html>" + course.getCourseDesc() + "</html>");
-            courseInfo.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-            courseInfo.setVerticalAlignment(SwingConstants.TOP);
-            courseInfo.setBounds(20, 30, 487, 180);
-            container.add(courseInfo);
-        }
 
-        else {
-            JLabel courseInfo = new JLabel("");
-            courseInfo.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-            courseInfo.setVerticalAlignment(SwingConstants.TOP);
-            courseInfo.setBounds(20, 30, 487, 55);
-            container.add(courseInfo);
-        }
-
-    }
-
-    public void createTopicPanel() {
-        JLabel topicTitle = new JLabel("Topic here");
-        topicTitle.setForeground(new Color(241, 146, 146));
-        topicTitle.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 13));
-        topicTitle.setBounds(10, 212, 497, 27);
-        container.add(topicTitle);
-    }
-
-    public void getTopics() {
-        //get all topics then iterate
-        createTopicPanel();
-    }
-
+    /**
+     * this method updates the title of the course
+     */
     public void update() {
-        courseInformation();
         courseTitle();
     }
-
-    public void courseContent() {
-        JLabel content = new JLabel();
-        content.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-        content.setText("list all content ");
-        content.setBounds(20, 239, 487, 27);
-        container.add(content);
-    }
-
 
     public JPanel panelBorder(JPanel panel) {
         panel = new JPanel() {
@@ -136,15 +270,23 @@ public class ViewCourse {
         panel.setBounds(169, 203, 537, 348);
         panel.setOpaque(false);
         panel.setLayout(null);
-        JLabel courseName = new JLabel();
-        courseName.setBounds(10, 11, 246, 38);
-        panel.add(courseName);
-        courseName.setForeground(new Color(241, 146, 146));
-        courseName.setBackground(new Color(255, 255, 255));
-        courseName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-
 
         return panel;
+    }
+
+
+    /**
+     * This method fetches the topics in the database
+     * @return a list of topics registered under this course
+     * @throws SQLException
+     */
+    public List<Topic> getTopics() throws SQLException {
+        //get all topics then iterate
+        CourseDAO courseDAO = new CourseDAOImplementation();
+        List<Topic> topicList = courseDAO.getCourseTopics(Integer.toString(course.getCourseId()));
+
+        return topicList;
+
     }
 
 }
