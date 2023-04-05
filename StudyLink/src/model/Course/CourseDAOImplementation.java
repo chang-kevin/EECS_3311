@@ -1,5 +1,6 @@
 package model.Course;
 
+import helpers.HyperlinkReg;
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
 
@@ -114,13 +115,18 @@ public class CourseDAOImplementation implements CourseDAO {
 
     @Override
     public List<Topic> getCourseTopics(String courseId) throws SQLException {
-        String query = "SELECT course_topics.course_id, course_topics.topic_id, topics.topic_name FROM course_topics JOIN topics ON course_topics.topic_id = topics.topic_id WHERE course_topics.topic_id = ?";
+        String query = "SELECT ct.course_id, smu.url, ct.topic_id, t.topic_name " +
+                "FROM course_topics ct " +
+                "JOIN topics t ON ct.topic_id = t.topic_id " +
+                "JOIN study_materials sm ON ct.topic_id = sm.topic_id " +
+                "JOIN study_materials_urls smu ON sm.material_id = smu.material_id " +
+                "WHERE ct.course_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, courseId);
         ResultSet rs = ps.executeQuery();
         List<Topic> topics = new ArrayList<>();
         while (rs.next()) {
-            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id")));
+            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), new HyperlinkReg(rs.getString("url"))));
         }
         return topics;
     }

@@ -1,5 +1,4 @@
- 
-       package model.User;
+package model.User;
 import java.util.UUID;
 /**
  * Implementation of the User class using the Builder design pattern.
