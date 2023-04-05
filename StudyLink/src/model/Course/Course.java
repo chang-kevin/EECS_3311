@@ -52,6 +52,16 @@ public class Course {
         this.bookmarkButton = bookmark;
     }
 
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setCourseDesc(String courseDesc) {
+        this.courseDesc = courseDesc;
+    }
+
+
+
     public static class CourseBuilder {
         private int courseId;
         private String courseName;

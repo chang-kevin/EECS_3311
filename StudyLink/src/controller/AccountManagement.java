@@ -22,19 +22,42 @@ public class AccountManagement extends MainJFrame {
     private JLabel usernameLabel;
     private JLabel firstNameLabel;
     private JLabel lastNameLabel;
+
+    public void setFirstNameText(String text) {
+        this.firstNameText.setText(text);
+    }
+
+    public JTextField getFirstNameJText() {
+        return firstNameText;
+    }
+    public String getFirstNameText() {
+        return firstNameText.getText();
+    }
+
+    public JTextField getLastNameJText() {
+        return lastNameText;
+    }
+    public String getLastNameText() {
+        return lastNameText.getText();
+    }
+
+    public String getRoleTextField() {
+        return roleTextField.getText();
+    }
+
     private JLabel roleLabel;
     private JTextField roleTextField;
     private User user;
-    private UserDAO userDAO;
-    private User sessionUser;
+
+
+
+    public String getUsernameText() {
+        return usernameText.getText();
+    }
 
     public AccountManagement() throws SQLException {
         super();
-
-        userDAO = new UserDAO();
-        sessionUser = UserSession.getInstance().getCurrentUser();
-        user = userDAO.getUser(sessionUser.getUsername());
-
+        user = UserDAO.getUser(UserSession.getInstance().getCurrentUser().getUsername());
         setUpAnchors();
         setContentPane(panel1);
         setUpCancelBtn();
@@ -84,7 +107,7 @@ public class AccountManagement extends MainJFrame {
                         .setRole(UserRole.STUDENT)
                         .build();
                 try {
-                    userDAO.updateUserInfo(updatedUser);
+                    UserDAO.updateUserInfo(updatedUser);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
