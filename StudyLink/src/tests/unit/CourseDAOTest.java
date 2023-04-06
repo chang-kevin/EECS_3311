@@ -5,8 +5,6 @@ import model.Course.CourseDAOImplementation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseDAOTest {
