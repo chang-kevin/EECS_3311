@@ -81,7 +81,7 @@ public class UserDAO {
     public static List<Course> getUserCourses(String username) throws SQLException {
         String query = "Select courses.name, courses.description,courses.course_id,courses.course_code \n" +
                 "from Users\n" +
-                "JOIN user_courses ON user_courses.user_id = users.user_id\n" +
+                "JOIN user_courses ON user_courses.username = users.username\n" +
                 "JOIN courses ON user_courses.course_id = courses.course_id\n" +
                 "WHERE Users.username = ?";
         PreparedStatement ps = connection.prepareStatement(query);
