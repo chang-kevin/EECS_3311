@@ -3,15 +3,18 @@ package view.dashboard;
 import model.Course.Course;
 import model.Course.CourseDAO;
 import model.Course.CourseDAOImplementation;
+import model.User.User;
+import model.User.UserDAO;
+import model.User.UserSession;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,8 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	private CourseLevel courses;
 
 	private List<ViewButtons> viewButtonsList;
+	private List<BookmarkButtons> bookmarkButtonsList;
+	private Bookmark bookmark;
 
 	ViewCourse view;
 
@@ -51,6 +56,8 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	private static final String threePanel = "Three";
 	private static final String viewPanel = "View";
 	private static final String profilePanel = "Profile";
+	private HomePage home;
+	private List<ViewButtons> viewBookmarkList;
 
 	/**
 	 * Constructor
@@ -65,6 +72,8 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 		displayArea.setLayout(cardLayout);
 
 		viewButtonsList = new ArrayList<>();
+		bookmarkButtonsList = new ArrayList<>();
+		viewBookmarkList = new ArrayList<>();
 
 		search = Profile.searchbar;
 
@@ -76,8 +85,9 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 	 * This method creates an object of the display panel and adds it into the cardlayout.
 	 */
 	public void createCard() throws SQLException {
-		HomePage home = new HomePage();
+		home = new HomePage();
 		courses = new CourseLevel();
+		bookmark = new Bookmark();
 		callButton();
 		Profile profile = new Profile();
 		UploadFile upload = new UploadFile();
@@ -129,11 +139,20 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 		return btn;
 	}
-	public void callButton(){
+	public void callButton() throws SQLException {
 		for (ViewButtons btn : courses.viewButtonList) {
 				btn.getViewButton().addActionListener(this);
 				viewButtonsList.add(btn);
 			}
+		for(BookmarkButtons btn : courses.bookmarkButtonList) {
+			btn.getBookmarkButton().addActionListener(this);
+			bookmarkButtonsList.add(btn);
+		}
+//		for (ViewButtons btn : bookmark.viewBookmark) {
+//			btn.getViewButton().addActionListener(this);
+//			viewBookmarkList.add(btn);
+//		}
+
 	}
 
 	/**
@@ -254,8 +273,8 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 				CourseDAO courseDAO = new CourseDAOImplementation();
 				try {
 					Course course = courseDAO.getCourseByNameOrId(searchTerm);
-					view = new ViewCourse(course);
-
+					view = new ViewCourse();
+					view.setCourse(course);
 					addCard(view.coursePage, viewPanel);
 					cardLayout.show(displayArea, viewPanel);
 				} catch (SQLException ex) {
@@ -274,16 +293,36 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 		for (ViewButtons btn : courses.viewButtonList) {
 			if(e.getSource() == btn.getViewButton()) {
-				try {
-					view = new ViewCourse(btn.getCourse());
-				} catch (SQLException ex) {
-					throw new RuntimeException(ex);
-				}
+				view = new ViewCourse();
+				view.setCourse(btn.getCourse());
 				addCard(view.coursePage, viewPanel);
 				cardLayout.show(displayArea, viewPanel);
 			}
 		}
 
+		for(BookmarkButtons btn : courses.bookmarkButtonList) {
+			if(e.getSource() == btn.getBookmarkButton()) {
+				UserDAO userDAO = new UserDAO();
+				User user = UserSession.getInstance().getCurrentUser();
+				try {
+					User currentUser = userDAO.getUser(user.getUsername());
+					UserDAO.addUserCourse(currentUser.getUsername(), btn.getCourse());
+
+				} catch (SQLException ex) {
+					throw new RuntimeException(ex);
+				}
+
+			}
+		}
+
+		for(ViewButtons btn : bookmark.viewBookmark) {
+			if(e.getSource() == btn.getViewButton()) {
+				view = new ViewCourse();
+				view.setCourse(btn.getCourse());
+				addCard(view.coursePage, viewPanel);
+				cardLayout.show(displayArea, viewPanel);
+			}
+		}
 
 		for(JButton btn: menu) {
 			if(e.getSource() == btn) {
@@ -293,7 +332,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 					cardLayout.show(displayArea, dashboardPanel);
 					uploadBtn.setBounds(0, 283, 160, 40);
 					buttons.setBounds(0, 0, 0 ,0);
-
+					
 				}
 				else if(btn == courseBtn) {
 					uploadBtn.setBounds(0, 403, 160, 40);
