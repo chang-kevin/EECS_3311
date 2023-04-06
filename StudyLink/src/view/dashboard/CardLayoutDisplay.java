@@ -273,8 +273,7 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 				CourseDAO courseDAO = new CourseDAOImplementation();
 				try {
 					Course course = courseDAO.getCourseByNameOrId(searchTerm);
-					view = new ViewCourse();
-					view.setCourse(course);
+					view = new ViewCourse(course);
 					addCard(view.coursePage, viewPanel);
 					cardLayout.show(displayArea, viewPanel);
 				} catch (SQLException ex) {
@@ -293,8 +292,11 @@ public class CardLayoutDisplay extends JPanel implements ActionListener {
 
 		for (ViewButtons btn : courses.viewButtonList) {
 			if(e.getSource() == btn.getViewButton()) {
-				view = new ViewCourse();
-				view.setCourse(btn.getCourse());
+				try {
+					view = new ViewCourse(btn.getCourse());
+				} catch (SQLException ex) {
+					throw new RuntimeException(ex);
+				}
 				addCard(view.coursePage, viewPanel);
 				cardLayout.show(displayArea, viewPanel);
 			}
