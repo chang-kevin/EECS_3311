@@ -6,50 +6,84 @@ import model.Course.CourseDAO;
 import model.Course.CourseDAOImplementation;
 import model.Topic.Topic;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
 
-public class ViewCourse {
+public class ViewCourse extends RoundedPanel {
 
     Course course;
     JPanel coursePage;
-    private JPanel container;
-
-    JPanel scrollPanel;
     List<Topic> topicList;
+    private JPanel contentPanel;
 
     /**
      * Constructor
      */
     public ViewCourse(Course course) throws SQLException {
-
-        createPanel();
+        super(30, 30);
 
         this.course = course;
-        update();
+        setLayoutPanel();
+        setBackground(new Color(129, 169, 173));
+        setConstraints();
 
         topicList = getTopics();
-
-        courseTitle();
-
-        createContainer();
-
-        addScrollPane();
 
         CoursePage();
 
     }
+    public JLabel createTitle(String text) {
+        JLabel title = new JLabel(text);
+        title.setBorder(new EmptyBorder(15, 15, 10, 15));
+        title.setForeground(new Color(53, 79, 82));
+        title.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 18));
+        title.setHorizontalTextPosition(SwingConstants.LEFT);
+        return title;
+    }
 
+    public void createCoursePane() {
+        contentPanel = new JPanel();
+        contentPanel.setBackground(new Color(217, 230, 226));
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+    }
 
-    /**
-     * This method creates the base panel of the course page, which acts like a border for the primary panel.
-     */
-    public void createPanel() {
+    public JScrollPane addScrollPane() {
+        JScrollPane scrollpane = new JScrollPane(contentPanel);
+        scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollpane.getVerticalScrollBar().setUnitIncrement(5);
+        scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
+        scrollpane.getVerticalScrollBar().setBackground(new Color(232, 240, 238));
+        scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
+        scrollpane.setBorder(null);
+        return scrollpane;
+    }
 
-        coursePage = panelBorder(coursePage);
+    public void setLayoutPanel() {
+        GridBagLayout layout = new GridBagLayout();
+        layout.columnWidths = new int[]{0, 0};
+        layout.rowHeights = new int[]{0, 0, 0};
+        layout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+        layout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+        setLayout(layout);
+    }
+
+    public void setConstraints() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 5, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        add(createTitle(course.getCourseCode() + ": " + course.getCourseName()), gbc);
+        createCoursePane();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        add(addScrollPane(), gbc);
 
     }
 
@@ -58,7 +92,6 @@ public class ViewCourse {
      * This method creates the primary panel of the course page
      */
     public void CoursePage() {
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         showDescription();
 
@@ -73,7 +106,7 @@ public class ViewCourse {
         JPanel descriptionHeader = new JPanel();
         coursePanel(descriptionHeader);
         createHeaderLabel(descriptionHeader, "Description");
-        container.add(descriptionHeader);
+        contentPanel.add(descriptionHeader);
 
         JPanel description = new JPanel();
         coursePanel(description);
@@ -81,7 +114,7 @@ public class ViewCourse {
         description.setMaximumSize(new Dimension(495, 200));
         description.setBorder(null);
         createLabel(description, "<html>" + course.getCourseDesc() + "</html>");
-        container.add(description);
+        contentPanel.add(description);
     }
 
     /**
@@ -91,19 +124,19 @@ public class ViewCourse {
         JPanel topicHeader = new JPanel();
         coursePanel(topicHeader);
         createHeaderLabel(topicHeader, "Topics");
-        container.add(topicHeader);
+        contentPanel.add(topicHeader);
         spacePanel();
 
         for(Topic t: topicList) {
             JPanel topicPanel = new JPanel();
             coursePanel(topicPanel);
             createLabel(topicPanel, t.getTopicName());
-            container.add(topicPanel);
+            contentPanel.add(topicPanel);
 
             JPanel studyMaterialsUrl = new JPanel();
             coursePanel(studyMaterialsUrl);
             createURLLabel(studyMaterialsUrl, t.getURL());
-            container.add(studyMaterialsUrl);
+            contentPanel.add(studyMaterialsUrl);
 
             spacePanel();
         }
@@ -122,31 +155,6 @@ public class ViewCourse {
         return label;
     }
 
-
-    /**
-     * This method sets the title of the course. For e.g :- EECS 3311: Software Design
-     */
-    public void courseTitle() {
-        if(course != null) {
-            JLabel courseName = new JLabel(course.getCourseCode() + ": " + course.getCourseName());
-            courseName.setBounds(10, 11, 517, 38);
-            coursePage.add(courseName);
-            courseName.setForeground(new Color(241, 146, 146));
-            courseName.setBackground(new Color(255, 255, 255));
-            courseName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-        }
-        else {
-            JLabel courseName = new JLabel("");
-            courseName.setBounds(10, 11, 246, 38);
-            coursePage.add(courseName);
-            courseName.setForeground(new Color(241, 146, 146));
-            courseName.setBackground(new Color(255, 255, 255));
-            courseName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-        }
-
-    }
-
-
     /**
      * This method sets the size and color of the panels used in the course panel
      * @param container
@@ -154,8 +162,8 @@ public class ViewCourse {
     public void coursePanel(JPanel container) {
         container.setBackground(new Color(255, 255, 255));
         container.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
-        container.setPreferredSize(new Dimension(495, 30));
-        container.setMaximumSize(new Dimension(495, 30));
+//        container.setPreferredSize(new Dimension(495, 30));
+//        container.setMaximumSize(new Dimension(495, 30));
     }
 
     /**
@@ -167,7 +175,7 @@ public class ViewCourse {
         space.setBorder(null);
         space.setPreferredSize(new Dimension(495, 20));
         space.setMaximumSize(new Dimension(495, 20));
-        container.add(space);
+        contentPanel.add(space);
     }
 
 
@@ -178,7 +186,7 @@ public class ViewCourse {
      */
     public void createHeaderLabel(JPanel headerPanel, String headerName) {
 
-        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.X_AXIS));
+        //headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.X_AXIS));
 
         JLabel label = new JLabel(headerName);
         label.setForeground(new Color(75, 74, 74));
@@ -216,64 +224,6 @@ public class ViewCourse {
         labelPanel.add(url.getHyperlink());
 
     }
-
-
-    public void createContainer() {
-        scrollPanel = new JPanel();
-        scrollPanel.setBackground(new Color(255, 255, 255));
-        scrollPanel.setBounds(10, 60, 517, 277);
-
-        coursePage.add(scrollPanel);
-
-        container = new JPanel();
-        container.setBackground(new Color(255, 255, 255));
-        container.setBounds(10, 60, 517, 277);
-        container.setLayout(null);
-    }
-
-    public void addScrollPane() {
-        JScrollPane scrollpane = new JScrollPane(container, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollpane.setPreferredSize(new Dimension(517, 277));
-        scrollpane.getVerticalScrollBar().setUnitIncrement(5);
-        scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
-        scrollpane.getVerticalScrollBar().setBackground(new Color(255, 255, 255));
-        scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
-        scrollpane.setBorder(null);
-        scrollPanel.add(scrollpane);
-    }
-
-
-    /**
-     * this method updates the title of the course
-     */
-    public void update() {
-        courseTitle();
-    }
-
-    public JPanel panelBorder(JPanel panel) {
-        panel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Dimension arcs = new Dimension(50, 50);
-                int width = getWidth();
-                int height = getHeight();
-                Graphics2D graphics = (Graphics2D) g;
-                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                graphics.setColor(new Color(213, 237, 209));
-                graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-                graphics.setColor(new Color(213, 237, 209));
-                graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-            }
-        };
-
-        panel.setBounds(169, 203, 537, 348);
-        panel.setOpaque(false);
-        panel.setLayout(null);
-
-        return panel;
-    }
-
 
     /**
      * This method fetches the topics in the database

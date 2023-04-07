@@ -11,9 +11,10 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import controller.Login;
 import net.miginfocom.swing.MigLayout;
 
-public class Dashboard extends JFrame {
+public class Dashboard extends JFrame implements ActionListener {
 
 	private JFrame frame;
 	private DateTimeFormatter timeFormat;
@@ -21,6 +22,14 @@ public class Dashboard extends JFrame {
 	private JLabel timeLabel;
 	private JLabel dateLabel;
 	private JLabel nameOfPage;
+	private JLabel name;
+	private JButton bookmark;
+	private JButton settings;
+
+
+	public static void main(String[] args) throws SQLException {
+		new Dashboard();
+	}
 
 	public Dashboard() throws SQLException {
 		frame = new JFrame("StudyLink");
@@ -28,11 +37,11 @@ public class Dashboard extends JFrame {
 		frame.setPreferredSize(new Dimension(960, 600));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(new Color(255, 255, 255));
+		frame.setVisible(true);
 		frame.getContentPane().setLayout(new MigLayout("fill, insets 0", "[20%!]10[12%!][13%!]5[15%!]5[15%!]10[20%!]5", "[7%!][18%!][12%!]10[7%!]10[40%!][9%!]"));
 
 
 		CardLayoutDisplay dashboard = new CardLayoutDisplay();
-		dashboard.setBackground(new Color(151, 185, 189));
 		MenuPane menu = new MenuPane();
 		menu.setController(dashboard);
 
@@ -42,24 +51,26 @@ public class Dashboard extends JFrame {
 		addGreeting(header);
 
 		setTime();
+		setSettings();
 
 		Logout logout = new Logout();
 		SearchBar search = new SearchBar();
 		CalendarCustom calendar = new CalendarCustom();
 
-		frame.getContentPane().add(menu, "cell 0 0 1 6, grow");
-		frame.getContentPane().add(title, "cell 1 0 4 1, grow");
-		frame.getContentPane().add(logout, "cell 5 0 1 1, grow");
-		frame.getContentPane().add(profile, "cell 5 1 1 2, grow");
-		frame.getContentPane().add(search, "cell 5 3 1 1, grow");
-		frame.getContentPane().add(calendar, "cell 5 4 1 1, grow");
-		frame.getContentPane().add(dashboard, "cell 1 3 4 3, grow");
-		frame.getContentPane().add(header, "cell 1 1 4 1, grow");
+		frame.add(menu, "cell 0 0 1 6, grow");
+		frame.add(title, "cell 1 0 4 1, grow");
+		frame.add(logout, "cell 5 0 1 1, grow");
+		frame.add(profile, "cell 5 1 1 2, grow");
+		frame.add(search, "cell 5 3 1 1, grow");
+		frame.add(calendar, "cell 5 4 1 1, grow");
+		frame.add(dashboard, "cell 1 3 4 3, grow");
+		frame.add(header, "cell 1 1 4 1, grow");
 
-		frame.getContentPane().add(timeLabel, "cell 1 2 1 1, grow");
-		frame.getContentPane().add(dateLabel, "cell 2 2 1 1, grow");
+		frame.add(timeLabel, "cell 1 2 1 1, grow");
+		frame.add(dateLabel, "cell 2 2 1 1, grow");
+		frame.add(settings, "cell 3 2 1 1, grow");
 
-		frame.setVisible(true);
+
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 
@@ -144,6 +155,24 @@ public class Dashboard extends JFrame {
 
 	}
 
+	public void setSettings() {
+		settings = new JButton("Settings");
+		settings.setHorizontalTextPosition(SwingConstants.RIGHT);
+		settings.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 13));
+		settings.setForeground(new Color(82, 121, 111));
+		setImage("/settings.png", settings);
+
+	}
+
+	public void setImage(String path, JButton btn) {
+		ImageIcon icon = new ImageIcon(getClass().getResource(path));
+		Image newIcon = icon.getImage();
+		newIcon = newIcon.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newIcon);
+		btn.setIcon(icon);
+		btn.setIconTextGap(10);
+	}
+
 	class Logout extends JButton implements ActionListener {
 
 		public Logout() {
@@ -177,12 +206,24 @@ public class Dashboard extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == this) {
 				frame.dispose();
+				new Login();
 			}
 
 		}
 
+	}
 
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		CardLayoutDisplay swap = null;
+		try {
+			swap = new CardLayoutDisplay();
+		} catch (SQLException ex) {
+			throw new RuntimeException(ex);
+		}
+		if(e.getSource() == settings) {
+			swap.swapTo("settings");
+		}
 
 	}
 
