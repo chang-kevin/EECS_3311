@@ -80,7 +80,7 @@ public class CalendarCustom extends RoundedPanel {
         int j = 1;
         JPanel rows = new JPanel();
         rows.setBackground(new Color(232, 240, 238));
-        rows.setLayout(new GridLayout(6, 7));
+        rows.setLayout(new GridLayout(5, 7));
         for(int i = 0; i < numOfDays + remaining; i++) {
             JLabel day = new JLabel();
             if(i == start) {

@@ -11,6 +11,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
@@ -18,7 +20,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class UploadFile extends RoundedPanel implements ActionListener {
+public class UploadFile extends RoundedPanel implements ActionListener, ItemListener {
     private String[] fields = {"Course Code", "Topic", "Title", "Resource Link"};
     private JComboBox courseBox;
     private JComboBox topicBox;
@@ -43,14 +45,9 @@ public class UploadFile extends RoundedPanel implements ActionListener {
         add(setFieldsLayout(fields[0]), addLeftComponent(0, 0));
 
         courseBox = new JComboBox(generateCourseList());
+        courseBox.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXX");
+        courseBox.addItemListener(this);
         add(courseBox, addRightComponent(1, 0));
-
-        //adding refresh button
-        refresh = new JButton("Refresh");
-//        buttonLayout(refresh);
-        refresh.setPreferredSize(new Dimension(100, 25));
-        add(refresh, addLeftComponent(1, 1));
-        refresh.addActionListener(this);
 
         //adding topic combobox
         add(setFieldsLayout(fields[1]), addLeftComponent(0, 2));
@@ -94,7 +91,7 @@ public class UploadFile extends RoundedPanel implements ActionListener {
         c.anchor = GridBagConstraints.EAST;
         c.gridx = x;
         c.gridy = y;
-        c.gridwidth = 3;
+        c.gridwidth = GridBagConstraints.REMAINDER;
         c.weightx = 1;
         c.insets.right = 50;
         return c;
@@ -116,6 +113,7 @@ public class UploadFile extends RoundedPanel implements ActionListener {
         submit.setForeground(new Color(255, 255, 255));
         submit.setPreferredSize(new Dimension(50, 25));
         submit.setFocusPainted(false);
+        submit.setOpaque(true);
     }
 
     public Vector generateTopicsList() throws SQLException{
@@ -152,18 +150,6 @@ public class UploadFile extends RoundedPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(refresh)){
-            if(courseBox.getSelectedItem().equals("Select")){
-                JOptionPane.showMessageDialog(null, "Please select a course");
-            }
-            else{
-                try {
-                    topicBox.setModel(new DefaultComboBoxModel(generateTopicsList()));
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
         if(e.getActionCommand().equals("Submit")){
             if(linkField.getText().isEmpty() || titleField.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
@@ -188,5 +174,21 @@ public class UploadFile extends RoundedPanel implements ActionListener {
     }
 
 
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if(e.getStateChange() == 1){
+            if(courseBox.getSelectedItem().equals("Select")){
+                JOptionPane.showMessageDialog(null, "Please select a course");
+            }
 
+            else{
+                try {
+                    topicBox.setModel(new DefaultComboBoxModel(generateTopicsList()));
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+        }
+    }
 }
