@@ -5,6 +5,8 @@ import model.Course.Course;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class CardLayoutDisplay extends RoundedPanel implements ActionListener {
 	private CardLayout layout;
 	private List<ViewButtons> viewList;
 	private Bookmark bookmark;
+	private SearchBar search;
 
 	public CardLayoutDisplay() throws SQLException {
 		super(30, 30);
@@ -63,6 +66,16 @@ public class CardLayoutDisplay extends RoundedPanel implements ActionListener {
 		for(ViewButtons btn : bookmark.viewBookmark) {
 			btn.getViewButton().addActionListener(this);
 		}
+	}
+
+	public void searchAction(Course course) {
+		System.out.println(course.getCourseName());
+				try {
+					setCourse(course);
+				} catch (SQLException ex) {
+					throw new RuntimeException(ex);
+				}
+		swapTo("course");
 	}
 
 	@Override

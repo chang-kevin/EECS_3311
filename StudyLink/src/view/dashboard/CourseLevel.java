@@ -21,7 +21,7 @@ public class CourseLevel implements ActionListener {
 	private String title;
 	private GridBagConstraints c;
 	private List<Course> course;
-	private List<Course> courseList;
+	List<Course> courseList;
 	private JButton view;
 	private JButton bookmark;
 	List<BookmarkButtons> bookmarkList;

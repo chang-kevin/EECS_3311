@@ -3,6 +3,8 @@ package view.dashboard;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,10 +14,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.Login;
+import model.Course.Course;
 import net.miginfocom.swing.MigLayout;
 
 public class Dashboard extends JFrame implements ActionListener {
 
+	SearchBar search;
 	private CardLayoutDisplay dashboard;
 	private JFrame frame;
 	private DateTimeFormatter timeFormat;
@@ -23,14 +27,13 @@ public class Dashboard extends JFrame implements ActionListener {
 	private JLabel timeLabel;
 	private JLabel dateLabel;
 	private JLabel nameOfPage;
-	private JLabel name;
-	private JButton bookmark;
 	private JButton settings;
-
-
-	public static void main(String[] args) throws SQLException {
-		new Dashboard();
-	}
+	private JLabel title;
+	private Profile profile;
+	private MenuPane menu;
+	private RoundedPanel header;
+	private Logout logout;
+	private CalendarCustom calendar;
 
 	public Dashboard() throws SQLException {
 		frame = new JFrame("StudyLink");
@@ -40,24 +43,7 @@ public class Dashboard extends JFrame implements ActionListener {
 		frame.setBackground(new Color(255, 255, 255));
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(new MigLayout("fill, insets 0", "[20%!]10[12%!][13%!]5[15%!]5[15%!]10[20%!]5", "[7%!][18%!][12%!]10[7%!]10[40%!][9%!]"));
-
-
-		dashboard = new CardLayoutDisplay();
-		MenuPane menu = new MenuPane();
-		menu.setController(dashboard);
-
-		JLabel title = pageTitle();
-		Profile profile = new Profile();
-		RoundedPanel header = new RoundedPanel(30, 30);
-		addGreeting(header);
-
-		setTime();
-		setSettings();
-
-		Logout logout = new Logout();
-		SearchBar search = new SearchBar();
-		CalendarCustom calendar = new CalendarCustom();
-
+		init();
 		frame.add(menu, "cell 0 0 1 6, grow");
 		frame.add(title, "cell 1 0 4 1, grow");
 		frame.add(logout, "cell 5 0 1 1, grow");
@@ -66,15 +52,32 @@ public class Dashboard extends JFrame implements ActionListener {
 		frame.add(calendar, "cell 5 4 1 1, grow");
 		frame.add(dashboard, "cell 1 3 4 3, grow");
 		frame.add(header, "cell 1 1 4 1, grow");
-
 		frame.add(timeLabel, "cell 1 2 1 1, grow");
 		frame.add(dateLabel, "cell 2 2 1 1, grow");
 		frame.add(settings, "cell 3 2 1 1, grow");
 
-
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 
+	}
+
+	public void init() throws SQLException {
+		dashboard = new CardLayoutDisplay();
+		menu = new MenuPane();
+		menu.setController(dashboard);
+
+		title = pageTitle();
+		profile = new Profile();
+		header = new RoundedPanel(30, 30);
+		addGreeting(header);
+
+		setTime();
+		setSettings();
+
+		logout = new Logout();
+		search = new SearchBar("Search for e.g:- EECS 3311");
+		searAction();
+		calendar = new CalendarCustom();
 	}
 
 	public JLabel pageTitle() {
@@ -162,6 +165,8 @@ public class Dashboard extends JFrame implements ActionListener {
 		settings.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 13));
 		settings.setForeground(new Color(82, 121, 111));
 		settings.addActionListener(this);
+		settings.setContentAreaFilled(false);
+		settings.setFocusPainted(false);
 		setImage("/settings.png", settings);
 
 	}
@@ -173,6 +178,26 @@ public class Dashboard extends JFrame implements ActionListener {
 		icon = new ImageIcon(newIcon);
 		btn.setIcon(icon);
 		btn.setIconTextGap(10);
+	}
+
+	public void searAction() throws SQLException {
+		CourseLevel level = new CourseLevel();
+		search.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println("works");
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String courseSearch = search.getText();
+					for (Course course: level.courseList) {
+						if (courseSearch.equalsIgnoreCase(course.getCourseCode())) {
+							dashboard.searchAction(course);
+						} else if (courseSearch.equalsIgnoreCase(course.getCourseName())) {
+							dashboard.searchAction(course);
+						}
+					}
+				}
+			}
+		});
 	}
 
 	class Logout extends JButton implements ActionListener {

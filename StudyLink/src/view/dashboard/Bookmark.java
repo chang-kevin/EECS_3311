@@ -33,6 +33,9 @@ public class Bookmark extends RoundedPanel implements ActionListener {
         super(30, 30);
 
         setBackground(new Color(217, 230, 226));
+        userDAO = new UserDAO();
+        userSession = UserSession.getInstance().getCurrentUser();
+        user = userDAO.getUser(userSession.getUsername());
 
 
         viewBookmark = new ArrayList<>();
@@ -98,9 +101,6 @@ public class Bookmark extends RoundedPanel implements ActionListener {
 
 
     public void setUpPage() throws SQLException {
-        userDAO = new UserDAO();
-        userSession = UserSession.getInstance().getCurrentUser();
-        user = userDAO.getUser(userSession.getUsername());
         bookmarkCourses = UserDAO.getUserCourses(user.getUsername());
         setBookmarkBtn();
 
@@ -144,11 +144,6 @@ public class Bookmark extends RoundedPanel implements ActionListener {
     }
 
     public void removeBookmark(int index) throws SQLException {
-        userDAO = new UserDAO();
-        userSession = UserSession.getInstance().getCurrentUser();
-        user = userDAO.getUser(userSession.getUsername());
-
-
         if(bookmarkCourses != null){
             for (Course course : bookmarkCourses) {
                 if (bookmarkCourses.indexOf(course) == index) {
