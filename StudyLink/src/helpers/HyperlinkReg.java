@@ -37,7 +37,7 @@ public class HyperlinkReg {
             }
  
             @Override
-            public void mouseEn tered(MouseEvent e) {
+            public void mouseEntered(MouseEvent e) {
                 hyperlink.setText("<html><a href=''>" + link + "</a></html>");
             }
 			
@@ -52,13 +52,6 @@ public class HyperlinkReg {
     public JLabel getHyperlink() {
         return hyperlink;
     }
-    public ArrayList<HyperlinkReg> hyperlinkRegs(ArrayList<String> links) {
-        ArrayList<HyperlinkReg> hyperlinks = new ArrayList<>();
 
-        for (int i = 0; i < links.size(); i++) {
-            hyperlinkRegs().add()HyperlinkReg(links.get(i))
-
-        }
-    }
     
 }

@@ -1,5 +1,6 @@
 package model.Course;
 
+import helpers.Logger.HyperlinkRegConverter;
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
 import helpers.HyperlinkReg;
@@ -127,7 +128,7 @@ public class CourseDAOImplementation implements CourseDAO {
         ResultSet rs = ps.executeQuery();
         List<Topic> topics = new ArrayList<>();
         while (rs.next()) {
-            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new ArrayList<HyperlinkReg>());
+            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new HyperlinkRegConverter(TopicDAO.getUrls(rs.getInt("course_id"))).getHyperlinkList()));
         }
         return topics;
     }

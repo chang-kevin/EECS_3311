@@ -99,11 +99,15 @@ public class ViewCourse {
             coursePanel(topicPanel);
             createLabel(topicPanel, t.getTopicName());
             container.add(topicPanel);
+            for(int i = 0;i<topicList.get(i).getURL().size();i++){
+                JPanel studyMaterialsUrl = new JPanel();
+                coursePanel(studyMaterialsUrl);
+                createURLLabel(studyMaterialsUrl,t.getURL().get(i) );
+                container.add(studyMaterialsUrl);
 
-            JPanel studyMaterialsUrl = new JPanel();
-            coursePanel(studyMaterialsUrl);
-            createURLLabel(studyMaterialsUrl, t.getURL());
-            container.add(studyMaterialsUrl);
+            }
+
+
 
             spacePanel();
         }
