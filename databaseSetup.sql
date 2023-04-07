@@ -27,13 +27,13 @@ CREATE TABLE IF NOT EXISTS courses (
     description TEXT,
     course_code VARCHAR(45) NOT NULL,
     username VARCHAR(45),
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
     );
 CREATE TABLE IF NOT EXISTS user_courses (
     username VARCHAR(45),
     course_id INT,
     course_code VARCHAR(45) NOT NULL,
-    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
     FOREIGN KEY(course_id) REFERENCES courses(course_id),
     PRIMARY KEY (username, course_id)
     );
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS study_materials (
     username VARCHAR(45),
     PRIMARY KEY(material_id),
     FOREIGN KEY (topic_id) REFERENCES topics(topic_id),
-    FOREIGN KEY(username) REFERENCES users(username)
+    FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
     );
 CREATE TABLE IF NOT EXISTS study_materials_urls (
     url_id VARCHAR(45) NOT NULL,
@@ -76,15 +76,15 @@ CREATE TABLE IF NOT EXISTS course_ratings (
                                               course_id INT,
                                               FOREIGN KEY(course_id) REFERENCES courses(course_id),
     username VARCHAR(45),
-    FOREIGN KEY(username) REFERENCES users(username),
+    FOREIGN KEY(username) REFERENCES users(username)ON DELETE CASCADE,
     rating ENUM("1", "2", "3", "4", "5"),
     PRIMARY KEY (username, course_id)
     );
-    
+
 CREATE TABLE IF NOT EXISTS Study_materials_ratings (
     material_id VARCHAR(45) NOT NULL,
     username VARCHAR(45),
-    FOREIGN KEY(username) REFERENCES users(username),
+    FOREIGN KEY(username) REFERENCES users(username)ON DELETE CASCADE,
     rating INT NOT NULL ,
     CHECK (rating >= 1 AND rating <= 5),
     PRIMARY KEY (username,material_id)
@@ -94,14 +94,14 @@ CREATE TABLE IF NOT EXISTS user_settings (
     user_settings_id VARCHAR(45) NOT NULL,
     PRIMARY KEY(user_settings_id),
     username VARCHAR(45),
-    FOREIGN KEY(username) REFERENCES users(username),
+    FOREIGN KEY(username) REFERENCES users(username)ON DELETE CASCADE,
     theme ENUM("light", "dark")
     );
 CREATE TABLE IF NOT EXISTS user_files (
     file_id VARCHAR(45) NOT NULL,
     PRIMARY KEY (file_id),
     username VARCHAR(45),
-    FOREIGN KEY(username) REFERENCES users(username),
+    FOREIGN KEY(username) REFERENCES users(username)ON DELETE CASCADE,
     course_id INT NOT NULL,
     FOREIGN KEY(course_id) REFERENCES courses(course_id),
     topic_id VARCHAR(45) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS security_questions (
     );
 CREATE TABLE IF NOT EXISTS user_security_questions (
     username VARCHAR(45),
-    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (username) REFERENCES users(username)ON DELETE CASCADE,
     question_id VARCHAR(45),
     FOREIGN KEY (question_id) REFERENCES security_questions(question_id),
     answer VARCHAR(255),
@@ -297,7 +297,12 @@ VALUES
     (35, 'Abstraction'),
     (36, 'Java Swing'),
     (37, 'Binary Search'),
-    (38, 'Binary trees');
+    (38, 'Binary trees'),
+    (39,'Computer organisation'),
+    (40,'operators in c'),
+    (41,'Array and pointers in C'),
+    (42,'unix tutorial'),
+    (43,'Meory allocation in C');
 INSERT INTO course_topics (course_id, topic_id)
 VALUES
     (3101, 1),
@@ -340,7 +345,12 @@ VALUES
     (2011, 38),
     (2011, 1),
     (2011, 6),
-    (2011, 5);
+    (2011, 5),
+    (2021,39),
+    (2031,40),
+    (2031,41),
+    (2031,42),
+    (2031,43);
 INSERT INTO study_materials (
     material_id, material_name, topic_id,
     username
@@ -403,13 +413,19 @@ VALUES
     (35, 'Article', 35, NULL),
     (36, 'youtube tutorial', 36, NULL),
     (37, 'youtube video', 37, NULL),
-    (38, 'youtube video', 38, NULL);
+    (38, 'youtube video', 38, NULL),
+    (39, 'youtube video', 39, NULL),
+    (40, 'youtube video', 40, NULL),
+    (41, 'youtube video', 41, NULL),
+    (42, 'youtube video', 42, NULL),
+    (43, 'youtube video', 43, NULL);
+
 INSERT INTO study_materials_urls (url_id, material_id, url)
 VALUES
     (
         1, 1, 'https://www.youtube.com/playlist?list=PLuZ_bd9XlByzTIP5j1aWXo7smCIxvzd2D'
     ),
-    (39,1,'https://www.youtube.com/watch?v=PkJIc5tBRUE'),
+
     (
         2, 2, 'https://www.youtube.com/watch?v=2Rr2tW9zvRg'
     ),
@@ -520,7 +536,12 @@ VALUES
     ),
     (
         38, 38, 'https://www.youtube.com/watch?v=-DzowlcaUmE'
-    );
+    ),
+    (39,39,'https://www.youtube.com/watch?v=Ol8D69VKX2k&list=PLBlnK6fEyqRgLLlzdgiTUKULKJPYc0A4q'),
+    (40,40,'https://www.youtube.com/watch?v=50Pb27JoUrw&list=PLBlnK6fEyqRhqQV_MzlT8xsPQnsGcMdIo'),
+    (41,41,'https://www.youtube.com/watch?v=55l-aZ7_F24&list=PLBlnK6fEyqRjoG6aJ4FvFU1tlXbjLBiOP'),
+    (42,42,'https://www.youtube.com/results?search_query=unix+tutorial+for+beginners'),
+    (43,43,'https://www.youtube.com/watch?v=Zf2-fw5IiZI&list=PL-gW8Fj5TGrrKq-IZcHvJaL_e_QZ3J12n');
 INSERT INTO course_study_materials (course_id, study_material_id)
 VALUES
     (3101, 1),
@@ -563,7 +584,12 @@ VALUES
     (2011, 38),
     (2011, 1),
     (2011, 5),
-    (2011, 6);
+    (2011, 6),
+    (2021,39),
+    (2031,40),
+    (2031,41),
+    (2031,42),
+    (2031,43);
 INSERT INTO security_questions
 VALUES
     (
@@ -595,6 +621,6 @@ VALUES
         'aemcruz@my.yorku.ca', 3, 'Toronto'
     );
 Insert into Study_materials_ratings values (1,'ymann@my.yorku.ca',4),(1,'manasvij@my.yorku.ca',3),(1,'aemcruz@my.yorku.ca',4),(1,'gelailai@my.yorku.ca',5),(1,'kev10th@my.yorku.ca',2),(2,'ymann@my.yorku.ca',4),(2,'manasvij@my.yorku.ca',5),(2,'aemcruz@my.yorku.ca',4),(2,'gelailai@my.yorku.ca',3),(2,'kev10th@my.yorku.ca',3);
-SELECT AVG(rating) AS AverageRating FROM Study_materials_ratings where material_id ='1';
+SELECT * from users;
 
 
