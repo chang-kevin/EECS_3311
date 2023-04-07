@@ -1,5 +1,6 @@
 package model.Topic;
 
+import helpers.HyperlinkReg;
 import model.Database.DatabaseConnection;
 
 import java.sql.Connection;
@@ -93,4 +94,34 @@ public class TopicDAO {
         int rs = ps.executeUpdate();
         return rs;
     }
-}
+    public int getStudyMaterialId(String topicName) throws SQLException {
+        int id = 0;
+        int topicNum = getTopicId(topicName);
+        String query = "SELECT material_id FROM study_materials WHERE topic_id = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1,topicNum);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            id = rs.getInt(1);
+        }
+        return id;
+    }
+    public static ArrayList<String> getUrls(int id) throws SQLException {
+
+        String query = " SELECT study_materials_urls.url FROM study_materials_urls \n" +
+                "JOIN study_materials ON study_materials.material_id = study_materials_urls.material_id\n" +
+                "JOIN course_study_materials ON course_study_materials.study_material_id = study_materials.material_id\n" +
+                "WHERE course_study_materials.course_id = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1,id);
+        ResultSet rs = ps.executeQuery();
+        ArrayList<String> urls = new ArrayList<>();
+        while(rs.next()){
+            urls.add(rs.getString(1));
+        }
+        return urls;
+
+
+    }
+
+    }

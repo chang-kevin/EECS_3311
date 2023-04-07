@@ -3,6 +3,7 @@ package model.Course;
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
 import helpers.HyperlinkReg;
+import model.Topic.TopicDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -126,7 +127,7 @@ public class CourseDAOImplementation implements CourseDAO {
         ResultSet rs = ps.executeQuery();
         List<Topic> topics = new ArrayList<>();
         while (rs.next()) {
-            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), new HyperlinkReg(rs.getString("url"))));
+            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new ArrayList<HyperlinkReg>());
         }
         return topics;
     }
