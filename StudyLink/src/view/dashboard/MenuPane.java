@@ -5,6 +5,10 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import net.miginfocom.swing.MigLayout;
 
 public class MenuPane extends JPanel {
 
@@ -128,7 +132,7 @@ public class MenuPane extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() == dashboardButton) {
-                swap.swapTo("dashboard");
+                swap.swapTo("bookmark");
             }
             else if(e.getSource() == one) {
                 swap.swapTo("one");

@@ -1,7 +1,6 @@
 package view.dashboard;
 
 import model.Course.Course;
-import model.Course.CourseDAO;
 import model.User.User;
 import model.User.UserDAO;
 import model.User.UserSession;
@@ -12,15 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.border.*;
 
-public class Bookmark implements ActionListener {
+public class Bookmark extends RoundedPanel implements ActionListener {
 
-    JPanel bookmarkPanel;
-    JPanel scrollPanel;
     private JLabel iconLabel;
     private JButton viewCourse;
     private JLabel name;
@@ -30,67 +26,92 @@ public class Bookmark implements ActionListener {
     private UserDAO userDAO;
     private User userSession;
     private User user;
-    private JButton refresh;
-    private JPanel labelPanel;
     List<ViewButtons> viewBookmark;
+    private JPanel contentPanel;
 
     public Bookmark() throws SQLException {
-        createBookmarks();
+        super(30, 30);
 
-    }
+        setBackground(new Color(217, 230, 226));
 
-    public void createBookmarks() throws SQLException {
-        bookmarkPanel = new JPanel();
-        bookmarkPanel.setBackground(new Color(255, 255, 255));
-        bookmarkPanel.setBounds(10, 90, 517, 247);
-
-        setUpPage();
-
-    }
-
-    public void setUpPage() throws SQLException {
-        createContainer();
-        addScrollPane();
-
-        labelPanel = new JPanel();
-        labelPanel = setPanelLayout(labelPanel);
-        labelPanel = setTitleLayout(labelPanel);
-        scrollPanel.add(labelPanel);
 
         viewBookmark = new ArrayList<>();
-
-        getBookmarkedCourses();
-
         removeButtons = new ArrayList<>();
+        bookmarkCourses = new ArrayList<>();
 
+        setLayoutPanel();
+        setConstraints();
+        setUpPage();
+
+
+    }
+    public void setConstraints() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 5, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        add(createTitle("My Courses"), gbc);
+        createCoursePane();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        add(addScrollPane(), gbc);
+
+    }
+
+    public JLabel createTitle(String text) {
+        JLabel title = new JLabel(text);
+        title.setBorder(new EmptyBorder(15, 15, 10, 15));
+        title.setForeground(new Color(53, 79, 82));
+        title.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 18));
+        title.setHorizontalTextPosition(SwingConstants.LEFT);
+        return title;
+    }
+
+    public void createCoursePane() {
+        contentPanel = new JPanel();
+        contentPanel.setBackground(new Color(255, 255, 255));
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+    }
+
+    public JScrollPane addScrollPane() {
+        JScrollPane scrollpane = new JScrollPane(contentPanel);
+        scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollpane.getVerticalScrollBar().setUnitIncrement(5);
+        scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
+        scrollpane.getVerticalScrollBar().setBackground(new Color(232, 240, 238));
+        scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
+        scrollpane.setBorder(null);
+        return scrollpane;
+    }
+
+    public void setLayoutPanel() {
+        GridBagLayout layout = new GridBagLayout();
+        layout.columnWidths = new int[]{0, 0};
+        layout.rowHeights = new int[]{0, 0, 0};
+        layout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+        layout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+        setLayout(layout);
+    }
+
+
+    public void setUpPage() throws SQLException {
+        userDAO = new UserDAO();
+        userSession = UserSession.getInstance().getCurrentUser();
+        user = userDAO.getUser(userSession.getUsername());
+        bookmarkCourses = UserDAO.getUserCourses(user.getUsername());
+        setBookmarkBtn();
 
         if(bookmarkCourses != null) {
             for(Course course : bookmarkCourses) {
-                ViewButtons viewButton = new ViewButtons(course.getViewButton(), course);
                 addBookmark(course);
-                viewBookmark.add(viewButton);
             }
         }
     }
 
-    public void createContainer() {
-        scrollPanel = new JPanel();
-        scrollPanel.setBackground(new Color(255, 255, 255));
-        scrollPanel.setBounds(10, 90, 517, 247);
-        scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
 
-    }
-
-    public void addScrollPane() {
-        JScrollPane scrollpane = new JScrollPane(scrollPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollpane.setPreferredSize(new Dimension(517, 247));
-        scrollpane.getVerticalScrollBar().setUnitIncrement(5);
-        scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
-        scrollpane.getVerticalScrollBar().setBackground(new Color(255, 255, 255));
-        scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
-        scrollpane.setBorder(null);
-        bookmarkPanel.add(scrollpane);
-    }
 
     public JPanel setPanelLayout(JPanel container) {
         container.setBackground(new Color(255, 255, 255));
@@ -100,25 +121,26 @@ public class Bookmark implements ActionListener {
         return container;
     }
 
-    public JPanel setTitleLayout(JPanel labelPanel) {
-        JLabel title = new JLabel("My Courses");
-        title.setForeground(new Color(74, 74, 74));
-        title.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-        title.setPreferredSize(new Dimension(360, 40));
-        title.setMaximumSize(new Dimension(360, 40));
-        labelPanel.add(title);
-        refresh = new JButton();
-        refresh = buttonStyler(refresh, "Refresh");
-        labelPanel.add(refresh);
-
-        return labelPanel;
-    }
 
     public void addBookmark(Course course) {
         JPanel boxPanel = new JPanel();
         boxPanel = setPanelLayout(boxPanel);
-        boxPanel = setBookmark(boxPanel, course.getCourseName(), course.getCourseCode());
-        scrollPanel.add(boxPanel);
+        boxPanel = setBookmark(boxPanel, course.getCourseName(), course.getCourseCode(), course);
+        contentPanel.add(boxPanel);
+        revalidate();
+        repaint();
+
+        if(viewBookmark != null) {
+            ViewButtons view = new ViewButtons(course.getViewButton(), course);
+            viewBookmark.add(view);
+        }
+
+        if(bookmarkCourses != null) {
+            if(!bookmarkCourses.contains(course)) {
+                bookmarkCourses.add(course);
+            }
+        }
+
     }
 
     public void removeBookmark(int index) throws SQLException {
@@ -126,14 +148,18 @@ public class Bookmark implements ActionListener {
         userSession = UserSession.getInstance().getCurrentUser();
         user = userDAO.getUser(userSession.getUsername());
 
-        for (Course course : bookmarkCourses) {
-            if (bookmarkCourses.indexOf(course) == index) {
-                UserDAO.removeUserCourse(String.valueOf(course.getCourseId()));
+
+        if(bookmarkCourses != null){
+            for (Course course : bookmarkCourses) {
+                if (bookmarkCourses.indexOf(course) == index) {
+                    UserDAO.removeUserCourse(String.valueOf(course.getCourseId()));
+                }
             }
         }
+
     }
 
-    public JPanel setBookmark(JPanel boxPanel, String courseName, String courseCode) {
+    public JPanel setBookmark(JPanel boxPanel, String courseName, String courseCode, Course e) {
         boxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         boxPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
@@ -150,9 +176,7 @@ public class Bookmark implements ActionListener {
         name = setCourseInfo(name, courseName, courseCode);
         boxPanel.add(name);
 
-        viewCourse = new JButton();
-        viewCourse = buttonStyler(viewCourse, "View");
-        boxPanel.add(viewCourse);
+        boxPanel.add(e.getViewButton());
 
 
         removeCourse = new JButton();
@@ -190,17 +214,28 @@ public class Bookmark implements ActionListener {
         return name;
     }
 
+    public void setBookmarkBtn() {
+        if(bookmarkCourses != null){
+            for(Course course : bookmarkCourses) {
+                String text = "View";
+                viewCourse = new JButton();
+                viewCourse = buttonStyler(viewCourse, text);
+                course.setViewButton(viewCourse);
+            }
+        }
+
+    }
+
     public JButton buttonStyler(JButton button, String text) {
         button.setText(text);
         button.setFont(new Font("Dubai", Font.BOLD, 13));
         button.setOpaque(true);
-        button.setBackground(new Color(216, 237, 214));
+        button.setBackground(new Color(74, 113, 117));
         button.setForeground(new Color(255, 255, 255));
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(80, 25));
         button.setMaximumSize(new Dimension(80, 25));
         button.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
-        button.addActionListener(this);
         return button;
     }
 
@@ -230,13 +265,6 @@ public class Bookmark implements ActionListener {
         return remove;
     }
 
-    public void getBookmarkedCourses() throws SQLException {
-        userDAO = new UserDAO();
-        userSession = UserSession.getInstance().getCurrentUser();
-        user = userDAO.getUser(userSession.getUsername());
-        bookmarkCourses = UserDAO.getUserCourses(user.getUsername());
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         for(JButton btn : removeButtons) {
@@ -246,22 +274,22 @@ public class Bookmark implements ActionListener {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                scrollPanel.remove(btn.getParent());
-                scrollPanel.revalidate();
-                scrollPanel.repaint();
+                contentPanel.remove(btn.getParent());
+                contentPanel.revalidate();
+                contentPanel.repaint();
             }
         }
-        if(e.getSource() == refresh) {
-            bookmarkPanel.removeAll();
-            bookmarkPanel.revalidate();
-
-            try {
-                setUpPage();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-
-        }
+//        if(e.getSource() == refresh) {
+//            bookmarkPanel.removeAll();
+//            bookmarkPanel.revalidate();
+//
+//            try {
+//                setUpPage();
+//            } catch (SQLException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//
+//        }
 
 
 

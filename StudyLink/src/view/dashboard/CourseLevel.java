@@ -1,6 +1,8 @@
 package view.dashboard;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ import javax.swing.border.MatteBorder;
 import model.Course.Course;
 import model.Course.CourseDAOImplementation;
 
-public class CourseLevel extends RoundedPanel {
+public class CourseLevel implements ActionListener {
 
 	private JPanel contentPanel;
 	private String title;
@@ -22,25 +24,39 @@ public class CourseLevel extends RoundedPanel {
 	private List<Course> courseList;
 	private JButton view;
 	private JButton bookmark;
-	private List<BookmarkButtons> bookmarkList;
-	private List<ViewButtons> viewButtonList;
+	List<BookmarkButtons> bookmarkList;
+	List<ViewButtons> viewButtonList;
+	RoundedPanel one;
+	RoundedPanel two;
+	RoundedPanel three;
 
-	public CourseLevel(String title) throws SQLException {
-		super(30, 30);
-
-		setLayoutPanel();
-		setBackground(new Color(129, 169, 173));
+	public CourseLevel() throws SQLException {
 
 		bookmarkList = new ArrayList<>();
 		viewButtonList = new ArrayList<>();
 
 		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
 		courseList = courseDAO.getAllCourses();
+		one = new RoundedPanel(30, 30);
+		one = panelLayout(one, "1000 Level Courses");
 
+
+		two = new RoundedPanel(30, 30);
+		two = panelLayout(two, "2000 Level Courses");
+
+
+		three = new RoundedPanel(30, 30);
+		three = panelLayout(three, "3000 Level Courses");
+
+	}
+
+	public RoundedPanel panelLayout(RoundedPanel level, String title) throws SQLException {
 		this.title = title;
-		setConstraints();
+		level.setBackground(new Color(129, 169, 173));
+		setConstraints(level, title);
 		addColumnLabels();
 		addCourses();
+		return level;
 	}
 
 	public JLabel createTitle(String text) {
@@ -56,7 +72,6 @@ public class CourseLevel extends RoundedPanel {
 		contentPanel = new JPanel();
 		contentPanel.setBackground(new Color(217, 230, 226));
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-		addScrollPane();
 	}
 
 	public JScrollPane addScrollPane() {
@@ -70,28 +85,26 @@ public class CourseLevel extends RoundedPanel {
 		return scrollpane;
 	}
 
-	public void setLayoutPanel() {
+	public void setConstraints(RoundedPanel level, String title) {
 		GridBagLayout layout = new GridBagLayout();
 		layout.columnWidths = new int[]{0, 0};
 		layout.rowHeights = new int[]{0, 0, 0};
 		layout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		layout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		setLayout(layout);
-	}
+		level.setLayout(layout);
 
-	public void setConstraints() {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(0, 0, 5, 0);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
-		add(createTitle(title), gbc);
+		level.add(createTitle(title), gbc);
 		createCoursePane();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 2;
-		add(addScrollPane(), gbc);
+		level.add(addScrollPane(), gbc);
 
 	}
 
@@ -144,7 +157,7 @@ public class CourseLevel extends RoundedPanel {
 		coursePanel.setBackground(new Color(255, 255, 255));
 	}
 
-	public void addCourses() {
+	public void addCourses() throws SQLException {
 		courseInList();
 		setCourseButtons();
 
@@ -157,6 +170,7 @@ public class CourseLevel extends RoundedPanel {
 			viewButtonList.add(viewButton);
 			y++;
 		}
+		setBookmarkListener();
 	}
 
 	public void createCourse(String courseName, String courseCode, Course e,int y) {
@@ -225,6 +239,7 @@ public class CourseLevel extends RoundedPanel {
 			String state = "Bookmark";
 			bookmark = new JButton();
 			bookmark = buttonStyler(bookmark, state);
+			bookmark.addActionListener(this);
 			course.setBookmarkButton(bookmark);
 		}
 	}
@@ -256,7 +271,32 @@ public class CourseLevel extends RoundedPanel {
 		return course;
 	}
 
+	public void setBookmarkListener() {
+		for(BookmarkButtons btn : bookmarkList) {
+			btn.getBookmarkButton().addActionListener(this);
+		}
+	}
 
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		try {
+			Bookmark b = new Bookmark();
+			for(BookmarkButtons btn : bookmarkList) {
+				if(e.getSource() == btn) {
+					ViewButtons viewButton = new ViewButtons(btn.getCourse().getViewButton(), btn.getCourse());
+					b.addBookmark(btn.getCourse());
+					b.viewBookmark.add(viewButton);
+					b.invalidate();
+					b.validate();
+					b.repaint();
+				}
+			}
+		} catch (SQLException ex) {
+			throw new RuntimeException(ex);
+		}
+
+	}
 }
 
 
