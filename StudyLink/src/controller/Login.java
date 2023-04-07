@@ -23,7 +23,24 @@ public class Login extends MainJFrame {
     private JLabel usernameLabel;
     private JLabel loginHeader;
     private JButton btnClick;
+
+    public JButton getLoginBtn() {
+        return loginBtn;
+    }
+
     private UserSession userSession;
+
+    public JButton getSignUpBtn() {
+        return signUpBtn;
+    }
+
+    public JTextField getUsername() {
+        return username;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
 
     public Login() {
         super();

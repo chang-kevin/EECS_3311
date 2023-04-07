@@ -26,6 +26,30 @@ public class SignUp extends JFrame {
     private JLabel signUpTitle;
     private JCheckBox checkBox1;
 
+    public JTextField getEmailField() {
+        return emailField;
+    }
+
+    public JTextField getFirstNameField() {
+        return firstNameField;
+    }
+
+    public JTextField getLastNameField() {
+        return lastNameField;
+    }
+
+    public JButton getSignUpBtn() {
+        return signUpBtn;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public JTextField getSecurityQuestionField() {
+        return securityQuestionField;
+    }
+
     private JComboBox comboBox1;
     private JTextField securityQuestionField;
     private JLabel securityQuestionLabel;

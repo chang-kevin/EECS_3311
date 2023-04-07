@@ -28,6 +28,38 @@ public class ForgotPassword extends MainJFrame {
     private JButton btnClick;
     private String securityQuestionAnswer;
 
+    public JButton getResetPasswordBtn() {
+        return resetPasswordBtn;
+    }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JLabel getUsernameLabel() {
+        return usernameLabel;
+    }
+
+    public JLabel getSecurityQuestionLabel() {
+        return securityQuestionLabel;
+    }
+
+    public JPasswordField getPasswordField1() {
+        return passwordField1;
+    }
+
+    public JButton getSecurityQuestionBtn() {
+        return securityQuestionBtn;
+    }
+
+    public JTextField getAnswer() {
+        return Answer;
+    }
+
+    public JButton getUsernameBtn() {
+        return usernameBtn;
+    }
+
     public ForgotPassword() {
         super();
 
