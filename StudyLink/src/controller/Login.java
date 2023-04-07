@@ -25,6 +25,18 @@ public class Login extends MainJFrame {
     private JButton btnClick;
     private UserSession userSession;
 
+    public JButton getSignUpBtn() {
+        return signUpBtn;
+    }
+
+    public JTextField getUsername() {
+        return username;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
     public Login() {
         super();
         userSession = UserSession.getInstance();
