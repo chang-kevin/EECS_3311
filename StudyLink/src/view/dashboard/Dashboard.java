@@ -16,6 +16,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class Dashboard extends JFrame implements ActionListener {
 
+	private CardLayoutDisplay dashboard;
 	private JFrame frame;
 	private DateTimeFormatter timeFormat;
 	private DateTimeFormatter dateFormat;
@@ -41,7 +42,7 @@ public class Dashboard extends JFrame implements ActionListener {
 		frame.getContentPane().setLayout(new MigLayout("fill, insets 0", "[20%!]10[12%!][13%!]5[15%!]5[15%!]10[20%!]5", "[7%!][18%!][12%!]10[7%!]10[40%!][9%!]"));
 
 
-		CardLayoutDisplay dashboard = new CardLayoutDisplay();
+		dashboard = new CardLayoutDisplay();
 		MenuPane menu = new MenuPane();
 		menu.setController(dashboard);
 
@@ -160,6 +161,7 @@ public class Dashboard extends JFrame implements ActionListener {
 		settings.setHorizontalTextPosition(SwingConstants.RIGHT);
 		settings.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 13));
 		settings.setForeground(new Color(82, 121, 111));
+		settings.addActionListener(this);
 		setImage("/settings.png", settings);
 
 	}
@@ -215,14 +217,8 @@ public class Dashboard extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		CardLayoutDisplay swap = null;
-		try {
-			swap = new CardLayoutDisplay();
-		} catch (SQLException ex) {
-			throw new RuntimeException(ex);
-		}
 		if(e.getSource() == settings) {
-			swap.swapTo("settings");
+			dashboard.swapTo("settings");
 		}
 
 	}
