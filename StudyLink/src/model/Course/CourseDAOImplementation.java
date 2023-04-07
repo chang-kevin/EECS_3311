@@ -1,8 +1,10 @@
 package model.Course;
 
+import helpers.Logger.HyperlinkRegConverter;
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
 import helpers.HyperlinkReg;
+import model.Topic.TopicDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -128,6 +130,25 @@ public class CourseDAOImplementation implements CourseDAO {
         boolean found = false;
         while (rs.next()) {
 
+            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new HyperlinkRegConverter(TopicDAO.getUrls(rs.getInt("course_id"))).getHyperlinkList()));
+
+
+        }
+        return topics;
+        /*public List<Topic> getCourseTopics(String courseId) throws SQLException {
+            String query = "SELECT ct.course_id, smu.url, ct.topic_id, t.topic_name " +
+                    "FROM course_topics ct " +
+                    "JOIN topics t ON ct.topic_id = t.topic_id " +
+                    "JOIN study_materials sm ON ct.topic_id = sm.topic_id " +
+                    "JOIN study_materials_urls smu ON sm.material_id = smu.material_id " +
+                    "WHERE ct.course_id = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, courseId);
+            ResultSet rs = ps.executeQuery();
+            List<Topic> topics = new ArrayList<>();
+            while (rs.next()) {
+                topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new HyperlinkRegConverter(TopicDAO.getUrls(rs.getInt("course_id"))).getHyperlinkList()));
+            }
             for (Topic t: topics) {
                 if (rs.getString("topic_name").equals(t.getTopicName())) {
                     t.urlList.add(new HyperlinkReg(rs.getString("url")));
@@ -139,8 +160,9 @@ public class CourseDAOImplementation implements CourseDAO {
                 topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), new HyperlinkReg(rs.getString("url"))));
             }
             found = false;
-        }
-        return topics;
+            return topics;
+        }*/
+
     }
 
     @Override
