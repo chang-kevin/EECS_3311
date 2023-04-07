@@ -18,7 +18,7 @@ import java.util.List;
  * Class for creating the course page by level and displays the courses under each one.
  *
  */
-public class CourseLevel extends JPanel implements ActionListener{
+public class CourseLevel extends JPanel {
 
 	JPanel twoLevel;
 	JPanel threeLevel;
@@ -27,7 +27,7 @@ public class CourseLevel extends JPanel implements ActionListener{
 	private JButton bookmark;
 	private JButton view;
 	List<ViewButtons> viewButtonList;
-	private List<JButton> bookmarkButtonList;
+	List<BookmarkButtons> bookmarkButtonList;
 	List<Course> courseList;
 	private JPanel scrollPanel;
 	private JLabel pageTitle;
@@ -38,6 +38,7 @@ public class CourseLevel extends JPanel implements ActionListener{
 	 */
 	public CourseLevel() throws SQLException {
 		viewButtonList = new ArrayList<>();
+		bookmarkButtonList = new ArrayList<>();
 		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
 		courseList = courseDAO.getAllCourses();
 		setCourseButtons();
@@ -143,7 +144,9 @@ public class CourseLevel extends JPanel implements ActionListener{
 			JPanel boxPanel = new JPanel();
 			coursePanel(boxPanel);
 			ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
+			BookmarkButtons bookmarkButtons = new BookmarkButtons(e.getBookmarkButton(), e);
 			createCourse(boxPanel, e.getCourseName(), e.getCourseCode(), e);
+			bookmarkButtonList.add(bookmarkButtons);
 			viewButtonList.add(viewButton);
 			courseContentPanel.add(boxPanel);
 
@@ -186,7 +189,6 @@ public class CourseLevel extends JPanel implements ActionListener{
 	}
 
 	public void setCourseButtons () {
-		bookmarkButtonList = new ArrayList<>();
 		for (Course course: courseList) {
 
 			String text = "View";
@@ -197,8 +199,6 @@ public class CourseLevel extends JPanel implements ActionListener{
 			String state = "Bookmark";
 			bookmark = new JButton();
 			bookmark = buttonStyler(bookmark, state);
-			bookmark.addActionListener(this);
-			bookmarkButtonList.add(bookmark);
 			course.setBookmarkButton(bookmark);
 		}
 	}
@@ -246,7 +246,6 @@ public class CourseLevel extends JPanel implements ActionListener{
 		button.setPreferredSize(new Dimension(80, 25));
 		button.setPreferredSize(new Dimension(80, 40));
 		button.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
-		button.addActionListener(this);
 		return button;
 
 	}
@@ -276,24 +275,5 @@ public class CourseLevel extends JPanel implements ActionListener{
 
 		return level;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-
-		if(e.getSource() == bookmark) {
-			if(bookmark.getText() == "Bookmark")
-			{
-				bookmark.setBackground(new Color(239, 163, 156));
-				bookmark.setText("Remove");
-			}
-			else {
-				bookmark.setText("Bookmark");
-				bookmark.setBackground(new Color(216, 237, 214));
-			}
-		}
-
-	}
-
 
 }

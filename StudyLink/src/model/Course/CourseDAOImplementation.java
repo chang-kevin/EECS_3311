@@ -1,8 +1,8 @@
 package model.Course;
 
-import helpers.HyperlinkReg;
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
+import helpers.HyperlinkReg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,7 +81,7 @@ public class CourseDAOImplementation implements CourseDAO {
 
     @Override
     public List<Course> searchCourse(String courseColumn) throws SQLException {
-        String query = "select * from courses where name like ? or id like ?";
+        String query = "select * from courses where name like ? or course_id like ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, courseColumn);
         ps.setString(2, courseColumn);

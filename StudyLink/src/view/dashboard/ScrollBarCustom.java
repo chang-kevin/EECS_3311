@@ -41,7 +41,7 @@ public class ScrollBarCustom extends BasicScrollBarUI {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int width = r.width / 2;
         int x = r.x + ((r.width - width) / 2);
-        g2.setColor(new Color(234, 245, 233));
+        g2.setColor(new Color(232, 240, 238));
         g2.fillRect(x, r.y, width, r.height);
 
     }
@@ -53,7 +53,7 @@ public class ScrollBarCustom extends BasicScrollBarUI {
         int y = r.y + 5;
         int height = r.height;
 
-        g2.setColor(new Color(216, 237, 214));
+        g2.setColor(new Color(53, 79, 82));
         g2.fillRoundRect(r.x, y, r.width, height, 10, 10);
     }
 

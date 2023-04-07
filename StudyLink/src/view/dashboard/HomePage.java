@@ -16,7 +16,6 @@ public class HomePage extends JPanel implements ActionListener {
     private CardLayout cardLayout;
     JButton settings;
     JLabel settingsWidget;
-    JLabel userFiles;
     private JLabel timeWidget;
     private static final String bookmarkPanel = "Bookmark";
     private static final String settingsPanel = "Settings";
@@ -44,11 +43,9 @@ public class HomePage extends JPanel implements ActionListener {
         clockText(timeWidget);
 
         settingsWidget = new JLabel();
-        settingsWidget = widgetLayout(settingsWidget, 259, 124, new Color(173, 214, 209, 150));
+        settingsWidget = widgetLayout(settingsWidget, 350, 124, new Color(173, 214, 209, 150));
         setSettingsWidget();
 
-        userFiles= new JLabel("New button");
-        userFiles = widgetLayout(userFiles, 393, 124, new Color(237, 203, 222, 150));
     }
 
 
@@ -98,25 +95,25 @@ public class HomePage extends JPanel implements ActionListener {
     }
 
     public void widgetIcon() {
-		String path = "/settings.png";
-		ImageIcon icon = new ImageIcon(getClass().getResource(path));
-		Image newIcon = icon.getImage();
-		newIcon = newIcon.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(newIcon);
-		settings.setIcon(icon);
+        String path = "/settings.png";
+        ImageIcon icon = new ImageIcon(getClass().getResource(path));
+        Image newIcon = icon.getImage();
+        newIcon = newIcon.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newIcon);
+        settings.setIcon(icon);
         settings.setIconTextGap(3);
 
         settings.setHorizontalAlignment(SwingConstants.LEFT);
         settings.applyComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         settings.setHorizontalTextPosition(SwingConstants.RIGHT);
-	}
-	public void imageSize() {
-		Dimension size = new Dimension(110, 51);
+    }
+    public void imageSize() {
+        Dimension size = new Dimension(110, 51);
         settings.setPreferredSize(size);
         settings.setMaximumSize(size);
         settings.setMinimumSize(size);
         settings.addActionListener(this);
-	}
+    }
 
     public JPanel panelBorder() {
         JPanel panel = new JPanel() {
@@ -165,7 +162,7 @@ public class HomePage extends JPanel implements ActionListener {
 
     public void childCard() throws SQLException {
         Bookmark bookmark = new Bookmark();
-        homePanel.add(bookmark.bookmark, bookmarkPanel);
+        homePanel.add(bookmark.bookmarkPanel, bookmarkPanel);
 
         account = new AccountManagement();
         homePanel.add(account.settings, settingsPanel);
