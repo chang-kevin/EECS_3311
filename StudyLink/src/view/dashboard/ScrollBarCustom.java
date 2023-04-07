@@ -37,6 +37,7 @@ public class ScrollBarCustom extends BasicScrollBarUI {
 
     @Override
     protected void paintTrack(Graphics g, JComponent component, Rectangle r) {
+        super.paintTrack(g, component, r);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int width = r.width / 2;
@@ -47,7 +48,8 @@ public class ScrollBarCustom extends BasicScrollBarUI {
     }
 
     @Override
-    protected void paintThumb(Graphics g, JComponent compenent, Rectangle r) {
+    protected void paintThumb(Graphics g, JComponent component, Rectangle r) {
+        super.paintTrack(g, component, r);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int y = r.y + 5;

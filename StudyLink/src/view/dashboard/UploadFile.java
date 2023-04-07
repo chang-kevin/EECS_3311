@@ -4,8 +4,13 @@ import model.Course.Course;
 import model.Course.CourseDAOImplementation;
 import model.Topic.TopicDAO;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,37 +18,121 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
-public class UploadFile extends JPanel implements ActionListener {
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class UploadFile extends RoundedPanel implements ActionListener {
+    private String[] fields = {"Course Code", "Topic", "Title", "Resource Link"};
+    private JComboBox courseBox;
+    private JComboBox topicBox;
+    private GridBagConstraints c;
+    private JTextField titleField;
+    private JTextField linkField;
+    private JButton submit;
+    private List<Course> courseList;
     TopicDAO topic = new TopicDAO();
     CourseDAOImplementation course = new CourseDAOImplementation();
-    JPanel upload;
-    private JPanel panel;
-    private JTextField textField;
-    private JPanel borderPanel;
-    private JPanel panelContainer;
-    private List<Course> courseList;
 
-    //Helper Functions
-    /**
-     * Sets the background and the bounds of a JPanel
-     * @param panel The panel that needs to have the properties set
-     * @param color The color that the panel needs to be set
-     * @param x The horizontal alignment
-     * @param y The vertical alignment
-     * @param width The width of the panel
-     * @param height The height of the panel
-     * @return The panel with the modified properties
-     */
-    public JPanel setBackgroundAndBounds(JPanel panel, Color color, int x, int y, int width, int height){
-        panel.setBackground(new Color(color.getRed(), color.getGreen(), color.getBlue()));
-        panel.setBounds(x, y, width, height);
-        panel.setLayout(null);
-        return panel;
+
+    public UploadFile() {
+        super(30, 30);
+
+        setLayout(new GridBagLayout());
+        setBackground(new Color(217, 230, 226));
+
+        setConstraints();
+
+
+
     }
 
-    /*
-     * This method returns a combobox that will show a list of all the courses that is currently in the database.
-     * */
+    public void setConstraints() {
+        c = new GridBagConstraints();
+
+
+        add(setFieldsLayout(fields[0]), addLeftComponent(0, 0));
+
+        courseBox = new JComboBox();
+        add(courseBox, addRightComponent(1, 0));
+
+        add(setFieldsLayout(fields[1]), addLeftComponent(0, 1));
+
+        topicBox = new JComboBox();
+        add(topicBox, addRightComponent(1, 1));
+
+        add(setFieldsLayout(fields[2]), addLeftComponent(0, 2));
+
+        titleField = new JTextField(20);
+        add(titleField, addRightComponent(1, 2));
+
+        add(setFieldsLayout(fields[3]), addLeftComponent(0, 3));
+
+        linkField = new JTextField(20);
+        add(linkField, addRightComponent(1, 3));
+
+
+        submit = new JButton("Submit");
+        buttonLayout(submit);
+        add(submit, addLeftComponent(0, 4));
+    }
+
+    public GridBagConstraints addLeftComponent(int x, int y) {
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = x;
+        c.gridy = y;
+        c.gridwidth = 1;
+        c.insets.left = 20;
+        if(y == 1) {
+            c.anchor = GridBagConstraints.WEST;
+            c.weightx = 0;
+        }
+        if(y == 4) {
+            c.weightx = 0.5;
+        }
+        return c;
+    }
+
+    public GridBagConstraints addRightComponent(int x, int y) {
+        c.anchor = GridBagConstraints.EAST;
+        c.gridx = x;
+        c.gridy = y;
+        c.gridwidth = 3;
+        c.weightx = 1;
+        c.insets.right = 50;
+
+        return c;
+    }
+
+    public JLabel setFieldsLayout(String text) {
+        JLabel field = new JLabel(text);
+        field.setBorder(new EmptyBorder(15, 15, 10, 15));
+        field.setForeground(new Color(53, 79, 82));
+        field.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
+        field.setHorizontalTextPosition(SwingConstants.CENTER);
+        field.setHorizontalAlignment(SwingConstants.LEFT);
+        return field;
+    }
+
+    public void buttonLayout(JButton submit) {
+        submit.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
+        submit.setBackground(new Color(74, 113, 117));
+        submit.setForeground(new Color(255, 255, 255));
+        submit.setPreferredSize(new Dimension(50, 25));
+        submit.setFocusPainted(false);
+    }
+
+    public JComboBox generateTopicBox() throws SQLException{
+        JComboBox box = new JComboBox(topic.getTopicList().toArray(new String[0]));
+        return box;
+    }
+
     public JComboBox generateCourseBox() throws SQLException {
         Vector<String> courseCodeName = new Vector<String>();
         courseList = course.getAllCourses();
@@ -55,195 +144,20 @@ public class UploadFile extends JPanel implements ActionListener {
         return box;
     }
 
-    /*
-     * This method generates a combobox that will show a list of all the topics that is in our database.
-     *  */
-    public JComboBox generateTopicBox() throws SQLException{
-        JComboBox box = new JComboBox(topic.getTopicList().toArray(new String[0]));
-        return box;
+    public int getCourseCode(JComboBox box){
+        String s = (String) box.getSelectedItem();
+        String[] arr = s.split(" ");
+        String code = (arr[1] == null || arr[1].length() == 0) ? null : (arr[1].substring(0, arr[1].length() - 1));
+        return Integer.parseInt(code);
     }
 
-    /**
-     * This functions formats the label
-     * @param label The label that we want to format
-     * @param y The position that we want at a static position from the top
-     * @return Returning the formatted label
-     */
-    public JLabel textLayout(JLabel label, int y) {
-        label.setForeground(new Color(255, 255, 255));
-        label.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-        label.setBounds(20, y, 81, 14);
-        panelContainer.add(label);
-        return label;
+    public int getTopicId(JComboBox box){
+        String s = (String) box.getSelectedItem();
+        String[] arr = s.split(":");
+        String code = arr[0];
+        return Integer.parseInt(code);
     }
 
-    /**
-     * Customizing the button
-     * @param btn The button we want to customize
-     * @param x The horizontal alignment
-     * @param y The vertical alignment
-     * @param width The width
-     * @param height The height
-     * @param c The color
-     * @return The formatted button
-     */
-    public JButton createButton(JButton btn, int x, int y, int width, int height, Color c){
-        btn.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
-        btn.setForeground(c);
-        btn.setBounds(x, y, width, height);
-        return btn;
-    }
-
-    //UI Functions
-    /**
-     * This method sets up the upload page
-     * @throws SQLException
-     */
-
-    public UploadFile() throws SQLException {
-        createPanel();
-        createBorderPanels();
-        pageTitle();
-        createLabels();
-        createInputField();
-        displayBtns();
-    }
-
-
-    public void createPanel() {
-        upload = new JPanel();
-        upload = createUpload();
-    }
-
-    /**
-     * This function will generate all the borders for all the panels used in the upload feature.
-     */
-    public void createBorderPanels() {
-        //Sets the background color of the panel that holds all the upload features (title, course code, topic, etc)
-        panelContainer = new JPanel();
-        Color c = new Color(244, 181, 181);
-        panelContainer = setBackgroundAndBounds(panelContainer, c, 20, 20, 497, 315);
-        panelContainer.setOpaque(true);
-        upload.add(panelContainer);
-
-        borderPanel = new JPanel();
-        c = new Color(255, 255, 255);
-        borderPanel = setBackgroundAndBounds(borderPanel, c, 10, 170, 477, 80);
-        panelContainer.add(borderPanel);
-    }
-
-    /*
-     * This method sets the title of the panel (upload)
-     * */
-    public void pageTitle() {
-        JLabel pageTitle = new JLabel();
-        pageTitle.setBounds(10, 0, 111, 33);
-        panelContainer.add(pageTitle);
-        pageTitle.setForeground(new Color(255, 255, 255));
-        pageTitle.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-        pageTitle.setText("Upload File");
-    }
-
-    /*
-     * This method creates labels (Course Code, Topic, Title, and Choose File)
-     * that will be used to specify which course the material is
-     * for, what topic it is related to (study notes, lecture notes, etc) and the title of the study material.
-     * */
-    public void createLabels() {
-        JLabel codeText = new JLabel("Course Code");
-        codeText = textLayout(codeText, 40);
-
-        JLabel topicText = new JLabel("Topic");
-        topicText = textLayout(topicText, 70);
-
-        JLabel titleText = new JLabel("Title");
-        titleText = textLayout(titleText, 100);
-
-        JLabel chooseFileText = new JLabel("Choose file");
-        chooseFileText = textLayout(chooseFileText, 130);
-    }
-
-    /**
-     * Creating the input fields.
-     * Add a combobox that will show a drop-down list of courses.
-     * Add a combobox that will show a box of topics.
-     * Add a text field that will allow the user to enter a name of the file
-     * @throws SQLException
-     */
-    public void createInputField() throws SQLException {
-        //generating course combobox
-        JComboBox courseCodeList = generateCourseBox();
-        courseCodeList.setBounds(154, 40, 300, 20);
-        panelContainer.add(courseCodeList);
-
-        //generating topic combo box
-        JComboBox topicList = generateTopicBox();
-        topicList.setBounds(154, 70, 300, 20);
-        panelContainer.add(topicList);
-
-        //generating text field to type in file name
-        textField = new JTextField();
-        textField.setBounds(154, 100, 104, 20);
-        panelContainer.add(textField);
-        textField.setColumns(10);
-    }
-
-    /**
-     * This function will display the upload and submit button.
-     */
-    public void displayBtns() {
-        Color c = new Color(0, 0, 0);
-        //Displaying upload button
-        JButton fileName = new JButton("Upload");
-        fileName = createButton(fileName, 154, 135, 149, 20, c);
-        fileName.addActionListener(this);
-        panelContainer.add(fileName);
-
-        //Displaying the submit button
-        JButton btnNewButton = new JButton("Submit");
-        btnNewButton = createButton(btnNewButton, 154, 280, 100, 20, c);
-        btnNewButton.setBackground(new Color(255, 255, 255));
-        btnNewButton.addActionListener(this);
-        panelContainer.add(btnNewButton);
-    }
-
-
-    public JPanel createUpload() {
-        upload = panelBorder(panel);
-        upload.setBounds(169, 203, 537, 348);
-        return upload;
-    }
-
-    /**
-     * This function creates the panel for where we can upload the files
-     * @param panel The portion of the screen that displays the upload file functionality
-     * @return The panel
-     */
-    public JPanel panelBorder(JPanel panel) {
-        panel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Dimension arcs = new Dimension(50, 50);
-                int width = getWidth();
-                int height = getHeight();
-                Graphics2D graphics = (Graphics2D) g;
-                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                graphics.setColor(getBackground());
-                graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-                graphics.setColor(getForeground());
-                graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-            }
-        };
-
-        panel.setForeground(new Color(239, 239, 239, 75));
-        panel.setBackground(new Color(239, 239, 239, 75));
-        panel.setBorder(null);
-        panel.setOpaque(false);
-        panel.setLayout(null);
-
-        return panel;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -269,19 +183,6 @@ public class UploadFile extends JPanel implements ActionListener {
         }
     }
 
-    public int getCourseCode(JComboBox box){
-        String s = (String) box.getSelectedItem();
-        String[] arr = s.split(" ");
-        String code = (arr[1] == null || arr[1].length() == 0) ? null : (arr[1].substring(0, arr[1].length() - 1));
-        return Integer.parseInt(code);
-    }
 
-    public int getTopicId(JComboBox box){
-        String s = (String) box.getSelectedItem();
-        String[] arr = s.split(":");
-        String code = arr[0];
-        return Integer.parseInt(code);
-    }
 
 }
-

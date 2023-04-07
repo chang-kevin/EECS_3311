@@ -1,195 +1,221 @@
 package view.dashboard;
 
-import model.Course.Course;
-import model.Course.CourseDAOImplementation;
-
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
-/**
- *
- * Class for creating the course page by level and displays the courses under each one.
- *
- */
-public class CourseLevel extends JPanel {
+import model.Course.Course;
+import model.Course.CourseDAOImplementation;
 
-	JPanel twoLevel;
-	JPanel threeLevel;
-	JPanel oneLevel;
-	private JPanel courseContentPanel;
-	private JButton bookmark;
-	private JButton view;
-	List<ViewButtons> viewButtonList;
-	List<BookmarkButtons> bookmarkButtonList;
-	List<Course> courseList;
-	private JPanel scrollPanel;
-	private JLabel pageTitle;
+public class CourseLevel extends RoundedPanel {
+
+	private JPanel contentPanel;
+	private String title;
+	private GridBagConstraints c;
 	private List<Course> course;
+	private List<Course> courseList;
+	private JButton view;
+	private JButton bookmark;
+	private List<BookmarkButtons> bookmarkList;
+	private List<ViewButtons> viewButtonList;
 
-	/*
-	 * Constructor
-	 */
-	public CourseLevel() throws SQLException {
+	public CourseLevel(String title) throws SQLException {
+		super(30, 30);
+
+		setLayoutPanel();
+		setBackground(new Color(129, 169, 173));
+
+		bookmarkList = new ArrayList<>();
 		viewButtonList = new ArrayList<>();
-		bookmarkButtonList = new ArrayList<>();
+
 		CourseDAOImplementation courseDAO = new CourseDAOImplementation();
 		courseList = courseDAO.getAllCourses();
-		setCourseButtons();
 
-		oneLevel = new JPanel();
-		oneLevel = createCourseLevels(oneLevel, "1000 Level Courses");
-
-		twoLevel = new JPanel();
-		twoLevel = createCourseLevels(twoLevel, "2000 Level Courses");
-
-		threeLevel = new JPanel();
-		threeLevel = createCourseLevels(threeLevel, "3000 Level Courses");
-
-	}
-
-	/**
-	 * This method creates and sets layout the JPanel component for each course level.
-	 * @param level JPanel component for a course level.
-	 * @param title Page title for the course page.
-	 * @return Returns the panel for a course level page.
-	 */
-	public JPanel createCourseLevels(JPanel level, String title) throws SQLException {
-
-		level = panelBorder(level);
-
-		pageTitle = new JLabel();
-		pageTitle.setForeground(new Color(241, 171, 165));
-		pageTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		pageTitle.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 15));
-		pageTitle.setText(title);
-		pageTitle.setBounds(10, 11, 142, 29);
-		level.add(pageTitle);
-
-		createContainer(level);
-
-		addScrollPane();
-
+		this.title = title;
+		setConstraints();
+		addColumnLabels();
 		addCourses();
-
-		return level;
 	}
-	public void createContainer(JPanel level) {
-		scrollPanel = new JPanel();
-		scrollPanel.setBackground(new Color(255, 255, 255));
-		scrollPanel.setBounds(10, 48, 517, 289);
-		level.add(scrollPanel);
 
-		courseContentPanel = new JPanel();
-		courseContentPanel.setBackground(new Color(255, 255, 255));
-		courseContentPanel.setBounds(10, 48, 517, 289);
+	public JLabel createTitle(String text) {
+		JLabel title = new JLabel(text);
+		title.setBorder(new EmptyBorder(15, 15, 10, 15));
+		title.setForeground(new Color(53, 79, 82));
+		title.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 18));
+		title.setHorizontalTextPosition(SwingConstants.LEFT);
+		return title;
 	}
-	public void addScrollPane() {
-		JScrollPane scrollpane = new JScrollPane(courseContentPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollpane.setPreferredSize(new Dimension(517, 289));
+
+	public void createCoursePane() {
+		contentPanel = new JPanel();
+		contentPanel.setBackground(new Color(217, 230, 226));
+		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+		addScrollPane();
+	}
+
+	public JScrollPane addScrollPane() {
+		JScrollPane scrollpane = new JScrollPane(contentPanel);
+		scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(5);
 		scrollpane.getVerticalScrollBar().setUI(new ScrollBarCustom());
-		scrollpane.getVerticalScrollBar().setBackground(new Color(255, 255, 255));
+		scrollpane.getVerticalScrollBar().setBackground(new Color(232, 240, 238));
 		scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 8));
 		scrollpane.setBorder(null);
-		scrollPanel.add(scrollpane);
+		return scrollpane;
 	}
 
-	public List<Course> courseInList() {
-		course = new ArrayList<>();
+	public void setLayoutPanel() {
+		GridBagLayout layout = new GridBagLayout();
+		layout.columnWidths = new int[]{0, 0};
+		layout.rowHeights = new int[]{0, 0, 0};
+		layout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		layout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		setLayout(layout);
+	}
 
-		if(pageTitle.getText().equals("1000 Level Courses")) {
-			for (Course e : courseList) {
-				if (e.getCourseId() < 2000) {
-					course.add(e);
-				}
-			}
-		}
-		else if(pageTitle.getText().equals("2000 Level Courses")) {
-			for (Course e : courseList) {
-				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
-					course.add(e);
-				}
-			}
-		}
-		else if (pageTitle.getText().equals("3000 Level Courses")) {
-			for(Course e : courseList) {
-				if (e.getCourseId() >= 3000) {
-					course.add(e);
-				}
-			}
-		}
-		return course;
+	public void setConstraints() {
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 0, 5, 0);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 1;
+		add(createTitle(title), gbc);
+		createCoursePane();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridwidth = 2;
+		add(addScrollPane(), gbc);
+
+	}
+
+	public void addColumnLabels() {
+		JPanel labelPanel = new JPanel();
+		labelPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		labelPanel.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
+		labelPanel.setBackground(new Color(255, 255, 255));
+		createLabels(labelPanel);
+		contentPanel.add(labelPanel);
+	}
+
+	public void createLabels(JPanel labelPanel) {
+		labelPanel.setLayout(new GridBagLayout());
+		c = new GridBagConstraints();
+
+		JLabel code = new JLabel("Course Code");
+		c.gridwidth = 1;
+		addGBC(labelPanel, code, 0, 0);
+
+		JLabel name = new JLabel("Course Name");
+		name.setPreferredSize(new Dimension(150, 40));
+		name.setPreferredSize(new Dimension(150, 40));
+		c.gridwidth = 3;
+		addGBC(labelPanel, name, 1, 0);
+
+		JLabel bookmark = new JLabel("Bookmark");
+
+		c.gridwidth = 1;
+		addGBC(labelPanel, bookmark, 4, 0);
+
+
+		JLabel view = new JLabel("View Course");
+		addGBC(labelPanel, view, 5, 0);
+
+	}
+	public void addGBC(JPanel labelPanel, JLabel component, int x, int y) {
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.weightx = 0.5;
+		c.gridx = x;
+		c.gridy = y;
+		labelLayout(component);
+		labelPanel.add(component, c);
+	}
+
+	public void courseLayout(JPanel coursePanel) {
+		coursePanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		coursePanel.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
+		coursePanel.setBackground(new Color(255, 255, 255));
 	}
 
 	public void addCourses() {
-		courseContentPanel.setLayout(new BoxLayout(courseContentPanel, BoxLayout.Y_AXIS));
-
 		courseInList();
 		setCourseButtons();
 
-		JPanel labelPanel = new JPanel();
-		coursePanel(labelPanel);
-		labelPanel = createLabels(labelPanel);
-		labelPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		courseContentPanel.add(labelPanel);
-
-		for(Course e : course) {
-			JPanel boxPanel = new JPanel();
-			coursePanel(boxPanel);
-			ViewButtons viewButton = new ViewButtons(e.getViewButton(), e);
-			BookmarkButtons bookmarkButtons = new BookmarkButtons(e.getBookmarkButton(), e);
-			createCourse(boxPanel, e.getCourseName(), e.getCourseCode(), e);
-			bookmarkButtonList.add(bookmarkButtons);
+		int y = 1;
+		for(Course course : course) {
+			ViewButtons viewButton = new ViewButtons(course.getViewButton(), course);
+			BookmarkButtons bookmarkButtons = new BookmarkButtons(course.getBookmarkButton(), course);
+			createCourse(course.getCourseName(), course.getCourseCode(), course,y);
+			bookmarkList.add(bookmarkButtons);
 			viewButtonList.add(viewButton);
-			courseContentPanel.add(boxPanel);
-
+			y++;
 		}
 	}
 
-	public JPanel createLabels(JPanel labelPanel) {
-		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
-		String[] labelNames = {"Course Code", "Course Name", "Bookmark", "View Course"};
-		labelPanel.add(Box.createHorizontalGlue());
-		for(int i = 0; i < 4; i++) {
-			JLabel label = new JLabel(labelNames[i]);
-			labelLayout(label);
-			if(i == 1) {
-				label.setPreferredSize(new Dimension(197, 40));
-				label.setMaximumSize(new Dimension(197, 40));
-			}
-			else {
-				label.setPreferredSize(new Dimension(100, 40));
-				label.setMaximumSize(new Dimension(100, 40));
-			}
-			labelPanel.add(label);
+	public void createCourse(String courseName, String courseCode, Course e,int y) {
+		JPanel coursePanel = new JPanel();
+		courseLayout(coursePanel);
+		coursePanel.setLayout(new GridBagLayout());
 
-		}
+		JLabel code = new JLabel(courseCode);
+		labelLayout(code);
+		c.gridwidth = 1;
+		c.insets = new Insets(0, 0, 0, 5);
+		addGBCToCourse(coursePanel, code, 0, y);
 
-		return labelPanel;
+		JLabel name = new JLabel(courseName);
+		labelLayout(name);
+		name.setPreferredSize(new Dimension(100, 40));
+		c.gridwidth = 2;
+		addGBCToCourse(coursePanel, name, 1, y);
+
+		c.insets = new Insets(0, 0, 0, 0);
+		c.gridwidth = 1;
+		addGBCToCourse(coursePanel, e.getBookmarkButton(), 3, y);
+
+		addGBCToCourse(coursePanel, e.getViewButton(), 4, y);
+
+		contentPanel.add(coursePanel);
+
 	}
+
+	public void addGBCToCourse(JPanel coursePanel, Component component, int x, int y) {
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.weightx = 0.5;
+		c.gridx = x;
+		c.gridy = y;
+		coursePanel.add(component, c);
+	}
+
 	public void labelLayout(JLabel label) {
-		label.setLayout(null);
 		label.setForeground(new Color(150, 150, 150));
-		label.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		label.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 12));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 
-	public void coursePanel(JPanel container) {
-		container.setBackground(new Color(255, 255, 255));
-		container.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
-		container.setPreferredSize(new Dimension(495, 40));
-		container.setMaximumSize(new Dimension(495, 40));
+	public JButton buttonStyler(JButton button, String text) {
+		button.setText(text);
+		button.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
+		button.setBackground(new Color(74, 113, 117));
+		button.setForeground(new Color(255, 255, 255));
+		button.setPreferredSize(new Dimension(50, 25));
+		button.setFocusPainted(false);
+		button.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
+		//button.addActionListener(this);
+		return button;
+
 	}
 
 	public void setCourseButtons () {
-		for (Course course: courseList) {
+		for (Course course : courseList) {
 
 			String text = "View";
 			view = new JButton();
@@ -203,77 +229,34 @@ public class CourseLevel extends JPanel {
 		}
 	}
 
-	public void createCourse(JPanel boxPanel, String courseName, String courseCode, Course e) {
-		boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
+	public List<Course> courseInList() {
+		course = new ArrayList<>();
 
-		JLabel name = new JLabel(courseName);
-		labelLayout(name);
-		name.setMaximumSize(new Dimension(205, 40));
-		name.setPreferredSize(new Dimension(205, 40));
-
-
-		JLabel code = new JLabel(courseCode);
-		code.setMaximumSize(new Dimension(100, 40));
-		code.setPreferredSize(new Dimension(100, 40));
-		labelLayout(code);
-		JLabel space = new JLabel();
-		space.setMaximumSize(new Dimension(13, 40));
-		space.setPreferredSize(new Dimension(13, 40));
-
-		JLabel spacer = new JLabel();
-		spacer.setMaximumSize(new Dimension(17, 40));
-		spacer.setPreferredSize(new Dimension(17, 40));
-
-		boxPanel.add(Box.createHorizontalGlue());
-
-		boxPanel.add(code);
-		boxPanel.add(name);
-		boxPanel.add(e.getBookmarkButton());
-		boxPanel.add(spacer);
-		boxPanel.add(e.getViewButton());
-		boxPanel.add(space);
-
-
-	}
-
-	public JButton buttonStyler(JButton button, String text) {
-		button.setText(text);
-		button.setFont(new Font("Dubai", Font.BOLD, 13));
-		button.setOpaque(true);
-		button.setBackground(new Color(216, 237, 214));
-		button.setForeground(new Color(255, 255, 255));
-		button.setFocusPainted(false);
-		button.setPreferredSize(new Dimension(80, 25));
-		button.setPreferredSize(new Dimension(80, 40));
-		button.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
-		return button;
-
-	}
-
-	public JPanel panelBorder(JPanel level) {
-		level = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				Dimension arcs = new Dimension(50, 50);
-				int width = getWidth();
-				int height = getHeight();
-				Graphics2D graphics = (Graphics2D) g;
-				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-				graphics.setColor(getBackground());
-				graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-				graphics.setColor(getForeground());
-				graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+		if(title.equals("1000 Level Courses")) {
+			for (Course e : courseList) {
+				if (e.getCourseId() < 2000) {
+					course.add(e);
+				}
 			}
-		};
-
-		level.setForeground(new Color(207, 234, 204));
-		level.setOpaque(false);
-		level.setBackground(new Color(207, 234, 204));
-		level.setBounds(169, 203, 537, 348);
-		level.setLayout(null);
-
-		return level;
+		}
+		else if(title.equals("2000 Level Courses")) {
+			for (Course e : courseList) {
+				if (e.getCourseId() >= 2000 && e.getCourseId() < 3000) {
+					course.add(e);
+				}
+			}
+		}
+		else if (title.equals("3000 Level Courses")) {
+			for(Course e : courseList) {
+				if (e.getCourseId() >= 3000) {
+					course.add(e);
+				}
+			}
+		}
+		return course;
 	}
+
 
 }
+
+
