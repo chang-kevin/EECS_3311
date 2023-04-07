@@ -18,6 +18,7 @@ add the following dependencies
 - io.github.cdimascio.dotenv.java (Project Library)
 - org.mockito:mockito-all:1.10.19 (Project Library)
 - mysql.connector.j (Project Library)
+- com.miglayout:miglayout:3.7.4 (Project Library)
 
 ## Built with
 
