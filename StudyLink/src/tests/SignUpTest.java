@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SignUpTest {
     private SignUp signUp;
     String username = "test@my.yorku.ca";

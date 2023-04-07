@@ -6,15 +6,13 @@ import helpers.Authenticator.Authenticator;
 import helpers.UserRole;
 import model.User.User;
 import model.User.UserDAO;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ForgotPasswordTest {
     private ForgotPassword forgotPassword;
     private SignUp signUp;
@@ -46,8 +44,9 @@ public class ForgotPasswordTest {
         UserDAO.delete(username);
         forgotPassword.dispose();
     }
+    @Order(1)
     @Test
-    public void verifyUserName() throws SQLException {
+    public void passwordChanged() throws SQLException {
 
         assertTrue(forgotPassword.getUsernameBtn().isVisible());
         forgotPassword.getUsernameField().setText(username);
@@ -63,5 +62,23 @@ public class ForgotPasswordTest {
         forgotPassword.getResetPasswordBtn().doClick();
         assertTrue(Authenticator.authenticateUser(username,"new"));
     }
+    @Order(2)
+    @Test
+    public void invalidUsername(){
+        assertTrue(forgotPassword.getUsernameBtn().isVisible());
+        forgotPassword.getUsernameField().setText("invalidusername");
+        forgotPassword.getUsernameBtn().doClick();
+        assertTrue(forgotPassword.getUsernameBtn().isVisible());
+        assertFalse(forgotPassword.getSecurityQuestionBtn().isVisible());
+        assertFalse(forgotPassword.getAnswer().isVisible());
+
+
+    }
+    @Order(3)
+    @Test
+    public void invalidAnswer(){
+
+    }
+
 
 }
