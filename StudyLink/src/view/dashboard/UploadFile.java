@@ -59,7 +59,7 @@ public class UploadFile extends JPanel implements ActionListener {
      * This method generates a combobox that will show a list of all the topics that is in our database.
      *  */
     public JComboBox generateTopicBox() throws SQLException{
-        JComboBox box = new JComboBox(topic.getTopicList().toArray(new String[0]));
+        JComboBox box = new JComboBox(topic.getTopicList(3311).toArray(new String[0]));
         return box;
     }
 
