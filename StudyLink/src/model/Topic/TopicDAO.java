@@ -47,7 +47,6 @@ public class TopicDAO {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int count = rs.getInt(1);
-        System.out.println(rs);
         return count;
     }
 
