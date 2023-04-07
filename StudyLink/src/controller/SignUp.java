@@ -12,6 +12,30 @@ import java.awt.event.ActionListener;
 
 public class SignUp extends JFrame {
     private JTextField emailField;
+
+    public JTextField getSecurityQuestionField() {
+        return securityQuestionField;
+    }
+
+    public JTextField getEmailField() {
+        return emailField;
+    }
+
+    public JTextField getFirstNameField() {
+        return firstNameField;
+    }
+
+    public JTextField getLastNameField() {
+        return lastNameField;
+    }
+
+    public JButton getSignUpBtn() {
+        return signUpBtn;
+    }
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JButton cancelBtn;

@@ -17,6 +17,9 @@ public class Login extends MainJFrame {
     public JPanel panel;
     private JButton loginBtn;
 
+    public JLabel getLoginHeader() {
+        return loginHeader;
+    }
     public JButton getLoginBtn() {
         return loginBtn;
     }
@@ -40,12 +43,6 @@ public class Login extends MainJFrame {
     private JLabel loginHeader;
     private JButton btnClick;
     private UserSession userSession;
-    private JOptionPane jOptionPane ;
-
-    public JOptionPane getjOptionPane() {
-        return jOptionPane;
-    }
-
     public Login() {
         super();
         userSession = UserSession.getInstance();
