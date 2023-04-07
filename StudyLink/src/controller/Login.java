@@ -23,6 +23,11 @@ public class Login extends MainJFrame {
     private JLabel usernameLabel;
     private JLabel loginHeader;
     private JButton btnClick;
+
+    public JButton getLoginBtn() {
+        return loginBtn;
+    }
+
     private UserSession userSession;
 
     public JButton getSignUpBtn() {

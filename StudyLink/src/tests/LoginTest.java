@@ -1,101 +1,74 @@
 package tests;
 
+import controller.Login;
 
 
-import controller.SignUp;
-import helpers.Authenticator.Authenticator;
 import helpers.UserRole;
 import model.User.User;
-import model.User.UserDAO;
-import org.junit.jupiter.api.*;
-import java.sql.SQLException;
+import model.User.UserSession;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SignUpTest {
-    private SignUp signUp;
-    String username = "test@my.yorku.ca";
-    String firstName = "Test";
-    String lastName = "User";
-    String password = "password";
-    String securityQuestion = "xyz";
+
+import java.sql.SQLException;
+
+public class LoginTest {
+    private Login login;
+
+
+    User user = new User.UserBuilder("ymann@my.yorku.ca", "yuvtesh").setFirstName("yuvtesh").setLastName("mann").setRole(UserRole.ADMIN).build();
+
+
 
     @BeforeEach
-    public void setUp() throws SQLException {
-        UserDAO.delete(username);
-
-        signUp = new SignUp();
+    public void setUp() {
+        login = new Login();
+        UserSession.setCurrentUser(null);
     }
-
     @AfterEach
-    public void tearDown() throws SQLException {
-        UserDAO.delete(username);
-
-        signUp.dispose();
+    public void tearDown(){
+        login.dispose();
     }
-
     @Test
     @Order(1)
-    public void testEmptyFields() throws SQLException {
-        signUp.getEmailField().setText("");
-        signUp.getFirstNameField().setText("");
-        signUp.getLastNameField().setText("");
-        signUp.getPasswordField().setText("");
-        signUp.getSecurityQuestionField().setText("");
-        signUp.getSignUpBtn().doClick();
-        assertFalse(Authenticator.authenticateUser("", ""));
-        assertTrue( signUp.isVisible());
+    public void testEmptyFields(){
+        login.getUsername().setText("");
+        login.getPasswordField().setText("");
+        // Trigger the login button click
+        login.getLoginBtn().doClick();
+        assertNull(UserSession.getInstance().getCurrentUser());
+        assertTrue(login.isVisible());
     }
+
 
     @Test
     @Order(2)
-    public void testSignUpSuccessful() throws SQLException {
+    public void testInvalidLogin() throws SQLException {
+        // Set up mock behavior for user authentication
 
+        // Set the username and password fields
+        login.getUsername().setText("testuser");
+        login.getPasswordField().setText("testpass");
 
-        signUp.getEmailField().setText(username);
-        signUp.getFirstNameField().setText(firstName);
-        signUp.getLastNameField().setText(lastName);
-        signUp.getPasswordField().setText(password);
-        signUp.getSecurityQuestionField().setText(securityQuestion);
+        // Trigger the login button click
+        login.getLoginBtn().doClick();
 
-        signUp.getSignUpBtn().doClick();
-
-
-
-        User user = UserDAO.getUser(username);
-        assertNotNull(user);
-        assertEquals(firstName, user.getFirstName());
-        assertEquals(lastName, user.getLastName());
-        assertEquals(password, user.getPassword());
-        assertTrue(Authenticator.authenticateUser(username, password));
+        // Verify that the user session was not set
+        assertNull(UserSession.getInstance().getCurrentUser());
+        assertTrue(login.isVisible());
     }
-
-
 
     @Test
     @Order(3)
-    public void testSignUpThrowsException() throws SQLException {
-        User demo = new User.UserBuilder(username,password)
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setRole(UserRole.STUDENT)
-                .build();
-        UserDAO.add(demo);
-        signUp.getEmailField().setText(username);
-        signUp.getFirstNameField().setText(firstName);
-        signUp.getLastNameField().setText(lastName);
-        signUp.getPasswordField().setText(password);
-        signUp.getSecurityQuestionField().setText(securityQuestion);
-        signUp.getSignUpBtn().doClick();
-
-        String message = "Duplicate entry 'test@my.yorku.ca' for key 'users.PRIMARY'";
-        String e = "";
-
-        try {
-            //UserDAO.add();
-        } catch (Exception ex) {
-            e = ex.getMessage();
-            assertTrue(message.equals(e));
-        }
+    public  void testValidLogin() throws SQLException {
+        login.getUsername().setText("ymann@my.yorku.ca");
+        login.getPasswordField().setText("yuvtesh");
+        login.getLoginBtn().doClick();
+        assertEquals(user.getFirstName(), UserSession.getInstance().getCurrentUser().getFirstName());
+        assertFalse(login.isVisible());
     }
 }
