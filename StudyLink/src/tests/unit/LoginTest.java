@@ -37,6 +37,16 @@ public class LoginTest {
     public void tearDown(){
         login.dispose();
     }
+    @Test
+    @Order(1)
+    public void testEmptyFields(){
+        login.getUsername().setText("");
+        login.getPasswordField().setText("");
+        // Trigger the login button click
+        login.getLoginBtn().doClick();
+        assertNull(UserSession.getInstance().getCurrentUser());
+        assertTrue(login.isVisible());
+    }
 
 
     @Test
@@ -64,15 +74,5 @@ public class LoginTest {
         login.getLoginBtn().doClick();
         assertEquals(user.getFirstName(), UserSession.getInstance().getCurrentUser().getFirstName());
         assertFalse(login.isVisible());
-    }
-    @Test
-    @Order(1)
-    public void testEmptyFields(){
-        login.getUsername().setText("");
-        login.getPasswordField().setText("");
-        // Trigger the login button click
-        login.getLoginBtn().doClick();
-        assertNull(UserSession.getInstance().getCurrentUser());
-        assertTrue(login.isVisible());
     }
 }
