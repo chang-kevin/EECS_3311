@@ -125,8 +125,20 @@ public class CourseDAOImplementation implements CourseDAO {
         ps.setString(1, courseId);
         ResultSet rs = ps.executeQuery();
         List<Topic> topics = new ArrayList<>();
+        boolean found = false;
         while (rs.next()) {
-            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), new HyperlinkReg(rs.getString("url"))));
+
+            for (Topic t: topics) {
+                if (rs.getString("topic_name").equals(t.getTopicName())) {
+                    t.urlList.add(new HyperlinkReg(rs.getString("url")));
+                    found = true;
+                }
+            }
+
+            if (found == false) {
+                topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), new HyperlinkReg(rs.getString("url"))));
+            }
+            found = false;
         }
         return topics;
     }

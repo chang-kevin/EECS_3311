@@ -127,16 +127,23 @@ public class ViewCourse extends RoundedPanel {
         contentPanel.add(topicHeader);
         spacePanel();
 
+        for (Topic t: topicList) {
+            System.out.println(t.getTopicName());
+        }
         for(Topic t: topicList) {
             JPanel topicPanel = new JPanel();
             coursePanel(topicPanel);
             createLabel(topicPanel, t.getTopicName());
             contentPanel.add(topicPanel);
 
-            JPanel studyMaterialsUrl = new JPanel();
-            coursePanel(studyMaterialsUrl);
-            createURLLabel(studyMaterialsUrl, t.getURL());
-            contentPanel.add(studyMaterialsUrl);
+
+            for (HyperlinkReg hr: t.urlList) {
+                JPanel studyMaterialsUrl = new JPanel();
+                coursePanel(studyMaterialsUrl);
+                createURLLabel(studyMaterialsUrl, hr);
+                contentPanel.add(studyMaterialsUrl);
+            }
+
 
             spacePanel();
         }
@@ -162,8 +169,7 @@ public class ViewCourse extends RoundedPanel {
     public void coursePanel(JPanel container) {
         container.setBackground(new Color(255, 255, 255));
         container.setBorder(new MatteBorder(0, 0, 1, 0, new Color(192, 192, 192)) );
-//        container.setPreferredSize(new Dimension(495, 30));
-//        container.setMaximumSize(new Dimension(495, 30));
+
     }
 
     /**
