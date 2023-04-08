@@ -1,9 +1,8 @@
 package model.Course;
 
-
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
-
+import helpers.HyperlinkReg;
 import model.Topic.TopicDAO;
 
 import java.sql.Connection;
@@ -56,7 +55,7 @@ public class CourseDAOImplementation implements CourseDAO {
                 .build();
         }
 
-        if (check) {
+        if (check == true) {
             return course;
         }
         return null;
@@ -127,6 +126,7 @@ public class CourseDAOImplementation implements CourseDAO {
         ps.setString(1, courseId);
         ResultSet rs = ps.executeQuery();
         List<Topic> topics = new ArrayList<>();
+        boolean found = false;
         while (rs.next()) {
             topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), TopicDAO.getUrls(rs.getInt("topic_id"))));
         }

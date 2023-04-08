@@ -109,7 +109,7 @@ public class MenuPane extends JPanel {
 
         public void setStyle(JButton btn) {
             btn.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 18));
-            btn.setForeground(new Color(255, 255, 255));
+            btn.setForeground(Color.black);
             btn.setContentAreaFilled(false);
             btn.addActionListener(this);
             btn.setHorizontalTextPosition(SwingConstants.CENTER);
