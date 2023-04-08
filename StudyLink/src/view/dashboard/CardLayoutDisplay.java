@@ -40,7 +40,7 @@ public class CardLayoutDisplay extends RoundedPanel implements ActionListener {
 		add(courses.three, "three");
 		setListener(courses);
 
-		UploadLink uploadPage = new UploadLink();
+		UploadFile uploadPage = new UploadFile();
 		add(uploadPage, "upload");
 
 	}
