@@ -3,6 +3,7 @@ package model.Topic;
 import helpers.HyperlinkReg;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Topic {
     private String topicId;
@@ -10,14 +11,15 @@ public class Topic {
 
     private String courseId;
 
-    private ArrayList<HyperlinkReg> url;
+    public List<HyperlinkReg> urlList = new ArrayList<>();
 
 
-    public Topic(String topicId, String topicName, String courseId, ArrayList<HyperlinkReg> url) {
+    public Topic(String topicId, String topicName, String courseId, ArrayList<HyperlinkReg> urlist) {
         this.topicName = topicName;
         this.topicId = topicId;
         this.courseId = courseId;
-        this.url = url;
+        this.urlList  = urlist;
+
     }
 
     public String getTopicCourseId() {
@@ -32,5 +34,5 @@ public class Topic {
         return topicId;
     }
 
-    public ArrayList<HyperlinkReg> getURL() { return this.url; }
+    //public HyperlinkReg getURL() { return this.url; }
 }

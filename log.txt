@@ -220,15 +220,135 @@ Search for courses: 2 days
 ● Search input format hint: 2 days
 
 
+Iteration 3
 
+[Mar. 10] (First group meeting of Iteration 3 over discord) {duration: 45 minutes}
+{
+  Developmental tasks for Iteration 3
+  
+  Refactoring of the code from Iteration 2 - Ammiel, Angela, Manasvi, Kevin, Yuvi
+  Database population - Yuvi
+  Upload functionality - Manasvi
+  Bookmark feature and Account Management feature - Angela
+  Course view and topics - Kevin
+  Testing - Ammiel
+  
+}
 
+[Mar. 10] added user name and account settings
+	  refactored code
+	  fixed failing test units
+	 
+[Mar. 12] added user course add/remove feature
+	  clear user session on logout funcitonality added
+	  added course topic query
+	  updated the JAR file
+	  refactored some code
+	  added test cases
 
+[Mar. 13] refactored code
+	  cleared up unused imports and renamed files
+	  added test cases
+	  updated the database
 
+[Mar. 14] refactored the search function
+	  added course name search support
+	  updated search query
+	  added Account Management class on main frame
+	  refactored the profile panel
+	  
+[Mar. 15] refactored code
+	  replaced existing icons/images
+	  
 
+[Mar. 16] Second group meeting over discord {duration 60 minutes}
+{
+  Discussed features to be excluded
+  Course rating feature excluded because rating the course didn't contribute to the overall purprose of the system
+  Scrapped dark mode feature and instead decided to create a default theme with both light and dark mode UI details
+}
 
+[Mar.16] updated databaseSetup.sql
+	 refactored code
+	 
+[Mar. 17] Discord meeting with Group 3 and Group 7 [QA activity] {Group 3 duration: 60 minutes} {Group 7 duration: 63 minutes}
+{
+  QA activity for Group 3 summary
+  {	
+  	Problems
+  	1. Implementation of a log in page missing
+  	2. Empty space in home page
+	3. Create new project button not functioning
+	4. hard coded tasks
+	5. Missing description for pages and activities
+	6. e button under the task page not functioning
+	7. create new task, settings, save and team buttons not working
+	
+	Potential Solutions
+	1. Suggested adding a log in functionality for security and personalization purposes
+	2. Fill up the empty space in the home page with various existing or new projects
+	3. Suggested prioritizing the working of the button
+	5. Add description for pages and activities
+	6. E button is the back button, so prioritizing a working functionality button is key
+	7. Suggested getting the create new task, settings, save and team buttons working
+  }
+  
+  QA activity by Group 7 on our code
+  {
+  	Suggested changing the name of the Main class to the name of the App which is StudyLink
+	Suggested fixing the Time and calender widgets
+	Suggested populating the each course with various topics included in the course with Hyperlinks
+  }
 
+}
 
+[Mar. 18] updated databaseSetup.sql
+	  added Study materials
+	  added a scroll bar to the UI
+	  updated naming conventions
+	  refactored code
+	  fixed the Time and Calender widget as suggested by our QA Team
+	  added test cases
+	  
+[Mar. 19] Updated UserDAO
+	  updated database 
+	  added test cases
+	  refactored code
+	  
+[Mar. 20] Third discord meeting {15 minutes}
+{
+   Discussed progress made so far on testing and the database
+}
 
+[Mar. 22] Refactored the Forgot Page
+	  added some test cases
+	  
+[Apr. 2] added a topics section to to course view page, as suggested by the QA team
+         refactored code
+	 added test coverage
 
+[Apr. 3] added studymaterials as hyperlinks under the topics section, as suggested by the QA team
+	 refactored ViewCourse class
+	 refactored some code
+	 
+[Apr. 5] added the bookmarks feature
+	 fixed searching for course feature
+         fixed the CardLayout (UI)
+	 added test cases
+	 
+[Apr. 6] added images for the bookmark feature
+	 fixed the UserDAO query on line 88
+	 refactored code
+	 added test cases
+	 
+
+Actual time taken for the development tasks
+Updating study materials: 7 days
+● Refactoring of the code from Iteration 2: 7 days
+● Populating the database: 14 days
+● Upload functionality: 18 days
+● Bookmark feature and Account Management feature: 14 days
+● Course view and topics: 7 days
+● Testing : 16 days
 
 

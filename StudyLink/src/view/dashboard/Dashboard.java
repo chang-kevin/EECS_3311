@@ -1,105 +1,98 @@
 package view.dashboard;
 
-import controller.Login;
-import model.User.User;
-import model.User.UserSession;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
+import controller.Login;
+import model.Course.Course;
+import net.miginfocom.swing.MigLayout;
 
-public class Dashboard implements ActionListener{
+public class Dashboard extends JFrame implements ActionListener {
 
+	SearchBar search;
+	private CardLayoutDisplay dashboard;
 	private JFrame frame;
-	static SearchBar searchbar;
-	private CardLayoutDisplay cardLayout;
+	private DateTimeFormatter timeFormat;
+	private DateTimeFormatter dateFormat;
+	private JLabel timeLabel;
+	private JLabel dateLabel;
+	private JLabel nameOfPage;
+	private JButton settings;
+	private JLabel title;
 	private Profile profile;
-
+	private MenuPane menu;
+	private RoundedPanel header;
+	private Logout logout;
+	private CalendarCustom calendar;
 
 	public Dashboard() throws SQLException {
-		frame = new JFrame();
-		frame = createFrame();
-		frame.setLocationRelativeTo(null);
-
-		createProfile();
-		createTaskbar();
-		pageTitle("Dashboard");
-		createHeader();
-		getLogoutButton();
-
-	}
-
-	/**
-	 * Creates a JFrame and applies layout.
-	 * @return the stylized frame
-	 */
-	public JFrame createFrame() {
-		frame.getContentPane().setBackground(new Color(255, 255, 255));
-		frame.setBounds(100, 100, 960, 600);
+		frame = new JFrame("StudyLink");
+		frame.setBackground(new Color(255, 255, 255));
+		frame.setPreferredSize(new Dimension(960, 600));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(new Color(255, 255, 255));
 		frame.setVisible(true);
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(new MigLayout("fill, insets 0", "[20%!]10[12%!][13%!]5[15%!]5[15%!]10[20%!]5", "[7%!][18%!][12%!]10[7%!]10[40%!][9%!]"));
+		init();
+		frame.add(menu, "cell 0 0 1 6, grow");
+		frame.add(title, "cell 1 0 4 1, grow");
+		frame.add(logout, "cell 5 0 1 1, grow");
+		frame.add(profile, "cell 5 1 1 2, grow");
+		frame.add(search, "cell 5 3 1 1, grow");
+		frame.add(calendar, "cell 5 4 1 1, grow");
+		frame.add(dashboard, "cell 1 3 4 3, grow");
+		frame.add(header, "cell 1 1 4 1, grow");
+		frame.add(timeLabel, "cell 1 2 1 1, grow");
+		frame.add(dateLabel, "cell 2 2 1 1, grow");
+		frame.add(settings, "cell 3 2 1 1, grow");
 
-		return frame;
-	}
-
-	public void createSearchbar() {
-		searchbar = new SearchBar();
-		profile.add(searchbar.searchIcon);
-		profile.add(searchbar.searchbar);
-	}
-	public void pageTitle(String title) {
-		JTextPane pageTitle = new JTextPane();
-		pageTitle.getHighlighter().removeAllHighlights();
-		pageTitle.setEditable(false);
-		pageTitle.setForeground(new Color(115, 165, 128));
-		pageTitle.setBounds(169, 15, 108, 28);
-		frame.getContentPane().add(pageTitle);
-		pageTitle.setFont(new Font("Microsoft JhengHei", Font.BOLD, 18));
-		pageTitle.setText(title);
-		pageTitle.setBackground(new Color(255, 255, 255));
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 
 	}
 
-	public void createTaskbar() throws SQLException {
-		cardLayout = new CardLayoutDisplay();
-		frame.getContentPane().add(cardLayout.taskbar);
+	public void init() throws SQLException {
+		dashboard = new CardLayoutDisplay();
+		menu = new MenuPane();
+		menu.setController(dashboard);
 
-		createDisplay(cardLayout);
-	}
-	public void createProfile() throws SQLException {
+		title = pageTitle();
 		profile = new Profile();
-		frame.getContentPane().add(profile.profile);
+		header = new RoundedPanel(30, 30);
+		addGreeting(header);
+
+		setTime();
+		setSettings();
+
+		logout = new Logout();
+		search = new SearchBar("Search for e.g:- EECS 3311");
+		searAction();
+		calendar = new CalendarCustom();
 	}
 
-
-
-	public void createDisplay(CardLayoutDisplay cardLayout) {
-		frame.getContentPane().add(cardLayout.displayArea);
+	public JLabel pageTitle() {
+		nameOfPage = new JLabel("Dashboard");
+		nameOfPage.setForeground(new Color(53, 79, 82));
+		nameOfPage.setFont(new Font("Microsoft JhengHei", Font.BOLD, 18));
+		return nameOfPage;
 	}
 
-	public void createHeader() {
-		JPanel header = new JPanel();
-		header = panelBorder();
-		header.setForeground(new Color(137, 180, 148));
-		header.setBackground(new Color(137, 180, 148));
-		header.setBounds(169, 54, 538, 138);
-		frame.getContentPane().add(header);
-		header.setLayout(null);
-
+	public void addGreeting(RoundedPanel header) {
+		header.setBackground(new Color(74, 113, 117));
+		header.setLayout(new BorderLayout());
+		JLabel greeting = new JLabel();
+		int hour = LocalDateTime.now().getHour();
 		String text = "";
-		JLabel greet = new JLabel();
-		greet = greetingText(greet, 10);
-
-
-
-		LocalDateTime now = LocalDateTime.now();
-		int hour = now.getHour();
 		if(hour < 12) {
 			text = "Good Morning";
 		}
@@ -109,62 +102,151 @@ public class Dashboard implements ActionListener{
 		else {
 			text = "Good Evening";
 		}
-
-		greet.setText(text);
-
-		JLabel welcome = new JLabel();
-		welcome = greetingText(welcome, 35);
-		welcome.setText("Welcome to StudyLink!");
-
-		header.add(greet);
-		header.add(welcome);
-
-	}
-	public JLabel greetingText(JLabel greeting, int y) {
-		greeting.setForeground(new Color(255, 255, 255));
+		greeting.setBorder(new EmptyBorder(0, 5, 0, 0));
 		greeting.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 17));
-		greeting.setBounds(10, y, 250, 50);
-		greeting.setBorder(null);
-		return greeting;
+		greeting.setForeground(new Color(255, 255, 255));
+		greeting.setText("<html>" + text + "<br/> Welcome to StudyLink! <html>");
+
+		header.add(greeting, BorderLayout.WEST);
 	}
 
-	public void getLogoutButton() {
-		profile.logoutBtn.addActionListener(this);
+	public void setTime() {
+		timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+
+		dateFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+		timeLabel = new JLabel();
+		labelLayout(timeLabel, 45);
+
+		dateLabel = new JLabel();
+		labelLayout(dateLabel, 20);
+
+		clockStart();
+
 	}
 
-	public JPanel panelBorder() {
-		JPanel panel = new JPanel() {
+	public void clockStart() {
+		Thread clock = new Thread() {
+
 			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				Dimension arcs = new Dimension(50, 50);
-				int width = getWidth();
-				int height = getHeight();
-				Graphics2D graphics = (Graphics2D) g;
-				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-				graphics.setColor(getBackground());
-				graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-				graphics.setColor(getForeground());
-				graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+			public void run() {
+				while(true) {
+					try {
+						String time = LocalDateTime.now().format(timeFormat);
+						timeLabel.setText(time);
+
+						String day =String.valueOf(LocalDateTime.now().getDayOfWeek());
+
+						String date = LocalDate.now().format(dateFormat);
+						dateLabel.setText("<html>" + day + "<br/>" + date + "<html>");
+
+						repaint();
+						sleep(1000);
+
+					} catch(InterruptedException e) {
+
+					}
+
+				}
 			}
 		};
+		clock.start();
+	}
 
-		panel.setForeground(new Color(239, 239, 239, 75));
-		panel.setBackground(new Color(239, 239, 239, 75));
-		panel.setBorder(null);
-		panel.setOpaque(false);
-		panel.setLayout(null);
+	public void labelLayout(JLabel label, int size) {
+		label.setFont(new Font("Arial Narrow", Font.PLAIN, size));
+		label.setForeground(new Color(135, 146, 198, 150));
 
+	}
 
-		return panel;
+	public void setSettings() {
+		settings = new JButton("Settings");
+		settings.setHorizontalTextPosition(SwingConstants.RIGHT);
+		settings.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 13));
+		settings.setForeground(new Color(82, 121, 111));
+		settings.addActionListener(this);
+		settings.setContentAreaFilled(false);
+		settings.setFocusPainted(false);
+		setImage("/settings.png", settings);
+
+	}
+
+	public void setImage(String path, JButton btn) {
+		ImageIcon icon = new ImageIcon(getClass().getResource(path));
+		Image newIcon = icon.getImage();
+		newIcon = newIcon.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newIcon);
+		btn.setIcon(icon);
+		btn.setIconTextGap(10);
+	}
+
+	public void searAction() throws SQLException {
+		CourseLevel level = new CourseLevel();
+		search.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println("works");
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String courseSearch = search.getText();
+					for (Course course: level.courseList) {
+						if (courseSearch.equalsIgnoreCase(course.getCourseCode())) {
+							dashboard.searchAction(course);
+						} else if (courseSearch.equalsIgnoreCase(course.getCourseName())) {
+							dashboard.searchAction(course);
+						}
+					}
+				}
+			}
+		});
+	}
+
+	class Logout extends JButton implements ActionListener {
+
+		public Logout() {
+			setContentAreaFilled(false);
+			setBorder(null);
+			setHorizontalAlignment(SwingConstants.RIGHT);
+			addActionListener(this);
+			textLayout();
+			setImage();
+		}
+
+		public void textLayout() {
+			setText("Logout");
+			setHorizontalTextPosition(SwingConstants.LEFT);
+			setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 13));
+			setForeground(new Color(82, 121, 111));
+
+		}
+
+		public void setImage() {
+			String path = "/logout.png";
+			ImageIcon icon = new ImageIcon(getClass().getResource(path));
+			Image newIcon = icon.getImage();
+			newIcon = newIcon.getScaledInstance(30, 25, Image.SCALE_SMOOTH);
+			icon = new ImageIcon(newIcon);
+			setIcon(icon);
+			setIconTextGap(10);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == this) {
+				frame.dispose();
+				new Login();
+			}
+
+		}
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == profile.logoutBtn) {
-			frame.dispose();
-			new Login();
-			UserSession.clearCurrentUser();
+		if(e.getSource() == settings) {
+			dashboard.swapTo("settings");
 		}
+
 	}
+
+
 }

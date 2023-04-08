@@ -621,8 +621,6 @@ VALUES
         'aemcruz@my.yorku.ca', 3, 'Toronto'
     );
 Insert into Study_materials_ratings values (1,'ymann@my.yorku.ca',4),(1,'manasvij@my.yorku.ca',3),(1,'aemcruz@my.yorku.ca',4),(1,'gelailai@my.yorku.ca',5),(1,'kev10th@my.yorku.ca',2),(2,'ymann@my.yorku.ca',4),(2,'manasvij@my.yorku.ca',5),(2,'aemcruz@my.yorku.ca',4),(2,'gelailai@my.yorku.ca',3),(2,'kev10th@my.yorku.ca',3);
-DELETE FROM users WHERE username = 'test@my.yorku.ca';
-
 SELECT * from users;
 
 

@@ -54,7 +54,9 @@ public class ForgotPassword extends MainJFrame {
     private JButton securityQuestionBtn;
     private JButton btnClick;
     private String securityQuestionAnswer;
-
+    public JLabel getUsernameLabel() {
+        return usernameLabel;
+    }
     public ForgotPassword() {
         super();
 

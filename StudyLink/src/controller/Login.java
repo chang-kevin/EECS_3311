@@ -1,33 +1,38 @@
  package controller;
 
- import helpers.Authenticator.Authenticator;
- import helpers.MainJFrame;
- import model.User.User;
- import model.User.UserDAO;
- import model.User.UserSession;
+import helpers.Authenticator.Authenticator;
+import helpers.MainJFrame;
+import model.User.User;
+import model.User.UserDAO;
+import model.User.UserSession;
+import view.dashboard.Dashboard;
 
- import view.dashboard.Dashboard;
-
- import javax.swing.*;
- import java.awt.event.ActionEvent;
- import java.awt.event.ActionListener;
- import java.sql.SQLException;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Login extends MainJFrame {
     public JPanel panel;
     private JButton loginBtn;
+    private JLabel passwordLabel;
+    private JButton signUpBtn;
+    private JButton forgotPasswordBtn;
+    private JTextField username;
+    private JPasswordField passwordField;
+    private JLabel usernameLabel;
+    private JLabel loginHeader;
+    private JButton btnClick;
 
-    public JLabel getLoginHeader() {
-        return loginHeader;
-    }
     public JButton getLoginBtn() {
         return loginBtn;
     }
 
-    private JLabel passwordLabel;
-    private JButton signUpBtn;
-    private JButton forgotPasswordBtn;
+    private UserSession userSession;
 
+    public JButton getSignUpBtn() {
+        return signUpBtn;
+    }
 
     public JTextField getUsername() {
         return username;
@@ -37,12 +42,6 @@ public class Login extends MainJFrame {
         return passwordField;
     }
 
-    private JTextField username;
-    private JPasswordField passwordField;
-    private JLabel usernameLabel;
-    private JLabel loginHeader;
-    private JButton btnClick;
-    private UserSession userSession;
     public Login() {
         super();
         userSession = UserSession.getInstance();
@@ -69,11 +68,7 @@ public class Login extends MainJFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (username.getText().isBlank() && passwordField.getText().isBlank()) {
-
-                      JOptionPane.showMessageDialog(btnClick, "Please enter both the username and password.");
-
-
-
+                    JOptionPane.showMessageDialog(btnClick, "Please enter both the username and password.");
                     return;
                 }
 
@@ -88,9 +83,7 @@ public class Login extends MainJFrame {
                     throw new RuntimeException(ex);
                 }
 
-
                 JOptionPane.showMessageDialog(btnClick, "The username or password is incorrect.");
-
                 clearFields();
             }
         });
@@ -133,5 +126,4 @@ public class Login extends MainJFrame {
         username.setText("");
         passwordField.setText("");
     }
-
 }

@@ -1,3 +1,4 @@
+
 package model.Topic;
 
 import helpers.HyperlinkReg;
@@ -74,12 +75,13 @@ public class TopicDAO {
         return result;
     }
 
-    public int insertIntoURL(String url) throws SQLException{
+    public int insertIntoURL(String url,String topicName) throws SQLException{
         int count = getCountOfStudyMaterials();
+        int materialid = getStudyMaterialId( topicName);
         String query = "insert into study_materials_urls (url_id, material_id, url) values (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, count +1);
-        ps.setInt(2, count );
+        ps.setInt(2, materialid );
         ps.setString(3, url);
         int result = ps.executeUpdate();
         return result;
@@ -106,18 +108,15 @@ public class TopicDAO {
         }
         return id;
     }
-    public static ArrayList<String> getUrls(int id) throws SQLException {
+    public static ArrayList<HyperlinkReg> getUrls(int id) throws SQLException {
 
-        String query = " SELECT study_materials_urls.url FROM study_materials_urls \n" +
-                "JOIN study_materials ON study_materials.material_id = study_materials_urls.material_id\n" +
-                "JOIN course_study_materials ON course_study_materials.study_material_id = study_materials.material_id\n" +
-                "WHERE course_study_materials.course_id = ?";
+        String query = " SELECT url FROM study_materials_urls WHERE material_id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1,id);
         ResultSet rs = ps.executeQuery();
-        ArrayList<String> urls = new ArrayList<>();
+        ArrayList<HyperlinkReg> urls = new ArrayList<>();
         while(rs.next()){
-            urls.add(rs.getString(1));
+            urls.add(new HyperlinkReg(rs.getString("url")));
         }
         return urls;
 
@@ -125,3 +124,4 @@ public class TopicDAO {
     }
 
     }
+
