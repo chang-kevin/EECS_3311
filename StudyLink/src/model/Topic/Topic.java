@@ -14,11 +14,12 @@ public class Topic {
     public List<HyperlinkReg> urlList = new ArrayList<>();
 
 
-    public Topic(String topicId, String topicName, String courseId, ArrayList<HyperlinkReg> urlist) {
+    public Topic(String topicId, String topicName, String courseId, HyperlinkReg newUrl) {
         this.topicName = topicName;
         this.topicId = topicId;
         this.courseId = courseId;
-        this.urlList  = urlist;
+        HyperlinkReg url = newUrl;
+        this.urlList.add(url);
 
     }
 
