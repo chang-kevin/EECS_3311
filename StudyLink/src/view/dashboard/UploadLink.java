@@ -107,7 +107,7 @@ public class UploadLink extends RoundedPanel implements ActionListener, ItemList
     public void buttonLayout(JButton submit) {
         submit.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
         submit.setBackground(new Color(74, 113, 117));
-        submit.setForeground(new Color(255, 255, 255));
+        submit.setForeground(Color.black);
         submit.setPreferredSize(new Dimension(50, 25));
 //        submit.setFocusPainted(false);
     }
