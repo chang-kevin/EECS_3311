@@ -74,11 +74,7 @@ public class ForgotPasswordTest {
 
 
     }
-    @Order(3)
-    @Test
-    public void invalidAnswer(){
 
-    }
 
 
 }
