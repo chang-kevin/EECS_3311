@@ -158,7 +158,7 @@ public class UploadFile extends RoundedPanel implements ActionListener, ItemList
                 try {
                     int resultStudy = topic.insertIntoStudyMaterials(titleField.getText(),
                             (String) topicBox.getSelectedItem());
-                    int resultMaterial = topic.insertIntoURL(linkField.getText());
+                    int resultMaterial = topic.insertIntoURL(linkField.getText(), (String) topicBox.getSelectedItem());
                     int course = getCourseCode((String) courseBox.getSelectedItem());
                     int resultCourseMaterial = topic.insertIntoCourseMaterials(course);
                     if(resultStudy > 0 && resultMaterial > 0 && resultCourseMaterial > 0){

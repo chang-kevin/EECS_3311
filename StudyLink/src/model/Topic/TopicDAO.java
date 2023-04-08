@@ -11,17 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Database.DatabaseConnection;
-import model.User.User;
 import model.User.UserSession;
 
-import javax.xml.transform.Result;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TopicDAO {
     static Connection connection = DatabaseConnection.getConnection();
@@ -77,7 +68,7 @@ public class TopicDAO {
 
     public int insertIntoURL(String url,String topicName) throws SQLException{
         int count = getCountOfStudyMaterials();
-        int materialid = getStudyMaterialId( topicName);
+        int materialid = getStudyMaterialId(topicName);
         String query = "insert into study_materials_urls (url_id, material_id, url) values (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, count +1);
