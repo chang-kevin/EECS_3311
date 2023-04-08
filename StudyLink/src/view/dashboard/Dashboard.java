@@ -185,7 +185,6 @@ public class Dashboard extends JFrame implements ActionListener {
 		search.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println("works");
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String courseSearch = search.getText();
 					for (Course course: level.courseList) {
