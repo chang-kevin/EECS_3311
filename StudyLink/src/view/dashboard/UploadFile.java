@@ -67,8 +67,8 @@ public class UploadFile extends RoundedPanel implements ActionListener, ItemList
         //adding submit button
         submit = new JButton("Submit");
         buttonLayout(submit);
-        submit.setForeground(Color.black);
 
+        submit.setForeground(Color.black);
         add(submit, addLeftComponent(0, 5));
         submit.addActionListener(this);
     }

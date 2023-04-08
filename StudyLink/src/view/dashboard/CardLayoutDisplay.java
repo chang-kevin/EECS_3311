@@ -70,11 +70,11 @@ public class CardLayoutDisplay extends RoundedPanel implements ActionListener {
 
 	public void searchAction(Course course) {
 		System.out.println(course.getCourseName());
-				try {
-					setCourse(course);
-				} catch (SQLException ex) {
-					throw new RuntimeException(ex);
-				}
+		try {
+			setCourse(course);
+		} catch (SQLException ex) {
+			throw new RuntimeException(ex);
+		}
 		swapTo("course");
 	}
 
