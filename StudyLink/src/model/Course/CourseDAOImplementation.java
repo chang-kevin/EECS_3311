@@ -1,10 +1,12 @@
 package model.Course;
 
 
+
 import helpers.HyperlinkReg;
+
 import model.Database.DatabaseConnection;
 import model.Topic.Topic;
-
+import helpers.HyperlinkReg;
 import model.Topic.TopicDAO;
 
 import java.sql.Connection;
@@ -57,7 +59,7 @@ public class CourseDAOImplementation implements CourseDAO {
                 .build();
         }
 
-        if (check) {
+        if (check == true) {
             return course;
         }
         return null;
