@@ -127,9 +127,6 @@ public class ViewCourse extends RoundedPanel {
         contentPanel.add(topicHeader);
         spacePanel();
 
-        for (Topic t: topicList) {
-            System.out.println(t.getTopicName());
-        }
         for(Topic t: topicList) {
             JPanel topicPanel = new JPanel();
             coursePanel(topicPanel);
