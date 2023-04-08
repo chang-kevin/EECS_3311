@@ -129,40 +129,9 @@ public class CourseDAOImplementation implements CourseDAO {
         List<Topic> topics = new ArrayList<>();
         boolean found = false;
         while (rs.next()) {
-
             topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), TopicDAO.getUrls(rs.getInt("topic_id"))));
-
-
         }
         return topics;
-        /*public List<Topic> getCourseTopics(String courseId) throws SQLException {
-            String query = "SELECT ct.course_id, smu.url, ct.topic_id, t.topic_name " +
-                    "FROM course_topics ct " +
-                    "JOIN topics t ON ct.topic_id = t.topic_id " +
-                    "JOIN study_materials sm ON ct.topic_id = sm.topic_id " +
-                    "JOIN study_materials_urls smu ON sm.material_id = smu.material_id " +
-                    "WHERE ct.course_id = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, courseId);
-            ResultSet rs = ps.executeQuery();
-            List<Topic> topics = new ArrayList<>();
-            while (rs.next()) {
-                topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new HyperlinkRegConverter(TopicDAO.getUrls(rs.getInt("course_id"))).getHyperlinkList()));
-            }
-            for (Topic t: topics) {
-                if (rs.getString("topic_name").equals(t.getTopicName())) {
-                    t.urlList.add(new HyperlinkReg(rs.getString("url")));
-                    found = true;
-                }
-            }
-
-            if (found == false) {
-                topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), new HyperlinkReg(rs.getString("url"))));
-            }
-            found = false;
-            return topics;
-        }*/
-
     }
 
     @Override
