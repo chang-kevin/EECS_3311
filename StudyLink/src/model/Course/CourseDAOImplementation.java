@@ -117,7 +117,7 @@ public class CourseDAOImplementation implements CourseDAO {
 
     @Override
     public List<Topic> getCourseTopics(String courseId) throws SQLException {
-        String query = "SELECT ct.course_id, smu.url, ct.topic_id, t.topic_name " +
+        String query = "SELECT DISTINCT ct.course_id, ct.topic_id, t.topic_name " +
                 "FROM course_topics ct " +
                 "JOIN topics t ON ct.topic_id = t.topic_id " +
                 "JOIN study_materials sm ON ct.topic_id = sm.topic_id " +
@@ -130,7 +130,7 @@ public class CourseDAOImplementation implements CourseDAO {
         boolean found = false;
         while (rs.next()) {
 
-            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"),new HyperlinkRegConverter(TopicDAO.getUrls(rs.getInt("course_id"))).getHyperlinkList()));
+            topics.add(new Topic(rs.getString("topic_id"), rs.getString("topic_name"), rs.getString("course_id"), TopicDAO.getUrls(rs.getInt("topic_id"))));
 
 
         }

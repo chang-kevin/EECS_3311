@@ -1,4 +1,4 @@
-package view.dashboard;
+/*package view.dashboard;
 
 import model.Course.Course;
 import model.Course.CourseDAOImplementation;
@@ -192,3 +192,4 @@ public class UploadFile extends RoundedPanel implements ActionListener, ItemList
         }
     }
 }
+*/
